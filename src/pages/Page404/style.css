@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+  margin-bottom: 0;
+  background-color: aliceblue;
+}
+
+section {
+  margin-top: 250px;
+}
+
+img {
+  width: 500px;
+  height: 500;
+}

@@ -1,0 +1,29 @@
+nav {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--primaryColor);
+  color: aliceblue;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.img {
+  color: aliceblue;
+}
+
+.c_button {
+  color: black;
+  border: 1px solid transparent;
+  background-color: aliceblue;
+  display: inline;
+  margin: 20px;
+  font-size: 20px;
+  padding: 8px;
+  border-radius: 10px;
+}
