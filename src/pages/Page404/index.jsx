@@ -1,19 +1,16 @@
+import { Link } from 'react-router-dom';
+
+import { FaArrowLeft } from 'react-icons/fa';
+import { Footer } from '../../components/Footer';
+
 import './style.css';
 
-
-import { Footer } from '../../components/Footer';
 
 export const Page404 = () => {
 
   return (
-    <>
-        <nav className="navbar">
-
-          <a className="navbar-brand" href="#">
-
-          </a>
-
-        </nav>
+    <div className='container-404'>
+        <Link to={'/'}><FaArrowLeft className='arrowIcon' /></Link>
         <section>
 
           <h1>Erro 404</h1>
@@ -21,7 +18,7 @@ export const Page404 = () => {
 
         </section>
       <Footer />
-    </>
+    </div>
   );
 
 };
