@@ -8,3 +8,7 @@
 :root {
   --primaryColor: #203874;
 }
+
+body .Toastify .Toastify__toast-container {
+  font-size: 18px;
+}

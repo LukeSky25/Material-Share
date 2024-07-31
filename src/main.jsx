@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import './styles/global.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Home } from './pages/Home';
 import { Page404 } from './pages/Page404';
@@ -20,6 +22,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/register' element={<Register />}></Route>
         <Route path='*' element={<Page404 />}></Route>
       </Routes>
+      <ToastContainer
+      className={'toast'}
+      autoClose={3000}
+      />
+      <ToastContainer />
     </BrowserRouter>
   </React.StrictMode>,
 );

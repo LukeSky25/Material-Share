@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { isEmail } from 'validator';
+import { toast } from 'react-toastify';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
@@ -8,6 +11,33 @@ import '../../styles/global.css';
 
 
 export const Login = () => {
+
+
+  const [ email, setEmail ] = useState('');
+  const [ senha, setSenha ] = useState('');
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+
+    let formErrors = false;
+
+    if (!isEmail(email)) {
+      formErrors = true;
+      toast.error('Email Inválido');
+    }
+
+    if (!senha) {
+      formErrors = true;
+      toast.error('Senha Inválida');
+    }
+
+    if (formErrors) return;
+
+    toast.success('Ganhou no tigrinho');
+
+  };
+
 
   return (
 
@@ -19,15 +49,25 @@ export const Login = () => {
 
         <h1>Login</h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <div className='form-floating mb-3'>
-            <input type="text" placeholder='Digite seu Email...' />
+            <input
+             type="text"
+             name='email'
+             value={email}
+             onChange={e => setEmail(e.target.value)}
+             placeholder='Digite seu Email...' />
           </div>
 
           <label htmlFor="senha">Senha</label>
           <div className='form-floating mb-3'>
-            <input type="password" placeholder='Digite sua Senha ...' />
+            <input
+              type="password"
+              name='senha'
+              value={senha}
+              onChange={e => setSenha(e.target.value)}
+              placeholder='Digite sua Senha ...' />
             <button type='submit'>Entrar</button>
           </div>
         </form>
