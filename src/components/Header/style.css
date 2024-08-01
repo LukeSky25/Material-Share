@@ -1,5 +1,5 @@
 nav {
-  padding: 20px;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,12 +18,14 @@ nav {
 }
 
 .c_button {
-  color: black;
-  border: 1px solid transparent;
-  background-color: aliceblue;
+  color: aliceblue;
+  text-decoration: none;
   display: inline;
-  margin: 20px;
+  margin: 15px;
   font-size: 20px;
   padding: 8px;
-  border-radius: 10px;
+}
+
+a:hover {
+  opacity: 0.8;
 }

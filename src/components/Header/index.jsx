@@ -10,13 +10,12 @@ export const Header = () => {
     <nav className="navbar">
 
       <Link to={'/'} className="navbar-brand">
-        <FaTools size={40} className='img'/>
+        <FaTools size={35} className='img'/>
       </Link>
       <div className='ml-auto'>
         <Link to={'/login'} className='c_button'>Entrar</Link>
         <Link to={'/register'} className='c_button'>Criar Conta</Link>
       </div>
-
     </nav>
   );
 };
