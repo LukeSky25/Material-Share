@@ -9,7 +9,15 @@ export const Home = () => {
     <>
       <Header />
 
-        <h1>Opaa</h1>
+        <section>
+
+          <main>
+
+
+
+          </main>
+
+        </section>
 
       <Footer />
     </>

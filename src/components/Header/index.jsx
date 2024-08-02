@@ -10,7 +10,7 @@ export const Header = () => {
     <nav className="navbar">
 
       <Link to={'/'} className="navbar-brand">
-        <FaTools size={35} className='img'/>
+        <FaTools size={30} className='img'/>
       </Link>
       <div className='ml-auto'>
         <Link to={'/login'} className='c_button'>Entrar</Link>
