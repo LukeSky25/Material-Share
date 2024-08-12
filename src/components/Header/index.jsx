@@ -1,5 +1,5 @@
-import { FaTools } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/Material-Share.png';
 
 import './style.css';
 import '../../styles/global.css';
@@ -10,8 +10,9 @@ export const Header = () => {
     <nav className="navbar">
 
       <Link to={'/'} className="navbar-brand">
-        <FaTools size={30} className='img'/>
+        <img src={logo} alt="Texto Logo" className='logo'/>
       </Link>
+
       <div className='ml-auto'>
         <Link to={'/login'} className='c_button'>Entrar</Link>
         <Link to={'/register'} className='c_button'>Criar Conta</Link>

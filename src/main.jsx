@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+
 import './styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,7 +11,6 @@ import { Home } from './pages/Home';
 import { Page404 } from './pages/Page404';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

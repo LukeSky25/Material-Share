@@ -13,8 +13,9 @@ nav {
   padding-left: 20px;
 }
 
-.img {
-  color: aliceblue;
+.logo {
+  width: 150px;
+  height: 25px;
 }
 
 .c_button {

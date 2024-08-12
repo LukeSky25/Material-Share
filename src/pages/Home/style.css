@@ -1,1 +1,46 @@
+section {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+  font-size: 17px;
+}
 
+main {
+  flex: 1;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.teste {
+  display: flex;
+  padding: 125px;
+  width: 85pc;
+  height: 30pc;
+  color: aliceblue;
+  text-align: center;
+  background: rgb(2, 0, 36);
+  background: -moz-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
+}
+
+.teste2 {
+  display: flex;
+  padding: 125px;
+  width: 85pc;
+  height: 30pc;
+  color: aliceblue;
+  text-align: center;
+  background: rgb(2, 0, 36);
+  background: -moz-radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
+}
+
+.banner {
+  display: flex;
+  width: 85pc;
+  height: 30pc;
+}
