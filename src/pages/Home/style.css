@@ -11,13 +11,14 @@ main {
   overflow-x: hidden;
 }
 
-.teste {
+.banner-html {
   display: flex;
-  padding: 125px;
-  width: 85pc;
-  height: 30pc;
+  padding: 180px;
   color: aliceblue;
   text-align: center;
+}
+
+.banner-1 {
   background: rgb(2, 0, 36);
   background: -moz-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
   background: -webkit-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
@@ -25,11 +26,10 @@ main {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
 }
 
+
 .teste2 {
   display: flex;
-  padding: 125px;
-  width: 85pc;
-  height: 30pc;
+  padding: 180px;
   color: aliceblue;
   text-align: center;
   background: rgb(2, 0, 36);
@@ -41,6 +41,11 @@ main {
 
 .banner {
   display: flex;
-  width: 85pc;
-  height: 30pc;
+  width: 120pc;
+  height: 35pc;
+}
+
+.swiper {
+  border-top: 2px rgb(2, 34, 63) groove;
+  border-bottom: 2px rgb(2, 34, 63) groove;
 }
