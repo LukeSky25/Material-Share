@@ -1,28 +1,76 @@
-aside {
-  position: absolute;
-  left: 0;
-  top: auto;
+body {
+  height: 100vh;
+}
+
+aside.menu-lateral {
+  width: 80px;
+  height: 100%;
   background-color: #0d1823;
-  color: aliceblue;
+  padding: 40px 0 40px 1%;
+  box-shadow: 3px 0 0 #4da9eb;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: .5s;
+}
+
+aside.menu-lateral:hover {
+  width: 300px;
+}
+
+.btn-expandir {
   width: 100%;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  padding: 2px;
-  text-align: center;
+  padding-left: 10px;
 }
 
-aside h5 {
-  margin-left: 10px;
-}
-
-aside ul li {
-  display: inline-flex;
-  font-size: 20px;
-  margin-left: 100px;
-  margin-top: 2px;
-}
-
-aside ul li a {
+.btn-expandir .FaList {
   color: aliceblue;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+ul {
+  height: 100%;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li.item-menu {
+  transition: .2s;
+}
+
+ul li.ativo {
+  background-color: #4da9eb;
+}
+
+ul li.item-menu:hover {
+  background-color: #4da9eb;
+}
+
+ul li.item-menu a {
+  color: aliceblue;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px 4%;
+  display: flex;
+  margin-bottom: 20px;
+  line-height: 40px;
+}
+
+ul li.item-menu a .txt-link {
+  margin-left: 70px;
+  transition: 1s;
+  opacity: 0;
+}
+
+aside.menu-lateral:hover .txt-link {
+  margin-left: 40px;
+  opacity: 1;
+}
+
+ul li.item-menu a .icon .fa-icon {
+  font-size: 30px;
+  margin-left: 10px;
 }

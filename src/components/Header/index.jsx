@@ -10,7 +10,7 @@ export const Header = () => {
     <nav className="navbar">
 
       <Link to={'/'} className="navbar-brand">
-        <img src={logo} alt="Texto Logo" className='logo'/>
+        <img src={logo} alt="Texto Logo" className='logo' />
       </Link>
 
       <div className='ml-auto'>
