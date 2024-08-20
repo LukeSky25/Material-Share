@@ -2,6 +2,13 @@ body {
   height: 100vh;
 }
 
+.logo2 {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  margin-left: 90px;
+}
+
 aside.menu-lateral {
   width: 80px;
   height: 100%;
@@ -56,6 +63,7 @@ ul li.item-menu a {
   padding: 20px 4%;
   display: flex;
   margin-bottom: 20px;
+  margin-top: 20px;
   line-height: 40px;
 }
 

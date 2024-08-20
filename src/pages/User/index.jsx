@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+import logo from '../../assets/Material-Share.png';
+
 import { FaList, FaAd } from 'react-icons/fa';
 
-import { Header } from '../../components/Header/index.jsx';
 import { Footer } from '../../components/Footer/index.jsx';
 
 import './style.css';
@@ -22,10 +24,21 @@ export const User = () => {
 
   menuItem.forEach(item => item.addEventListener('click', selectLink));
 
+
   return (
     <>
 
-      <Header />
+      <nav className="navbar">
+
+        <Link to={'/'} className="navbar-brand">
+          <img src={logo} alt="Texto Logo" className='logo2' />
+        </Link>
+
+        <div className='ml-auto'>
+          <Link to={'/login'} className='c_button'>Entrar</Link>
+          <Link to={'/register'} className='c_button'>Criar Conta</Link>
+        </div>
+      </nav>
 
       <aside className='menu-lateral'>
 
@@ -35,34 +48,34 @@ export const User = () => {
 
         <ul>
           <li className='item-menu'>
-            <a href="#">
+            <Link to="#">
               <span className='icon'><FaAd className='fa-icon' /></span>
               <span className='txt-link'>Teste</span>
-            </a>
+            </Link>
           </li>
           <li className='item-menu'>
-            <a href="#">
+            <Link to="#">
               <span className='icon'><FaAd className='fa-icon' /></span>
               <span className='txt-link'>Teste</span>
-            </a>
+            </Link>
           </li>
           <li className='item-menu'>
-            <a href="#">
+            <Link to="#">
               <span className='icon'><FaAd className='fa-icon' /></span>
               <span className='txt-link'>Teste</span>
-            </a>
+            </Link>
           </li>
           <li className='item-menu'>
-            <a href="#">
+            <Link to="#">
               <span className='icon'><FaAd className='fa-icon' /></span>
               <span className='txt-link'>Teste</span>
-            </a>
+            </Link>
           </li>
           <li className='item-menu'>
-            <a href="#">
+            <Link to="#">
               <span className='icon'><FaAd className='fa-icon' /></span>
               <span className='txt-link'>Teste</span>
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -72,6 +85,8 @@ export const User = () => {
 
         <main>
 
+          <h1>Configurações do Usuário</h1>
+          <p>Clique nos icones ao lado para visualizar notificações, editar dados do usuário, avaliar o projeto, etc</p>
 
 
         </main>
