@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Material-Share.png';
 
-import { FaList, FaAd } from 'react-icons/fa';
+import { FaList, FaRegBell, FaRegUserCircle, FaHeadphonesAlt, FaRegHeart, FaSignInAlt } from 'react-icons/fa';
 
 import { Footer } from '../../components/Footer/index.jsx';
 
@@ -49,32 +49,32 @@ export const User = () => {
         <ul>
           <li className='item-menu'>
             <Link to="#">
-              <span className='icon'><FaAd className='fa-icon' /></span>
+              <span className='icon'><FaRegUserCircle className='fa-icon' /></span>
               <span className='txt-link'>Teste</span>
             </Link>
           </li>
           <li className='item-menu'>
             <Link to="#">
-              <span className='icon'><FaAd className='fa-icon' /></span>
-              <span className='txt-link'>Teste</span>
+              <span className='icon'><FaRegBell className='fa-icon' /></span>
+              <span className='txt-link'>Notificações</span>
             </Link>
           </li>
           <li className='item-menu'>
             <Link to="#">
-              <span className='icon'><FaAd className='fa-icon' /></span>
-              <span className='txt-link'>Teste</span>
+              <span className='icon'><FaHeadphonesAlt className='fa-icon' /></span>
+              <span className='txt-link'>Suporte</span>
             </Link>
           </li>
           <li className='item-menu'>
             <Link to="#">
-              <span className='icon'><FaAd className='fa-icon' /></span>
-              <span className='txt-link'>Teste</span>
+              <span className='icon'><FaRegHeart className='fa-icon' /></span>
+              <span className='txt-link'>Avaliar!</span>
             </Link>
           </li>
           <li className='item-menu'>
             <Link to="#">
-              <span className='icon'><FaAd className='fa-icon' /></span>
-              <span className='txt-link'>Teste</span>
+              <span className='icon'><FaSignInAlt className='fa-icon' /></span>
+              <span className='txt-link'>Logout</span>
             </Link>
           </li>
         </ul>
@@ -86,7 +86,7 @@ export const User = () => {
         <main>
 
           <h1>Configurações do Usuário</h1>
-          <p>Clique nos icones ao lado para visualizar notificações, editar dados do usuário, avaliar o projeto, etc</p>
+          <p>Clique nos icones ao lado para alterar dados do usuario, visualizar notificações, suporte, avaliar o projeto, etc</p>
 
 
         </main>
