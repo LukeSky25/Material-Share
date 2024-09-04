@@ -48,4 +48,5 @@ main {
 .swiper {
   border-top: 2px rgb(2, 34, 63) groove;
   border-bottom: 2px rgb(2, 34, 63) groove;
+  height: 500px;
 }

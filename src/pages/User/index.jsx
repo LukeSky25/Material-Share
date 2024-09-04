@@ -50,7 +50,7 @@ export const User = () => {
           <li className='item-menu'>
             <Link to="#">
               <span className='icon'><FaRegUserCircle className='fa-icon' /></span>
-              <span className='txt-link'>Teste</span>
+              <span className='txt-link'>Usuário</span>
             </Link>
           </li>
           <li className='item-menu'>
