@@ -5,6 +5,12 @@ import { Page404 } from '../pages/Page404';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { User } from '../pages/User';
+// import { Configuracao } from '../pages/Configuracao';
+// import { Avaliacao } from '../pages/Avaliacao';
+// import { Configuracao } from '../pages/Configuracao';
+// import { Notificacao } from '../pages/Notificacao';
+// import { Suporte } from '../pages/Suporte';
+
 
 
 export const Rotas = () => {
@@ -17,6 +23,11 @@ export const Rotas = () => {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
         <Route path='/user' element={<User />}></Route>
+        {/*
+        <Route path='/user/configuracao' element={<Configuracao />}></Route>
+        <Route path='/user/notificacao' element={<User />}></Route>
+        <Route path='/user/suporte' element={<User />}></Route>
+        <Route path='/user/avaliacao' element={<User />}></Route> */}
         <Route path='*' element={<Page404 />}></Route>
       </Routes>
     </BrowserRouter>

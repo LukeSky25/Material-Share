@@ -1,15 +1,26 @@
 import { Link } from 'react-router-dom';
-import logo from '../../assets/Material-Share.png';
 
 import { FaList, FaRegBell, FaRegUserCircle, FaHeadphonesAlt, FaRegHeart, FaSignInAlt } from 'react-icons/fa';
 
+import logo from '../../assets/Material-Share.png';
+
 import { Footer } from '../../components/Footer/index.jsx';
+
+// import { Configuracao } from '../pages/Configuracao';
+// import { Avaliacao } from '../pages/Avaliacao';
+// import { Configuracao } from '../pages/Configuracao';
+// import { Notificacao } from '../pages/Notificacao';
+// import { Suporte } from '../pages/Suporte';
 
 import './style.css';
 import '../../styles/global.css';
+import { Configuracao } from '../Configuracao/index.jsx';
+
+
 
 
 export const User = () => {
+
 
   let menuItem = document.querySelectorAll('.item-menu');
 
@@ -23,6 +34,7 @@ export const User = () => {
   }
 
   menuItem.forEach(item => item.addEventListener('click', selectLink));
+
 
 
   return (
@@ -50,7 +62,7 @@ export const User = () => {
           <li className='item-menu'>
             <Link to="#">
               <span className='icon'><FaRegUserCircle className='fa-icon' /></span>
-              <span className='txt-link'>Usuário</span>
+              <span className='txt-link'>Configurações</span>
             </Link>
           </li>
           <li className='item-menu'>
@@ -85,9 +97,10 @@ export const User = () => {
 
         <main>
 
-          <h1>Configurações do Usuário</h1>
-          <p>Clique nos icones ao lado para alterar dados do usuario, visualizar notificações, suporte, avaliar o projeto, etc</p>
+          {/* <h1>Configurações do Usuário</h1>
+          <p>Clique nos icones ao lado para alterar dados do usuario, visualizar notificações, suporte, avaliar o projeto, etc</p> */}
 
+          <Configuracao />
 
         </main>
 
