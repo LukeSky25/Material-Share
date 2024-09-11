@@ -1,0 +1,44 @@
+main {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin-bottom: 35px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.star {
+  cursor: pointer;
+}
+
+.stars {
+  margin-top: 50px;
+}
+
+a {
+  text-decoration: none;
+  color: #e1b32c;
+}
+
+star-rating {
+  margin-bottom: 20px;
+}
+
+textarea {
+  margin-top: 15px;
+  width: 400px;
+  height: 150px;
+}
+
+.doa {
+  margin-top: 10px;
+}
+
+.submit {
+  margin-left: 150px;
+}

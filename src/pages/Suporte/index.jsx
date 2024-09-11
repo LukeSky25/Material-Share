@@ -1,10 +1,25 @@
+import { Footer } from '../../components/Footer';
+import { User } from '../User';
+
 import './style.css';
 
 export const Suporte = () => {
 
   return (
     <>
-      <h1>Suporte</h1>
+
+      <User />
+
+      <section>
+        <main>
+          <h1>Suporte</h1>
+        </main>
+      </section>
+
+
+
+      <Footer />
+
     </>
   );
 

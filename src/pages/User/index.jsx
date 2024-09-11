@@ -4,20 +4,8 @@ import { FaList, FaRegBell, FaRegUserCircle, FaHeadphonesAlt, FaRegHeart, FaSign
 
 import logo from '../../assets/Material-Share.png';
 
-import { Footer } from '../../components/Footer/index.jsx';
-
-// import { Configuracao } from '../pages/Configuracao';
-// import { Avaliacao } from '../pages/Avaliacao';
-// import { Configuracao } from '../pages/Configuracao';
-// import { Notificacao } from '../pages/Notificacao';
-// import { Suporte } from '../pages/Suporte';
-
 import './style.css';
 import '../../styles/global.css';
-import { Configuracao } from '../Configuracao/index.jsx';
-
-
-
 
 export const User = () => {
 
@@ -34,8 +22,6 @@ export const User = () => {
   }
 
   menuItem.forEach(item => item.addEventListener('click', selectLink));
-
-
 
   return (
     <>
@@ -60,27 +46,27 @@ export const User = () => {
 
         <ul>
           <li className='item-menu'>
-            <Link to="#">
+            <Link to="/user/configuracao">
               <span className='icon'><FaRegUserCircle className='fa-icon' /></span>
               <span className='txt-link'>Configurações</span>
             </Link>
           </li>
           <li className='item-menu'>
-            <Link to="#">
+            <Link to="/user/notificacao">
               <span className='icon'><FaRegBell className='fa-icon' /></span>
               <span className='txt-link'>Notificações</span>
             </Link>
           </li>
           <li className='item-menu'>
-            <Link to="#">
+            <Link to="/user/suporte">
               <span className='icon'><FaHeadphonesAlt className='fa-icon' /></span>
               <span className='txt-link'>Suporte</span>
             </Link>
           </li>
           <li className='item-menu'>
-            <Link to="#">
+            <Link to="/user/avaliacao">
               <span className='icon'><FaRegHeart className='fa-icon' /></span>
-              <span className='txt-link'>Avaliar!</span>
+              <span className='txt-link'>Avaliação</span>
             </Link>
           </li>
           <li className='item-menu'>
@@ -92,21 +78,6 @@ export const User = () => {
         </ul>
 
       </aside>
-
-      <section>
-
-        <main>
-
-          {/* <h1>Configurações do Usuário</h1>
-          <p>Clique nos icones ao lado para alterar dados do usuario, visualizar notificações, suporte, avaliar o projeto, etc</p> */}
-
-          <Configuracao />
-
-        </main>
-
-      </section>
-
-      <Footer />
     </>
   );
 
