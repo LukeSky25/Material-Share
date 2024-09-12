@@ -1,12 +1,3 @@
 .titulo {
   margin-bottom: 50px;
 }
-
-.user-form,
-.user-form input {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.user-form .endereco {}

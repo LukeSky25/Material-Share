@@ -1,5 +1,5 @@
 import { Footer } from '../../components/Footer';
-import { User } from '../User';
+import { User } from '../../components/Navbar';
 
 import './style.css';
 

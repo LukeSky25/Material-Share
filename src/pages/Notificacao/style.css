@@ -1,0 +1,27 @@
+.container {
+  width: 100pc;
+  padding: 25px;
+  background-color: #f9fafb;
+  padding-bottom: 100px;
+}
+
+.container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.container thead {
+  border-bottom: 1px black solid;
+}
+
+table th,
+table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px black solid;
+}
+
+.notificacao td {
+  padding: 15px;
+  vertical-align: middle;
+}

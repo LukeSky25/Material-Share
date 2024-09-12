@@ -28,7 +28,7 @@ export const User = () => {
 
       <nav className="navbar">
 
-        <Link to={'/'} className="navbar-brand">
+        <Link to='/' className="navbar-brand">
           <img src={logo} alt="Texto Logo" className='logo2' />
         </Link>
 
@@ -46,7 +46,7 @@ export const User = () => {
 
         <ul>
           <li className='item-menu'>
-            <Link to="/user/configuracao">
+            <Link to="/user">
               <span className='icon'><FaRegUserCircle className='fa-icon' /></span>
               <span className='txt-link'>Configurações</span>
             </Link>
@@ -70,7 +70,7 @@ export const User = () => {
             </Link>
           </li>
           <li className='item-menu'>
-            <Link to="#">
+            <Link to="/user/logout">
               <span className='icon'><FaSignInAlt className='fa-icon' /></span>
               <span className='txt-link'>Logout</span>
             </Link>

@@ -20,7 +20,7 @@ input[type="radio"] {
   margin-top: 50px;
 }
 
-a {
+.gold {
   text-decoration: none;
   color: #e1b32c;
 }
@@ -31,8 +31,14 @@ star-rating {
 
 textarea {
   margin-top: 15px;
-  width: 400px;
-  height: 150px;
+  width: 500px;
+  height: 200px;
+  padding: 12px 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
 }
 
 .doa {

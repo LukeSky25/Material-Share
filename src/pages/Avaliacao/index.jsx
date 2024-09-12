@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaStar, FaPlus } from 'react-icons/fa';
 
 import { Footer } from '../../components/Footer';
-import { User } from '../User';
+import { User } from '../../components/Navbar';
 
 import './style.css';
 
@@ -69,7 +69,7 @@ export const Avaliacao = () => {
           </div>
           <form>
             <textarea className="avaliacao"></textarea>
-            <p className='doa'>Ajude o projeto com uma <FaStar className='icon' size={25} color='#ffc107' /> <a href={'https://github.com/LukeSky25/Material-Share'} target='_blank'>no GitHub</a></p>
+            <p className='doa'>Ajude o projeto com uma <FaStar className='icon' size={25} color='#ffc107' /> <a className='gold' href={'https://github.com/LukeSky25/Material-Share'} target='_blank'>no GitHub</a></p>
             <button className='submit' type='submit'>Enviar Avaliação</button>
           </form>
         </main>

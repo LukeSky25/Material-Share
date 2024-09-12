@@ -13,12 +13,12 @@ h1 {
   margin-top: 35px;
 }
 
-form {
+.register {
   margin-top: 25px;
 }
 
-form input,
-form button {
+.register input,
+.register button {
   display: flex;
   margin: 15px;
   width: 260px;
@@ -28,11 +28,15 @@ form button {
   justify-content: center;
 }
 
-form button {
+.register button {
   margin-top: 30px;
   border: none;
   background-color: var(--primaryColor);
   color: aliceblue;
+}
+
+.register button:hover {
+  opacity: 0.9;
 }
 
 span {

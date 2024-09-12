@@ -11,16 +11,15 @@ import { Header } from '../../components/Header';
 import './style.css';
 import '../../styles/global.css';
 
-
 export const Register = () => {
 
-  const [ nome, setNome ] = useState('');
-  const [ dataNascimento, setDataNascimento ] = useState('');
-  const [ telefone, setTelefone ] = useState('');
-  const [ cpf, setCpf ] = useState('');
-  const [ cep, setCep ] = useState('');
-  const [ email, setEmail ] = useState('');
-  const [ senha, setSenha ] = useState('');
+  const [nome, setNome] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [cep, setCep] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
   const handleSubmit = (e) => {
 
@@ -83,20 +82,20 @@ export const Register = () => {
 
     //verifica se não é nenhum numero digitado errado (propositalmente)
     for (var n = 0; n < 10; n++) {
-        //um for de 0 a 9.
-        //estou utilizando o metodo Array(q+1).join(n) onde "q" é a quantidade e n é o
-        //caractere a ser repetido
-        if (telefone == new Array(11).join(n) || telefone == new Array(12).join(n)) return false;
+      //um for de 0 a 9.
+      //estou utilizando o metodo Array(q+1).join(n) onde "q" é a quantidade e n é o
+      //caractere a ser repetido
+      if (telefone == new Array(11).join(n) || telefone == new Array(12).join(n)) return false;
     }
     //DDDs validos
     var codigosDDD = [11, 12, 13, 14, 15, 16, 17, 18, 19,
-        21, 22, 24, 27, 28, 31, 32, 33, 34,
-        35, 37, 38, 41, 42, 43, 44, 45, 46,
-        47, 48, 49, 51, 53, 54, 55, 61, 62,
-        64, 63, 65, 66, 67, 68, 69, 71, 73,
-        74, 75, 77, 79, 81, 82, 83, 84, 85,
-        86, 87, 88, 89, 91, 92, 93, 94, 95,
-        96, 97, 98, 99];
+      21, 22, 24, 27, 28, 31, 32, 33, 34,
+      35, 37, 38, 41, 42, 43, 44, 45, 46,
+      47, 48, 49, 51, 53, 54, 55, 61, 62,
+      64, 63, 65, 66, 67, 68, 69, 71, 73,
+      74, 75, 77, 79, 81, 82, 83, 84, 85,
+      86, 87, 88, 89, 91, 92, 93, 94, 95,
+      96, 97, 98, 99];
     //verifica se o DDD é valido (sim, da pra verificar rsrsrs)
     if (codigosDDD.indexOf(parseInt(telefone.substring(0, 2))) == -1) return false;
 
@@ -122,70 +121,75 @@ export const Register = () => {
 
       <Header />
 
-        <section>
+      <section>
 
         <h1>Cadastro</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form className='register' onSubmit={handleSubmit}>
 
-        <label htmlFor="nome">Nome Completo</label>
+          <label htmlFor="nome">Nome Completo</label>
           <div className='form-floating mb-3'>
             <input
-             type="text"
-             name='nome'
-             value={nome}
-             onChange={e => setNome(e.target.value)}
-             placeholder='Digite seu Nome Completo...' />
+              type="text"
+              name='nome'
+              value={nome}
+              onChange={e => setNome(e.target.value)}
+              placeholder='Digite seu Nome Completo...'
+            />
           </div>
 
           <label htmlFor="d-nas">Data de Nascimento</label>
           <div className='form-floating mb-3 c-f'>
             <input
-             type="date"
-             name='d-nas'
-             value={dataNascimento}
-             onChange={e => setDataNascimento(e.target.value)}
-             />
+              type="date"
+              name='d-nas'
+              value={dataNascimento}
+              onChange={e => setDataNascimento(e.target.value)}
+            />
           </div>
 
           <label htmlFor="tel">Telefone</label>
           <div className='form-floating mb-3'>
             <input
-             type="tel"
-             name='tel'
-             value={telefone}
-             onChange={e => setTelefone(e.target.value)}
-             placeholder='Digite o seu Telefone' />
+              type="tel"
+              name='tel'
+              value={telefone}
+              onChange={e => setTelefone(e.target.value)}
+              placeholder='Digite o seu Telefone'
+            />
           </div>
 
           <label htmlFor="cpf">CPF</label>
           <div className='form-floating mb-3'>
             <input
-             type="text"
-             name='cpf'
-             value={cpf}
-             onChange={e => setCpf(e.target.value)}
-             placeholder='Digite seu CPF...' />
+              type="text"
+              name='cpf'
+              value={cpf}
+              onChange={e => setCpf(e.target.value)}
+              placeholder='Digite seu CPF...'
+            />
           </div>
 
           <label htmlFor="cep">CEP</label>
           <div className='form-floating mb-3'>
             <input
-             type="text"
-             name='cep'
-             value={cep}
-             onChange={e => setCep(e.target.value)}
-             placeholder='Digite seu CEP...' />
+              type="text"
+              name='cep'
+              value={cep}
+              onChange={e => setCep(e.target.value)}
+              placeholder='Digite seu CEP...'
+            />
           </div>
 
           <label htmlFor="email">Email</label>
           <div className='form-floating mb-3'>
             <input
-             type="text"
-             name='email'
-             value={email}
-             onChange={e => setEmail(e.target.value)}
-             placeholder='Digite seu Email...' />
+              type="text"
+              name='email'
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder='Digite seu Email...'
+            />
           </div>
 
           <label htmlFor="senha">Senha</label>
@@ -195,14 +199,15 @@ export const Register = () => {
               name='senha'
               value={senha}
               onChange={e => setSenha(e.target.value)}
-              placeholder='Digite sua Senha ...' />
+              placeholder='Digite sua Senha ...'
+            />
             <button type='submit'>Entrar</button>
           </div>
         </form>
 
-        <span>Já tem uma conta?,<br/> entre já clicando <Link to={'/login'}>aqui!</Link></span>
+        <span>Já tem uma conta?,<br /> entre já clicando <Link to={'/login'}>aqui!</Link></span>
 
-        </section>
+      </section>
 
       <Footer />
 

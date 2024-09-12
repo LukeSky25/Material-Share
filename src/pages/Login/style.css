@@ -11,8 +11,8 @@ main {
 }
 
 
-form input,
-form button {
+.login input,
+.login button {
   display: flex;
   margin: 20px;
   width: 250px;
@@ -22,11 +22,15 @@ form button {
   justify-content: center;
 }
 
-form button {
+.login button {
   margin-top: 30px;
   border: none;
   background-color: var(--primaryColor);
   color: aliceblue;
+}
+
+.login button:hover {
+  opacity: 0.9;
 }
 
 span {
