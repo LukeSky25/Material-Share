@@ -10,7 +10,7 @@ import { Notificacao } from '../pages/Notificacao';
 import { Suporte } from '../pages/Suporte';
 import { Logout } from '../pages/Logout';
 
-
+import { PrivateRoutes } from './PrivateRoutes';
 
 export const Rotas = () => {
 
@@ -18,15 +18,50 @@ export const Rotas = () => {
 
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />}></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/register' element={<Register />}></Route>
-        <Route path='/user' element={<Configuracao />}></Route>
-        <Route path='/user/notificacao' element={<Notificacao />}></Route>
-        <Route path='/user/suporte' element={<Suporte />}></Route>
-        <Route path='/user/avaliacao' element={<Avaliacao />}></Route>
-        <Route path='/user/logout' element={<Logout />}></Route>
-        <Route path='*' element={<Page404 />}></Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route
+          path='/user'
+          element={
+            <PrivateRoutes>
+              <Configuracao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path='/user/notificacao'
+          element={
+            <PrivateRoutes>
+              <Notificacao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path='/user/suporte'
+          element={
+            <PrivateRoutes>
+              <Suporte />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path='/user/avaliacao'
+          element={
+            <PrivateRoutes>
+              <Avaliacao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path='/user/logout'
+          element={
+            <PrivateRoutes>
+              <Logout />
+            </PrivateRoutes>
+          }
+        />
+        <Route path='*' element={<Page404 />} />
       </Routes>
     </BrowserRouter>
 

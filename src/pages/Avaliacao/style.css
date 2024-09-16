@@ -46,5 +46,11 @@ textarea {
 }
 
 .submit {
-  margin-left: 150px;
+  margin-top: 15px;
+  padding: 8px;
+  border-radius: 7px;
+  width: 240px;
+  border: none;
+  background-color: var(--primaryColor);
+  color: aliceblue;
 }

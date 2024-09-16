@@ -1,3 +1,5 @@
+/* Padrão */
+
 section {
   display: flex;
   flex-direction: column;
@@ -11,7 +13,24 @@ main {
   overflow-x: hidden;
 }
 
-.banner-html {
+
+/* Banners */
+
+
+.banner {
+  display: flex;
+  width: 120pc;
+  height: 35pc;
+}
+
+.swiper {
+  border-top: 2px rgb(2, 34, 63) groove;
+  border-bottom: 2px rgb(2, 34, 63) groove;
+  height: 500px;
+  height: 80%;
+}
+
+/* .banner-html {
   display: flex;
   padding: 180px;
   color: aliceblue;
@@ -37,16 +56,62 @@ main {
   background: -webkit-radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
   background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
+} */
+
+
+/* Informações do projeto */
+
+
+.info-container {
+  margin-top: 10px;
+  padding: 5rem 0;
 }
 
-.banner {
+.info-container ul {
   display: flex;
-  width: 120pc;
-  height: 35pc;
+  width: 90%;
+  margin: 0 auto;
 }
 
-.swiper {
-  border-top: 2px rgb(2, 34, 63) groove;
-  border-bottom: 2px rgb(2, 34, 63) groove;
-  height: 500px;
+.info-container li {
+  flex: 1 1 200px;
+  list-style-type: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.info-container .icon {
+  font-size: 55px;
+  margin-bottom: 15px;
+}
+
+.info-container h3 {
+  margin-bottom: 25px;
+}
+
+.info-container p {
+  line-height: 24px;
+}
+
+
+/* INformações para o usuário */
+
+.abaixar-app p {
+  margin-top: 10px;
+}
+
+.abaixar-app a {
+  text-decoration: none;
+}
+
+.efetuar-login p {
+  margin-top: 10px;
+}
+
+@media screen and (max-width:576px) {
+
+  .info-container ul {
+    flex-direction: column;
+  }
+
 }

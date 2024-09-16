@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaStar, FaPlus } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 import { Footer } from '../../components/Footer';
 import { User } from '../../components/Navbar';
@@ -8,6 +10,9 @@ import './style.css';
 
 export const Avaliacao = () => {
 
+  const navigate = useNavigate();
+
+  const [avaliacao, setAvaliacao] = useState('');
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
@@ -33,6 +38,21 @@ export const Avaliacao = () => {
     default:
       break;
   }
+
+  const handleLogout = (e) => {
+
+    e.preventDefault();
+
+    if (rating_msg === '' || avaliacao === '') {
+      toast.error('Avaliação Incorreta');
+      return;
+    }
+
+    toast.success('Muito obrigado!!!');
+    toast.success('Avaliação enviada com sucesso');
+    navigate('/');
+
+  };
 
   return (
     <>
@@ -68,9 +88,13 @@ export const Avaliacao = () => {
             <p className='doa'>{rating_msg}</p>
           </div>
           <form>
-            <textarea className="avaliacao"></textarea>
+            <textarea
+              className="avaliacao"
+              value={avaliacao}
+              onChange={e => setAvaliacao(e.target.value)}
+            ></textarea>
             <p className='doa'>Ajude o projeto com uma <FaStar className='icon' size={25} color='#ffc107' /> <a className='gold' href={'https://github.com/LukeSky25/Material-Share'} target='_blank'>no GitHub</a></p>
-            <button className='submit' type='submit'>Enviar Avaliação</button>
+            <button className='submit' type='submit' onClick={handleLogout} >Enviar Avaliação</button>
           </form>
         </main>
       </section>
