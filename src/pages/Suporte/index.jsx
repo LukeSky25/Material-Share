@@ -34,11 +34,11 @@ export const Suporte = () => {
               <tbody>
                 <tr>
                   <td><SiWhatsapp size={35} color="green" /></td>
-                  <td><a className="whatsapp" to="https://web.whatsapp.com/" target="_blank">(11) 90000-0000</a></td>
+                  <td><a className="whatsapp" href="https://web.whatsapp.com/" target="_blank">(11) 90000-0000</a></td>
                 </tr>
                 <tr>
                   <td><MdOutlineMailOutline size={35} color="red" /></td>
-                  <td><a className="email" to="https://www.google.com/intl/pt-BR/gmail/about/" target="_blank">materialShareSuporte@gmail.com</a></td>
+                  <td><a className="email" href="https://www.google.com/intl/pt-BR/gmail/about/" target="_blank">materialShareSuporte@gmail.com</a></td>
                 </tr>
               </tbody>
             </table>
