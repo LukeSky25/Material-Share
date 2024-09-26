@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { FaList, FaRegBell, FaRegUserCircle, FaHeadphonesAlt, FaRegHeart, FaSignInAlt } from 'react-icons/fa';
 
@@ -8,6 +9,8 @@ import './style.css';
 import '../../styles/global.css';
 
 export const User = () => {
+
+  const user = useSelector(state => state.auth.user);
 
 
   let menuItem = document.querySelectorAll('.item-menu');
@@ -32,10 +35,19 @@ export const User = () => {
           <img src={logo} alt="Texto Logo" className='logo2' />
         </Link>
 
-        <div className='ml-auto'>
-          <Link to={'/login'} className='c_button'>Entrar</Link>
-          <Link to={'/register'} className='c_button'>Criar Conta</Link>
-        </div>
+        {user ?
+          <div className='ml-auto'>
+            <Link to={'/user'} className="navbar-brand">
+              <FaRegUserCircle className='user' size={35} />
+            </Link>
+          </div>
+          :
+          <div className='ml-auto'>
+            <Link to={'/login'} className='c_button'>Entrar</Link>
+            <Link to={'/register'} className='c_button'>Criar Conta</Link>
+          </div>
+        }
+
       </nav>
 
       <aside className='menu-lateral'>

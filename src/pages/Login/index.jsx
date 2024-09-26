@@ -1,16 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 
+
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import * as actions from '../../store/modules/auth/actions';
 
 import './style.css';
 import '../../styles/global.css';
 
 
 export const Login = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
   const [email, setEmail] = useState('');
@@ -35,6 +41,9 @@ export const Login = () => {
     if (formErrors) return;
 
     toast.success('Ganhou no tigrinho');
+    navigate('/');
+
+    dispatch(actions.loginRequest());
 
   };
 

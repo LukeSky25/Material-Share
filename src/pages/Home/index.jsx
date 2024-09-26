@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { IoMdBookmarks } from "react-icons/io";
@@ -19,10 +20,13 @@ import 'swiper/css/scrollbar';
 
 export const Home = () => {
 
+  const user = useSelector(state => state.auth.user);
   const img = [
     { id: 1, image: 'src/assets/banner.png' },
     { id: 2, image: 'src/assets/banner1.png' },
     { id: 3, image: 'src/assets/banner2.png' },
+    { id: 4, image: 'src/assets/banner3.png' },
+    { id: 5, image: 'src/assets/banner4.png' },
     // { id: 4, image: 'src/assets/construcao-civil-tendencias.webp' },
     // { id: 5, image: 'src/assets/silhuetas-do-local-de-construcao.avif' },
 
@@ -103,15 +107,21 @@ export const Home = () => {
             </ul>
           </div>
 
-          <div className='abaixar-app'>
-            <IoLogoGooglePlaystore size={80} color='#08b834' />
-            <p>Abaixe já o nosso aplicativo na PlayStore,<br />  para utilizar os benefícios do nosso projeto, clicando <a href='https://play.google.com/store/games' target='_blank'>aqui.</a></p>
-          </div>
+          {user ?
+            <div className='abaixar-app'>
+              <IoLogoGooglePlaystore size={80} color='#08b834' />
+              <p>Abaixe já o nosso aplicativo na PlayStore,<br />  para utilizar os benefícios do nosso projeto, clicando <a href='https://play.google.com/store/games' target='_blank'>aqui.</a></p>
+            </div>
+            :
+            <div className='efetuar-login'>
+              <BsFillDoorOpenFill size={80} color='#203874' />
+              <p>Efetue login ou crie uma conta para <br /> utilizar os benefícios do projeto</p>
+            </div>
+          }
 
-          <div className='efetuar-login'>
-            <BsFillDoorOpenFill size={80} color='#203874' />
-            <p>Efetue login ou crie uma conta para <br /> utilizar os benefícios do projeto</p>
-          </div>
+
+
+
 
         </main>
 

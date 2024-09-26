@@ -30,6 +30,15 @@ nav {
   font-size: 18px;
 }
 
+.user {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  color: aliceblue;
+  margin: 10px;
+
+}
+
 a:hover {
   opacity: 0.8;
 }
