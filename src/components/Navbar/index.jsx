@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { FaList, FaRegBell, FaRegUserCircle, FaHeadphonesAlt, FaRegHeart, FaSignInAlt } from 'react-icons/fa';
 
@@ -9,9 +8,6 @@ import './style.css';
 import '../../styles/global.css';
 
 export const User = () => {
-
-  const user = useSelector(state => state.auth.user);
-
 
   let menuItem = document.querySelectorAll('.item-menu');
 
@@ -29,26 +25,43 @@ export const User = () => {
   return (
     <>
 
-      <nav className="navbar">
+      <div className="navbar2">
 
-        <Link to='/' className="navbar-brand">
+        <Link to='/' className="navbar-brand link">
           <img src={logo} alt="Texto Logo" className='logo2' />
         </Link>
 
-        {user ?
-          <div className='ml-auto'>
-            <Link to={'/user'} className="navbar-brand">
-              <FaRegUserCircle className='user' size={35} />
-            </Link>
-          </div>
-          :
-          <div className='ml-auto'>
-            <Link to={'/login'} className='c_button'>Entrar</Link>
-            <Link to={'/register'} className='c_button'>Criar Conta</Link>
-          </div>
-        }
+      </div>
 
-      </nav>
+      <div className='sub-navbar'>
+        <ul className='sub-menu'>
+          <li className='item-sub'>
+            <Link to="/user">
+              <FaRegUserCircle className='fa-icon' />
+            </Link>
+          </li>
+          <li className='item-sub'>
+            <Link to="/user/notificacao">
+              <FaRegBell className='fa-icon' />
+            </Link>
+          </li>
+          <li className='item-sub'>
+            <Link to="/user/avaliacao">
+              <FaRegHeart className='fa-icon' />
+            </Link>
+          </li>
+          <li className='item-sub'>
+            <Link to="/user/suporte">
+              <FaHeadphonesAlt className='fa-icon' />
+            </Link>
+          </li>
+          <li className='item-sub'>
+            <Link to="/user/logout">
+              <FaSignInAlt className='fa-icon' />
+            </Link>
+          </li>
+        </ul>
+      </div>
 
       <aside className='menu-lateral'>
 
@@ -56,7 +69,7 @@ export const User = () => {
           <FaList className='FaList' />
         </div>
 
-        <ul>
+        <ul className='menu'>
           <li className='item-menu'>
             <Link to="/user">
               <span className='icon'><FaRegUserCircle className='fa-icon' /></span>

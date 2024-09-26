@@ -84,9 +84,6 @@ export const Notificacao = () => {
             <h3>Sem nenhuma notificação por enquanto</h3>
           )}
 
-
-
-
         </main>
 
       </section>

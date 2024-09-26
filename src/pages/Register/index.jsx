@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { isEmail, isAlpha, isDate } from 'validator';
 import { toast } from 'react-toastify';
 import validarCpf from 'validar-cpf';
@@ -7,11 +8,15 @@ import { validators } from '@utils-fns/validators';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import * as actions from '../../store/modules/auth/actions';
 
 import './style.css';
 import '../../styles/global.css';
 
 export const Register = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [nome, setNome] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
@@ -64,7 +69,10 @@ export const Register = () => {
 
     if (formErrors) return;
 
-    toast.success('Ganhou no tigrinho');
+    toast.success('Conta criada com sucesso!!!');
+    navigate('/');
+
+    dispatch(actions.createSuccess());
 
   };
 

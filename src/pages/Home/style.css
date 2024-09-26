@@ -94,7 +94,7 @@ main {
 }
 
 
-/* INformações para o usuário */
+/* Informações para o usuário */
 
 .abaixar-app p {
   margin-top: 10px;
@@ -108,10 +108,86 @@ main {
   margin-top: 10px;
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width:2560px) {
+  .banner {
+    width: 160pc;
+    height: 45pc;
+  }
+}
 
+@media screen and (max-width:1880px) {
+  .banner {
+    width: 120pc;
+    height: 40pc;
+  }
+}
+
+@media screen and (max-width:1728px) {
+  .banner {
+    width: 110pc;
+    height: 39pc;
+  }
+}
+
+@media screen and (max-width:1588px) {
+  .banner {
+    width: 105pc;
+    height: 38pc;
+  }
+}
+
+@media screen and (max-width:1372px) {
+  .banner {
+    width: 100pc;
+    height: 37pc;
+  }
+}
+
+@media screen and (max-width:1440px) {
+  .banner {
+    width: 95pc;
+    height: 30pc;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  .banner {
+    width: 65pc;
+    height: 25pc;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .banner {
+    width: 50pc;
+    height: 20pc;
+  }
+}
+
+@media screen and (max-width:576px) {
   .info-container ul {
     flex-direction: column;
   }
 
+}
+
+@media screen and (max-width:425px) {
+  .banner {
+    width: 29pc;
+    height: 16pc;
+  }
+}
+
+@media screen and (max-width:375px) {
+  .banner {
+    width: 24pc;
+    height: 15pc;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .banner {
+    width: 20pc;
+    height: 14pc;
+  }
 }

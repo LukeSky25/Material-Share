@@ -54,3 +54,9 @@ textarea {
   background-color: var(--primaryColor);
   color: aliceblue;
 }
+
+@media screen and (max-width: 425px) {
+  textarea {
+    width: 400px;
+  }
+}

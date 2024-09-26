@@ -34,3 +34,21 @@ table td {
 .email:hover {
   opacity: 0.7;
 }
+
+
+
+@media screen and (max-width: 828px) {
+  .suporte {
+    margin-left: 100px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .suporte {
+    margin-left: 0;
+  }
+
+  .meios-contato {
+    width: 100%;
+  }
+}

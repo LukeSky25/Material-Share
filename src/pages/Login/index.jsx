@@ -40,10 +40,10 @@ export const Login = () => {
 
     if (formErrors) return;
 
-    toast.success('Ganhou no tigrinho');
+    toast.success('Login realizado com sucesso!!!');
     navigate('/');
 
-    dispatch(actions.loginRequest());
+    dispatch(actions.loginSuccess());
 
   };
 

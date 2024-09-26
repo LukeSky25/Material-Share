@@ -151,7 +151,7 @@ export const Configuracao = () => {
 
             <h1 className='titulo'>Configurações</h1>
 
-            <FormControl display="flex" flexDir="column" gap="4">
+            <FormControl className="form-control" display="flex" flexDir="column" gap="4">
               <HStack spacing="4">
                 <Box w="100%">
                   <FormLabel htmlFor="nome">Nome Completo</FormLabel>

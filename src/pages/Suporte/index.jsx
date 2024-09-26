@@ -15,7 +15,7 @@ export const Suporte = () => {
 
       <section>
 
-        <main>
+        <main className="suporte">
 
           <h1 className='title'>Suporte</h1>
 

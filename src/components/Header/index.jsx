@@ -22,7 +22,7 @@ export const Header = () => {
       {user ?
         <div className='ml-auto'>
           <Link to={'/user'} className="navbar-brand">
-            <FaRegUserCircle className='user' size={35} />
+            <FaRegUserCircle className='user' />
           </Link>
         </div>
         :

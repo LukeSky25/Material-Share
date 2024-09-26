@@ -36,9 +36,52 @@ nav {
   justify-content: space-between;
   color: aliceblue;
   margin: 10px;
-
+  font-size: 35px;
 }
 
 a:hover {
   opacity: 0.8;
+}
+
+@media screen and (max-width:425px) {
+  .logo {
+    width: 130px;
+  }
+
+  .c_button {
+    font-size: 17px;
+    padding: 15px;
+  }
+
+  .user {
+    margin: 4px;
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width:375px) {
+  .logo {
+    width: 110px;
+  }
+
+  .c_button {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .logo {
+    width: 110px;
+  }
+
+  .c_button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .user {
+    margin: 2px;
+    font-size: 30px;
+  }
 }
