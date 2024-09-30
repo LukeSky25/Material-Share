@@ -18,6 +18,9 @@ table td {
   padding: 15px;
   text-align: center;
   border-bottom: 1px black solid;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .whatsapp {
@@ -43,12 +46,105 @@ table td {
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 740px) {
+  .suporte {
+    margin-left: 75px;
+  }
+}
+
+@media screen and (max-width: 715px) {
+  .suporte {
+    margin-left: 60px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .suporte {
+    margin-left: 57px;
+  }
+
+  .meios-contato {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 700px) {
   .suporte {
     margin-left: 0;
   }
 
   .meios-contato {
-    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 618px) {
+  .meios-contato table {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 582px) {
+  .meios-contato table {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .meios-contato table {
+    width: 80%;
+  }
+
+  .meios-contato h3 {
+    margin-right: 100px;
+  }
+}
+
+@media screen and (max-width: 486px) {
+  .meios-contato table {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .meios-contato table {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 442px) {
+  .meios-contato table {
+    width: 65%;
+  }
+
+  .meios-contato h3 {
+    margin-right: 200px;
+  }
+}
+
+@media screen and (max-width: 382px) {
+
+  table th,
+  table td {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meios-contato table {
+    width: 57%;
+  }
+
+  .meios-contato h3 {
+    margin-right: 250px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .meios-contato table {
+    width: 10%;
+  }
+
+  .meios-contato h3 {
+    margin-right: 300px;
   }
 }

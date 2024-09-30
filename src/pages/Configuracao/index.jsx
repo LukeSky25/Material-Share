@@ -87,7 +87,7 @@ export const Configuracao = () => {
 
     if (formErrors) return;
 
-    toast.success('Ganhou no tigrinho');
+    toast.success('Edição Realizada com Sucesso !!!');
 
   };
 
@@ -151,7 +151,7 @@ export const Configuracao = () => {
 
             <h1 className='titulo'>Configurações</h1>
 
-            <FormControl className="form-control" display="flex" flexDir="column" gap="4">
+            <FormControl className="form-principal" flexDir="column" gap="4">
               <HStack spacing="4">
                 <Box w="100%">
                   <FormLabel htmlFor="nome">Nome Completo</FormLabel>
@@ -310,9 +310,143 @@ export const Configuracao = () => {
 
           </main>
 
-        </section>
+          <div className="form-responsivo">
+            <form className='register' onSubmit={handleSubmit}>
 
-      </ChakraProvider>
+              <label htmlFor="nome">Nome Completo</label>
+              <div className='form-floating mb-3'>
+                <input
+                  type="text"
+                  name='nome'
+                  value={nome}
+                  onChange={e => setNome(e.target.value)}
+                  placeholder='Digite seu Nome Completo...'
+                />
+              </div>
+
+              <label htmlFor="d-nas">Data de Nascimento</label>
+              <div className='form-floating mb-3 c-f'>
+                <input
+                  type="date"
+                  name='d-nas'
+                  value={dataNascimento}
+                  onChange={e => setDataNascimento(e.target.value)}
+                />
+              </div>
+
+              <label htmlFor="tel">Telefone</label>
+              <div className='form-floating mb-3'>
+                <input
+                  type="tel"
+                  name='tel'
+                  value={telefone}
+                  onChange={e => setTelefone(e.target.value)}
+                  placeholder='Digite o seu Telefone'
+                />
+              </div>
+
+              <label htmlFor="cpf">CPF</label>
+              <div className='form-floating mb-3'>
+                <input
+                  type="text"
+                  name='cpf'
+                  value={cpf}
+                  onChange={e => setCpf(e.target.value)}
+                  placeholder='Digite seu CPF...'
+                />
+              </div>
+
+              <label htmlFor="cep">CEP</label>
+              <div className='form-floating mb-3'>
+                <input
+                  type="text"
+                  name='cep'
+                  value={cep}
+                  onChange={e => setCep(e.target.value)}
+                  placeholder='Digite seu CEP...'
+                />
+              </div>
+
+              <label htmlFor="email">Email</label>
+              <div className='form-floating mb-3'>
+                <input
+                  type="text"
+                  name='email'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder='Digite seu Email...'
+                />
+              </div>
+
+              <label htmlFor="senha">Senha</label>
+              <div className='form-floating mb-3'>
+                <input
+                  type="password"
+                  name='senha'
+                  value={senha}
+                  onChange={e => setSenha(e.target.value)}
+                  placeholder='Digite sua Senha ...'
+                />
+              </div>
+
+              <label htmlFor="endereco">Endereço</label>
+              <div className='form-floating mb-3'>
+                <input
+                  id="endereco"
+                  value={endereco}
+                  onChange={e => setEndereco(e.target.value)}
+                  disabled
+                />
+              </div>
+
+              <label htmlFor="complemento">Complemento</label>
+              <div className='form-floating mb-3'>
+                <input
+                  id="complemento"
+                  value={complemento}
+                  onChange={e => setComplemento(e.target.value)}
+                  placeholder="Digite o complemento do seu endereço ..."
+                />
+              </div>
+
+              <label htmlFor="numero">Numero</label>
+              <div className='form-floating mb-3'>
+                <input
+                  id="numero"
+                  value={numero}
+                  onChange={e => setNumero(e.target.value)}
+                  placeholder="Digite o número da sua casa ou apartamento"
+                />
+              </div>
+
+              <label htmlFor="cidade">Cidade</label>
+              <div className='form-floating mb-3'>
+                <input
+                  id="cidade"
+                  value={cidade}
+                  onChange={e => setCidade(e.target.value)}
+                  disabled
+                />
+              </div>
+
+              <label htmlFor="estado">Estado</label>
+              <div className='form-floating mb-3'>
+                <input
+                  id="estado"
+                  value={estado}
+                  onChange={e => setEstado(e.target.value)}
+                  disabled
+                />
+              </div>
+
+              <button type='submit'>Entrar</button>
+
+            </form>
+          </div>
+
+        </section >
+
+      </ChakraProvider >
 
       <Footer />
 

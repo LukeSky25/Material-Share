@@ -63,7 +63,7 @@ export const Avaliacao = () => {
         <main>
           <h1 className='title'>Avaliação</h1>
           <h5 className='title'>Nos Ajude a Melhorar <FaPlus className='icon' color='green' size={25} /><FaPlus color='green' size={25} /> o Projeto!!!</h5>
-          <p>Faça uma avaliação geral do projeto e escreva <br /> explicando os pontos positivos, negativos e sugestões para o nosso projeto.</p>
+          <p>Faça uma avaliação geral do projeto e escreva explicando os <br /> pontos positivos, negativos e sugestões para o nosso projeto.</p>
           <div className='stars'>
             {[...Array(5)].map((star, index) => {
               const currentRating = index + 1;

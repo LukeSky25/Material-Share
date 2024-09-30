@@ -19,10 +19,12 @@ export const Suporte = () => {
 
           <h1 className='title'>Suporte</h1>
 
-          <p>
-            Em caso de dúvida ou problema, entre em contato conosco enviando uma mensamgem,
-            <br /> em um dos nossos meios de contato, temos suporte 24H:
-          </p>
+          <div>
+            <p>
+              Em caso de dúvida ou problema, entre em contato conosco enviando uma mensamgem,
+              em um dos nossos meios de contato, temos suporte 24H:
+            </p>
+          </div>
 
           <div className='meios-contato'>
             <h3 className="title">Meios de Contato</h3>

@@ -1,12 +1,12 @@
 .container {
   width: 100pc;
   padding: 25px;
-  background-color: #f9fafb;
   padding-bottom: 100px;
 }
 
 .container table {
   width: 100%;
+  background-color: #f9fafb;
   border-collapse: collapse;
 }
 
@@ -27,7 +27,6 @@ table td {
   text-align: center;
 }
 
-
 @media screen and (max-width: 1440px) {
   .container {
     width: 95%;
@@ -44,6 +43,35 @@ table td {
   .container {
     width: 80%;
     padding: 10px;
+  }
+}
+
+@media screen and (max-width: 708px) {
+  .container {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 602px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 536px) {
+  .container {
+    width: 69%;
+    padding: 2px;
+  }
+}
+
+@media screen and (max-width: 552px) {
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
 }
 
@@ -64,5 +92,37 @@ table td {
 
   .notificacao td {
     padding: 0;
+  }
+}
+
+@media screen and (max-width: 396px) {
+  .container {
+    padding: 5px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+@media screen and (max-width: 381px) {
+
+  table th,
+  table td {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 10px;
+    padding: 0;
+    font-size: 16px;
+  }
+
+  .notificacao td {
+    padding: 15px;
+    vertical-align: middle;
+    text-align: center;
   }
 }

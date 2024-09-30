@@ -45,35 +45,35 @@ export const Notificacao = () => {
                       <td className='data'>00/00/0000 00:00:00</td>
                       <td className='responsavel'>The Rock</td>
                       <td className='status'>Doação recebida com sucesso !!!</td>
-                      <td><FcOk size={35} /></td>
+                      <td><p><FcOk size={35} /></p></td>
                     </tr>
 
                     <tr className='notificacao'>
                       <td>00/00/0000 00:00:00</td>
                       <td>Tigrinho</td>
                       <td>Doação recebida com sucesso !!!</td>
-                      <td><FcOk size={35} /></td>
+                      <td><p><FcOk size={35} /></p></td>
                     </tr>
 
                     <tr className='notificacao'>
                       <td>00/00/0000 00:00:00</td>
                       <td>Cariani</td>
                       <td>Doação recebida com sucesso !!!</td>
-                      <td><FcOk size={35} /></td>
+                      <td><p><FcOk size={35} /></p></td>
                     </tr>
 
                     <tr className='notificacao'>
                       <td>00/00/0000 00:00:00</td>
                       <td>Manoel Gomes das canetas bic com cor azul</td>
                       <td>Doação recebida com sucesso !!!, caneta azul azul caneta. caneta azul azul caneta.</td>
-                      <td><FcOk size={35} /></td>
+                      <td><p><FcOk size={35} /></p></td>
                     </tr>
 
                     <tr className='notificacao'>
                       <td>{notificacao.notificacoes[0]}</td>
                       <td>{notificacao.notificacoes[1]}</td>
                       <td>{notificacao.notificacoes[2]}</td>
-                      <td><FcOk size={35} /></td>
+                      <td><p><FcOk size={35} /></p></td>
                     </tr>
 
                   </tbody>

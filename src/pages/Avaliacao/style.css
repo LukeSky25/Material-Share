@@ -55,8 +55,32 @@ textarea {
   color: aliceblue;
 }
 
+@media screen and (max-width: 512px) {
+  textarea {
+    width: 450px;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  textarea {
+    width: 410px;
+  }
+}
+
 @media screen and (max-width: 425px) {
   textarea {
     width: 400px;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  textarea {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  textarea {
+    width: 250px;
   }
 }

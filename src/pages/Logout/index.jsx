@@ -1,20 +1,23 @@
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { Footer } from '../../components/Footer';
 import { User } from '../../components/Navbar';
-
+import * as actions from '../../store/modules/auth/actions';
 
 import './style.css';
 
 export const Logout = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = (e) => {
 
     e.preventDefault();
 
+    dispatch(actions.loginFailure());
     toast.success('Logout realizado com sucesso');
     navigate('/');
 

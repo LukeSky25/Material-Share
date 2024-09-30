@@ -50,7 +50,6 @@ ul li.item-sub {
 }
 
 ul li.item-sub:hover {
-  background-color: #4da9eb;
   padding: 10px;
   border-radius: 5px;
 }
@@ -142,8 +141,7 @@ ul li.item-menu a .icon .fa-icon {
   margin-left: 10px;
 }
 
-
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 708px) {
   .menu-lateral {
     display: none;
   }
@@ -171,6 +169,46 @@ ul li.item-menu a .icon .fa-icon {
     height: 100%;
   }
 
+  .logo2 {
+    margin-left: 210px;
+  }
+
+}
+
+@media screen and (max-width: 644px) {
+  .logo2 {
+    margin-left: 190px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .logo2 {
+    margin-left: 180px;
+  }
+}
+
+@media screen and (max-width: 592px) {
+  .logo2 {
+    margin-left: 160px;
+  }
+}
+
+@media screen and (max-width: 552px) {
+  .logo2 {
+    margin-left: 140px;
+  }
+}
+
+@media screen and (max-width: 446px) {
+  .logo2 {
+    margin-left: 100px;
+  }
+}
+
+@media screen and (max-width: 394px) {
+  .logo2 {
+    margin-left: 75px;
+  }
 }
 
 @media screen and (max-width: 375px) {
