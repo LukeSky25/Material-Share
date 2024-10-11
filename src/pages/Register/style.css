@@ -28,6 +28,16 @@ h1 {
   justify-content: center;
 }
 
+select {
+  display: flex;
+  margin: 15px;
+  width: 260px;
+  height: 30px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 .register button {
   margin-top: 30px;
   border: none;

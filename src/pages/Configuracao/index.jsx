@@ -2,7 +2,7 @@ import { useState } from "react";
 import { isEmail, isAlpha, isDate } from 'validator';
 import { toast } from 'react-toastify';
 import validarCpf from 'validar-cpf';
-import { validators } from '@utils-fns/validators';
+import axios from "axios";
 
 import {
   Box,
@@ -50,9 +50,8 @@ export const Configuracao = () => {
       toast.error('Data de Nascimento inválida');
     }
 
-    if (!telefoneValidation(telefone)) {
+    if (!isValidPhone(telefone)) {
       formErrors = true;
-      toast.error('Número de Telefone Inválido');
     }
 
     if (!validarCpf(cpf)) {
@@ -60,9 +59,8 @@ export const Configuracao = () => {
       toast.error('CPF Inválido');
     }
 
-    if (!validators.cep(cep).isValid()) {
+    if (!validaCep(cep)) {
       formErrors = true;
-      toast.error('CEP Inválido');
     }
 
     if (!isEmail(email)) {
@@ -93,48 +91,24 @@ export const Configuracao = () => {
 
   const inverteData = (data) => data.split('/').reverse().join('/');
 
-  const telefoneValidation = (telefone) => {
-    //retira todos os caracteres menos os numeros
-    telefone = telefone.replace(/\D/g, '');
+  const isValidPhone = (valor) => {
+    // Expressão regular que não permite caracteres especiais e exige formato específico
+    const phoneRegex = /^\+?\d{1,3}\d{10}$/;
 
-    //verifica se tem a qtde de numero correto
-    if (!(telefone.length >= 10 && telefone.length <= 11)) return false;
-
-    //Se tiver 11 caracteres, verificar se começa com 9 o celular
-    if (telefone.length == 11 && parseInt(telefone.substring(2, 3)) != 9) return false;
-
-    //verifica se não é nenhum numero digitado errado (propositalmente)
-    for (var n = 0; n < 10; n++) {
-      //um for de 0 a 9.
-      //estou utilizando o metodo Array(q+1).join(n) onde "q" é a quantidade e n é o
-      //caractere a ser repetido
-      if (telefone == new Array(11).join(n) || telefone == new Array(12).join(n)) return false;
+    if (!phoneRegex.test(valor)) {
+      toast.error("O número de telefone fornecido é inválido.");
     }
-    //DDDs validos
-    var codigosDDD = [11, 12, 13, 14, 15, 16, 17, 18, 19,
-      21, 22, 24, 27, 28, 31, 32, 33, 34,
-      35, 37, 38, 41, 42, 43, 44, 45, 46,
-      47, 48, 49, 51, 53, 54, 55, 61, 62,
-      64, 63, 65, 66, 67, 68, 69, 71, 73,
-      74, 75, 77, 79, 81, 82, 83, 84, 85,
-      86, 87, 88, 89, 91, 92, 93, 94, 95,
-      96, 97, 98, 99];
-    //verifica se o DDD é valido (sim, da pra verificar rsrsrs)
-    if (codigosDDD.indexOf(parseInt(telefone.substring(0, 2))) == -1) return false;
+  };
 
-    //  E por ultimo verificar se o numero é realmente válido. Até 2016 um celular pode
-    //ter 8 caracteres, após isso somente numeros de telefone e radios (ex. Nextel)
-    //vão poder ter numeros de 8 digitos (fora o DDD), então esta função ficará inativa
-    //até o fim de 2016, e se a ANATEL realmente cumprir o combinado, os numeros serão
-    //validados corretamente após esse período.
-    //NÃO ADICIONEI A VALIDAÇÂO DE QUAIS ESTADOS TEM NONO DIGITO, PQ DEPOIS DE 2016 ISSO NÃO FARÁ DIFERENÇA
-    //Não se preocupe, o código irá ativar e desativar esta opção automaticamente.
-    //Caso queira, em 2017, é só tirar o if.
+  const validaCep = async (cep) => {
+    try {
+      const response = await axios(`https://viacep.com.br/ws/${cep}/json/`);
 
-    if (telefone.length == 10 && [2, 3, 4, 5, 7].indexOf(parseInt(telefone.substring(2, 3))) == -1) return false;
+      console.log(response);
 
-    //se passar por todas as validações acima, então está tudo certo
-    return true;
+    } catch (e) {
+      toast.error('CEP Inválido');
+    }
 
   };
 
