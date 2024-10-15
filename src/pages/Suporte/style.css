@@ -2,6 +2,7 @@
   width: 40pc;
   padding: 25px;
   padding-bottom: 100px;
+  margin-left: 250px;
 }
 
 .meios-contato table {
@@ -38,11 +39,27 @@ table td {
   opacity: 0.7;
 }
 
+@media screen and (max-width: 966px) {
+  .meios-contato {
+    margin-left: 200px;
+  }
+}
 
+@media screen and (max-width: 850px) {
+  .meios-contato {
+    margin-left: 100px;
+  }
+}
+
+@media screen and (max-width: 838px) {
+  .meios-contato {
+    margin-left: 100px;
+  }
+}
 
 @media screen and (max-width: 828px) {
   .suporte {
-    margin-left: 100px;
+    margin-left: 20px;
   }
 }
 
@@ -55,6 +72,13 @@ table td {
 @media screen and (max-width: 715px) {
   .suporte {
     margin-left: 60px;
+  }
+}
+
+
+@media screen and (max-width: 828px) {
+  .suporte {
+    margin-left: 0;
   }
 }
 

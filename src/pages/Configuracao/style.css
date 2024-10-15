@@ -10,11 +10,20 @@
   display: none;
 }
 
+.end-inf {
+  font-weight: bold;
+}
+
+
 
 @media screen and (max-width:950px) {
 
   .form-principal {
     display: none;
+  }
+
+  .end-inf {
+    font-weight: lighter;
   }
 
   .form-responsivo {

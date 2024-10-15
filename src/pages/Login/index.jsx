@@ -15,9 +15,8 @@ import '../../styles/global.css';
 
 export const Login = () => {
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -40,11 +39,7 @@ export const Login = () => {
 
     if (formErrors) return;
 
-    toast.success('Login realizado com sucesso!!!');
-    navigate('/');
-
-    dispatch(actions.loginSuccess());
-
+    dispatch(actions.loginRequest({ email, senha, navigate }));
   };
 
 

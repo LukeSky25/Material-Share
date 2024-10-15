@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { isEmail, isAlpha, isDate } from 'validator';
 import { toast } from 'react-toastify';
 import validarCpf from 'validar-cpf';
-//import axios from "axios";
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
@@ -31,6 +30,7 @@ export const Register = () => {
 
     e.preventDefault();
 
+
     let formErrors = false;
 
     if (!nome || !isAlpha(nome.split(' ').join(''))) {
@@ -50,17 +50,13 @@ export const Register = () => {
     if (!validarCpf(cpf)) {
       formErrors = true;
       toast.error('CPF Inválido');
-    } else {
-      buscarCep(cpf);
     }
-
-    // if (!validaCep(cep)) {
-    //   formErrors = true;
-    // }
 
     if (!validarCep(cep)) {
       formErrors = true;
       toast.error('CEP Inválido');
+    } else {
+      formErrors = false;
     }
 
     if (!isEmail(email)) {
@@ -71,6 +67,11 @@ export const Register = () => {
     if (!senha) {
       formErrors = true;
       toast.error('Senha Inválida');
+    }
+
+    if (t_user == '') {
+      formErrors = true;
+      toast.error('Selecione um dos tipos de usuario para continuar');
     }
 
     if (formErrors) return;
@@ -94,44 +95,36 @@ export const Register = () => {
   };
 
   const validarCep = (cep) => {
+
+    if (!cep) return false;
+
     // Remove qualquer caractere que não seja número
     const cepLimpo = cep.replace(/\D/g, '');
 
     // Verifica se o CEP tem exatamente 8 dígitos
     const cepValido = /^[0-9]{8}$/.test(cepLimpo);
 
-    return cepValido;
+
+    if (!cepValido) return false;
+
+    return buscarCep(cep);
   };
 
   const buscarCep = async (cep) => {
     try {
+
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await response.json();
 
-      console.log(data);
-
-
       if (data.erro) {
-        console.log('CEP não encontrado ou inválido');
-      } else {
-        console.log('Dados do CEP:', data);
+        toast.error('CEP inválido');
       }
+
     } catch (error) {
-      console.error('Erro ao buscar o CEP:', error);
+      toast.error('ERRO!!!');
     }
   };
 
-  // const validaCep = async (cep) => {
-  //   try {
-  //     const response = await axios(`https://viacep.com.br/ws/${cep}/json/`);
-
-  //     console.log(response);
-
-  //   } catch (e) {
-  //     toast.error('CEP Inválido');
-  //   }
-
-  // };
 
   return (
 
@@ -224,7 +217,7 @@ export const Register = () => {
           <label htmlFor="t_user">Tipo de Usuário</label>
           <div className='form-floating mb-3'>
             <select
-              name='t_user'
+              className='t_user'
               value={t_user}
               onChange={e => setT_user(e.target.value)}
             >
