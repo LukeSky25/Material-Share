@@ -30,9 +30,14 @@ main {
   height: 80%;
 }
 
-/* .banner-html {
+/* .logo-info {
+  width: 500px;
+} */
+
+.banner-html {
   display: flex;
-  padding: 180px;
+  padding: 220px;
+  height: 80%;
   color: aliceblue;
   text-align: center;
 }
@@ -45,18 +50,27 @@ main {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
 }
 
+.faca-login {
+  font-family: 'Courier New', Courier, monospace;
+}
 
-.teste2 {
-  display: flex;
-  padding: 180px;
-  color: aliceblue;
-  text-align: center;
-  background: rgb(2, 0, 36);
-  background: -moz-radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  background: -webkit-radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
-} */
+.faca-login p {
+  margin-top: 10px;
+}
+
+.login-feito {
+  position: relative;
+  top: 0;
+}
+
+
+.banner-2 {
+  background: rgb(58, 67, 180);
+  background: -moz-linear-gradient(90deg, rgba(58, 67, 180, 1) 0%, rgba(29, 86, 253, 1) 50%, rgba(69, 229, 252, 1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(58, 67, 180, 1) 0%, rgba(29, 86, 253, 1) 50%, rgba(69, 229, 252, 1) 100%);
+  background: linear-gradient(90deg, rgba(58, 67, 180, 1) 0%, rgba(29, 86, 253, 1) 50%, rgba(69, 229, 252, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a43b4", endColorstr="#45e5fc", GradientType=1);
+}
 
 
 /* Informações do projeto */
@@ -162,6 +176,10 @@ main {
     width: 120pc;
     height: 40pc;
   }
+
+  .banner-html {
+    padding: 180px;
+  }
 }
 
 @media screen and (max-width:1728px) {
@@ -171,10 +189,20 @@ main {
   }
 }
 
+@media screen and (max-width:1726px) {
+  .banner-html {
+    padding: 175px;
+  }
+}
+
 @media screen and (max-width:1588px) {
   .banner {
     width: 105pc;
     height: 38pc;
+  }
+
+  .banner-html {
+    padding: 165px;
   }
 }
 
@@ -185,12 +213,21 @@ main {
   }
 }
 
+@media screen and (max-width:1504px) {
+  .banner-html {
+    padding: 155px;
+  }
+}
+
+
 @media screen and (max-width:1444px) {
   .banner {
     width: 95pc;
     height: 37pc;
   }
 }
+
+
 
 @media screen and (max-width:1372px) {
   .banner {
@@ -232,6 +269,10 @@ main {
     width: 65pc;
     height: 25pc;
   }
+
+  .banner-html {
+    padding: 60px;
+  }
 }
 
 @media screen and (max-width:938px) {
@@ -259,6 +300,10 @@ main {
   .banner {
     width: 50pc;
     height: 20pc;
+  }
+
+  .banner-html {
+    padding: 20px;
   }
 }
 
@@ -365,6 +410,15 @@ main {
   .banner {
     width: 29pc;
     height: 16pc;
+  }
+
+  .banner-html {
+    padding: 0;
+    font-size: 15px;
+  }
+
+  .logo-info {
+    font-size: 10px;
   }
 }
 

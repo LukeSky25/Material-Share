@@ -26,10 +26,12 @@ export const Register = () => {
   const [senha, setSenha] = useState('');
   const [t_user, setT_user] = useState('');
 
+  const cepLimpo = cep.replace(/\D/g, '');
+  const cpfLimpo = cpf.replace(/[.-]/g, '');
+
   const handleSubmit = (e) => {
 
     e.preventDefault();
-
 
     let formErrors = false;
 
@@ -64,7 +66,7 @@ export const Register = () => {
       toast.error('Email Inválido');
     }
 
-    if (!senha) {
+    if (!senha || senha.length < 6 || senha.length > 100) {
       formErrors = true;
       toast.error('Senha Inválida');
     }
@@ -76,21 +78,30 @@ export const Register = () => {
 
     if (formErrors) return;
 
-    toast.success('Conta criada com sucesso!!!');
-    navigate('/');
 
-    dispatch(actions.createSuccess());
+
+    dispatch(actions.registerRequest({
+      nome,
+      email,
+      senha,
+      cpf: cpfLimpo,
+      data_nascimento: dataNascimento,
+      telefone,
+      cep: cepLimpo,
+      nivel_acesso: t_user,
+      navigate
+    }));
 
   };
 
-  const inverteData = (data) => data.split('/').reverse().join('/');
+  const inverteData = (data) => data.split('/').reverse().join('-');
 
   const isValidPhone = (valor) => {
     // Expressão regular que não permite caracteres especiais e exige formato específico
     const phoneRegex = /^\+?\d{1,3}\d{10}$/;
 
     if (!phoneRegex.test(valor)) {
-      toast.error("O número de telefone fornecido é inválido.");
+      toast.error("Número de telefone inválido.");
     }
   };
 
@@ -100,6 +111,7 @@ export const Register = () => {
 
     // Remove qualquer caractere que não seja número
     const cepLimpo = cep.replace(/\D/g, '');
+
 
     // Verifica se o CEP tem exatamente 8 dígitos
     const cepValido = /^[0-9]{8}$/.test(cepLimpo);

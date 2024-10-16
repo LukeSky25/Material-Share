@@ -21,6 +21,11 @@ import 'swiper/css/scrollbar';
 export const Home = () => {
 
   const user = useSelector(state => state.auth.user);
+  const nome = useSelector(state => state.auth.data.nome);
+
+  console.log(nome);
+
+
   const img = [
     { id: 1, image: 'src/assets/banner.png' },
     { id: 2, image: 'src/assets/banner1.png' },
@@ -46,6 +51,23 @@ export const Home = () => {
         loop={true}
         autoplay={{ delay: 6000 }}
       >
+        {/* {user ?
+          <SwiperSlide className='banner-html banner-2'>
+            <div className='login-feito'>
+              <h1 className='title'>Olá {nome}, <br /> É bom te ver novamente!!!</h1>
+              <IoLogoGooglePlaystore className='logo-info' size={80} color='#08b834' />
+              <p>Abaixe já o nosso aplicativo na PlayStore,<br />  para utilizar os benefícios do nosso projeto, clicando <a href='https://play.google.com/store/games' target='_blank'>aqui.</a></p>
+            </div>
+          </SwiperSlide>
+          :
+          <SwiperSlide className='banner-html banner-1'>
+            <div className='faca-login'>
+              <h1 className='title'>Olá, tudo bem?</h1>
+              <BsFillDoorOpenFill className='logo-info' size={80} color='aliceblue' />
+              <p className=''>Efetue login ou crie uma conta para <br /> utilizar os benefícios do projeto</p>
+            </div>
+          </SwiperSlide>
+        } */}
 
         {img.map((item) => (
           <SwiperSlide key={item.id}>

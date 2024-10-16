@@ -5,6 +5,7 @@ import axios from '../../../services/axios';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 
+
 function* loginRequest({ payload }) {
 
   try {
@@ -20,12 +21,73 @@ function* loginRequest({ payload }) {
 
   } catch(e) {
     toast.error('Usuario ou senha inválida');
-    console.log(e);
+
     yield put(actions.loginFailure);
   }
 }
 
-function* updateRequest({payload}) {
+
+function persistRehydrate ({ payload }) {
+  const token = get(payload, 'auth.token');
+
+  if(!token) return;
+
+  axios.defaults.headers.Authorization = `Bearer ${token}`;
+
+}
+
+
+function* registerRequest({ payload }) {
+
+  try {
+
+    const date = new Date();
+    const { nome, email, senha, cpf, dataNascimento, telefone, cep, navigate, nivel_acesso} = payload;
+
+
+    yield call(axios.post, '/user', {
+      nome,
+      email,
+      senha,
+      cpf,
+      data_nascimento: date.toISOString(dataNascimento),
+      telefone,
+      cep,
+      nivel_acesso,
+      status_cadastro: 'ATIVO',
+      data_cadastro: date.toISOString()
+    });
+
+    const response = yield call(axios.post, '/tokens', {
+      email,
+      senha
+    });
+
+    axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+
+    toast.success('Conta criada com sucesso');
+
+    yield put(actions.registerSuccess({ ...response.data }));
+
+    navigate('/');
+
+  } catch(e) {
+    const errors = get(e, 'response.data.errors', []);
+    //const status = get(e, 'response.status', 0);
+
+    if(errors.length > 0) {
+      errors.map(error => toast.error(error));
+    } else {
+      toast.error('Erro desconhecido');
+    }
+
+    yield put(actions.registerFailure());
+  }
+
+}
+
+
+function* updateRequest({ payload }) {
 
   const { id, nome, email, senha, cpf, dataNascimento, telefone, cep, complemento, numero } = payload;
 
@@ -59,25 +121,17 @@ function* updateRequest({payload}) {
       toast.error('Erro desconhecido');
     }
 
-    console.log(e);
-
     yield put(actions.updateFailure());
 
   }
 }
 
 
-function persistRehydrate ({payload}) {
-  const token = get(payload, 'auth.token');
 
-  if(!token) return;
-
-  axios.defaults.headers.Authorization = `Bearer ${token}`;
-
-}
 
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
-  takeLatest(types.UPDATE_REQUEST, updateRequest),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
+  takeLatest(types.REGISTER_REQUEST, registerRequest),
+  takeLatest(types.UPDATE_REQUEST, updateRequest),
 ]);

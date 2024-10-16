@@ -41,22 +41,24 @@ export default function (state = initialState, action) {
 
 
 
-    case types.CREATE_REQUEST: {
+    case types.REGISTER_REQUEST: {
       const newState = { ...state };
       newState.loading = true;
 
       return newState;
     }
 
-    case types.CREATE_SUCCESS: {
+    case types.REGISTER_SUCCESS: {
       const newState = { ...state };
       newState.user = true;
       newState.loading = false;
+      newState.token = action.payload.token;
+      newState.data = action.payload.data;
 
       return newState;
     }
 
-    case types.CREATE_FAILURE: {
+    case types.REGISTER_FAILURE: {
       const newState = { ...initialState };
 
       return newState;

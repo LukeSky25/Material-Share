@@ -22,23 +22,28 @@ export function loginFailure(payload) {
 }
 
 
-export function createRequest() {
+
+export function registerRequest(payload) {
   return{
-    type: types.CREATE_REQUEST,
+    type: types.REGISTER_REQUEST,
+    payload
   };
 }
 
-export function createSuccess() {
+export function registerSuccess(payload) {
   return{
-    type: types.CREATE_SUCCESS,
+    type: types.REGISTER_SUCCESS,
+    payload
   };
 }
 
-export function createFailure() {
+export function registerFailure(payload) {
   return{
-    type: types.CREATE_FAILURE,
+    type: types.REGISTER_FAILURE,
+    payload
   };
 }
+
 
 
 export function updateRequest(payload) {
