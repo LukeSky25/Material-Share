@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { isEmail, isAlpha, isDate } from 'validator';
+import { isEmail, isDate } from 'validator';
 import { toast } from 'react-toastify';
 import validarCpf from 'validar-cpf';
 import { useDispatch, useSelector } from "react-redux";
@@ -98,7 +98,7 @@ export const Configuracao = () => {
     e.preventDefault();
     let formErrors = false;
 
-    if (!nome || !isAlpha(nome.split(' ').join(''))) {
+    if (!nome) {
       formErrors = true;
       toast.error('Nome Inválido');
     }

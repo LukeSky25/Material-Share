@@ -32,9 +32,6 @@ export const Home = () => {
     { id: 3, image: 'src/assets/banner2.png' },
     { id: 4, image: 'src/assets/banner3.png' },
     { id: 5, image: 'src/assets/banner4.png' },
-    // { id: 4, image: 'src/assets/construcao-civil-tendencias.webp' },
-    // { id: 5, image: 'src/assets/silhuetas-do-local-de-construcao.avif' },
-
   ];
 
   return (

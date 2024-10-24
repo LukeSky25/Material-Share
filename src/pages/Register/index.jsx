@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { isEmail, isAlpha, isDate } from 'validator';
+import { isEmail, isDate } from 'validator';
 import { toast } from 'react-toastify';
 import validarCpf from 'validar-cpf';
 
@@ -35,7 +35,7 @@ export const Register = () => {
 
     let formErrors = false;
 
-    if (!nome || !isAlpha(nome.split(' ').join(''))) {
+    if (!nome) {
       formErrors = true;
       toast.error('Nome Inválido');
     }
