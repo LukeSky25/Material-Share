@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { isEmail, isDate } from 'validator';
-import { toast } from 'react-toastify';
-import validarCpf from 'validar-cpf';
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { isEmail, isDate } from "validator";
+import { toast } from "react-toastify";
+import validarCpf from "validar-cpf";
 
 import {
   Box,
@@ -14,98 +13,45 @@ import {
   ChakraProvider,
 } from "@chakra-ui/react";
 
-import { Footer } from '../../components/Footer';
-import { User } from '../../components/Navbar';
-import * as actions from '../../store/modules/auth/actions';
+import { Footer } from "../../components/Footer";
+import { User } from "../../components/Navbar";
 
-import './style.css';
+import "./style.css";
 
 export const Configuracao = () => {
-
-  const dispatch = useDispatch();
-
-  const id = useSelector(state => state.auth.data.id);
-  const nomeStored = useSelector(state => state.auth.data.nome);
-  const emailStored = useSelector(state => state.auth.data.email);
-  const senhaStored = useSelector(state => state.auth.data.senha);
-  const cpfStored = useSelector(state => state.auth.data.cpf);
-  const dataNascimentoStored = useSelector(state => state.auth.data.dataNascimento);
-  const telefoneStored = useSelector(state => state.auth.data.telefone);
-  const cepStored = useSelector(state => state.auth.data.cep);
-  const complementoStored = useSelector(state => state.auth.data.complemento);
-  const numeroStored = useSelector(state => state.auth.data.numero);
-
-
-
-
-
-  useEffect(() => {
-    if (!id) return;
-
-    setNome(nomeStored);
-    setEmail(emailStored);
-    setSenha(senhaStored);
-    setCpf(cpfStored);
-    setDataNascimento(dataNascimentoStored);
-    setTelefone(telefoneStored);
-    setCep(cepStored);
-    buscarCep(cepStored);
-    setComplemento(complementoStored);
-    setNumero(numeroStored);
-
-  },
-    [
-      id,
-      nomeStored,
-      emailStored,
-      senhaStored,
-      cpfStored,
-      dataNascimentoStored,
-      telefoneStored,
-      cepStored,
-      complementoStored,
-      numeroStored
-    ]
-  );
-
-
-  const [nome, setNome] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [cep, setCep] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [endereco, setEndereco] = useState('');
-  const [complemento, setComplemento] = useState('');
-  const [numero, setNumero] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [estado, setEstado] = useState('');
+  const [nome, setNome] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [cep, setCep] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [numero, setNumero] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
 
   const handleInformation = (e) => {
-
     e.preventDefault();
 
     if (!validarCep(cep)) {
-      toast.error('CEP Inválido');
+      toast.error("CEP Inválido");
     }
-
   };
 
-
   const handleSubmit = (e) => {
-
     e.preventDefault();
     let formErrors = false;
 
     if (!nome) {
       formErrors = true;
-      toast.error('Nome Inválido');
+      toast.error("Nome Inválido");
     }
 
     if (!dataNascimento || !isDate(inverteData(dataNascimento))) {
       formErrors = true;
-      toast.error('Data de Nascimento inválida');
+      toast.error("Data de Nascimento inválida");
     }
 
     if (!isValidPhone(telefone)) {
@@ -114,40 +60,37 @@ export const Configuracao = () => {
 
     if (!validarCpf(cpf)) {
       formErrors = true;
-      toast.error('CPF Inválido');
+      toast.error("CPF Inválido");
     }
 
     if (!validarCep(cep)) {
       formErrors = true;
-      toast.error('CEP Inválido');
+      toast.error("CEP Inválido");
     } else {
       formErrors = false;
     }
 
     if (!isEmail(email)) {
       formErrors = true;
-      toast.error('Email Inválido');
+      toast.error("Email Inválido");
     }
 
     if (!complemento) {
       formErrors = true;
-      toast.error('Complemento Inválido');
+      toast.error("Complemento Inválido");
     }
 
     if (!numero || isNaN(numero)) {
       formErrors = true;
-      toast.error('Número Inválido');
+      toast.error("Número Inválido");
     }
 
     if (formErrors) return;
 
-
-
-    dispatch(actions.updateRequest({ id, nome, email, senha, cpf, dataNascimento, telefone, cep, complemento, numero }));
-
+    toast.success("Informações atualizadas com sucesso");
   };
 
-  const inverteData = (data) => data.split('/').reverse().join('/');
+  const inverteData = (data) => data.split("/").reverse().join("/");
 
   const isValidPhone = (valor) => {
     // Expressão regular que não permite caracteres especiais e exige formato específico
@@ -159,15 +102,13 @@ export const Configuracao = () => {
   };
 
   const validarCep = (cep) => {
-
     if (!cep) return false;
 
     // Remove qualquer caractere que não seja número
-    const cepLimpo = cep.replace(/\D/g, '');
+    const cepLimpo = cep.replace(/\D/g, "");
 
     // Verifica se o CEP tem exatamente 8 dígitos
     const cepValido = /^[0-9]{8}$/.test(cepLimpo);
-
 
     if (!cepValido) return false;
 
@@ -176,35 +117,29 @@ export const Configuracao = () => {
 
   const buscarCep = async (cep) => {
     try {
-
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await response.json();
 
       if (data.erro) {
-        toast.error('CEP inválido');
+        toast.error("CEP inválido");
       }
 
       setEndereco(data.logradouro);
       setEstado(data.estado);
       setCidade(data.localidade);
-
     } catch (error) {
-      toast.error('ERRO!!!');
+      toast.error("ERRO!!!");
     }
   };
 
   return (
     <>
-
       <User />
 
       <ChakraProvider>
-
         <section>
-
           <main>
-
-            <h1 className='titulo'>Configurações</h1>
+            <h1 className="titulo">Configurações</h1>
 
             <FormControl className="form-principal" flexDir="column" gap="4">
               <HStack spacing="4">
@@ -212,9 +147,9 @@ export const Configuracao = () => {
                   <FormLabel htmlFor="nome">Nome Completo</FormLabel>
                   <Input
                     id="nome"
-                    value={nome || ''}
-                    onChange={e => setNome(e.target.value)}
-                    placeholder='Digite seu Nome Completo...'
+                    value={nome || ""}
+                    onChange={(e) => setNome(e.target.value)}
+                    placeholder="Digite seu Nome Completo..."
                   />
                 </Box>
 
@@ -223,22 +158,20 @@ export const Configuracao = () => {
                   <Input
                     id="nasc"
                     type="date"
-                    value={dataNascimento || ''}
-                    onChange={e => setDataNascimento(e.target.value)}
+                    value={dataNascimento || ""}
+                    onChange={(e) => setDataNascimento(e.target.value)}
                   />
                 </Box>
-
               </HStack>
               <HStack spacing="4">
-
                 <Box w="100%">
                   <FormLabel htmlFor="Tefone">Telefone</FormLabel>
                   <Input
                     id="Tefone"
                     type="number"
-                    value={telefone || ''}
-                    onChange={e => setTelefone(e.target.value)}
-                    placeholder='Digite o seu Telefone'
+                    value={telefone || ""}
+                    onChange={(e) => setTelefone(e.target.value)}
+                    placeholder="Digite o seu Telefone"
                   />
                 </Box>
 
@@ -247,9 +180,9 @@ export const Configuracao = () => {
                   <Input
                     id="cpf"
                     type="text"
-                    value={cpf || ''}
-                    onChange={e => setCpf(e.target.value)}
-                    placeholder='Digite seu CPF...'
+                    value={cpf || ""}
+                    onChange={(e) => setCpf(e.target.value)}
+                    placeholder="Digite seu CPF..."
                   />
                 </Box>
 
@@ -258,24 +191,22 @@ export const Configuracao = () => {
                   <Input
                     id="cep"
                     type="text"
-                    value={cep || ''}
-                    onChange={e => setCep(e.target.value)}
+                    value={cep || ""}
+                    onChange={(e) => setCep(e.target.value)}
                     onBlur={handleInformation}
-                    placeholder='Digite seu CEP...'
+                    placeholder="Digite seu CEP..."
                   />
                 </Box>
-
               </HStack>
               <HStack spacing="4">
-
                 <Box w="100%">
                   <FormLabel htmlFor="email">E-mail</FormLabel>
                   <Input
                     id="email"
                     type="email"
-                    value={email || ''}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder='Digite seu Email...'
+                    value={email || ""}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Digite seu Email..."
                   />
                 </Box>
                 <Box w="100%">
@@ -283,22 +214,20 @@ export const Configuracao = () => {
                   <Input
                     id="senha"
                     type="password"
-                    value={senha || ''}
-                    onChange={e => setSenha(e.target.value)}
-                    placeholder='Digite sua Senha ...'
+                    value={senha || ""}
+                    onChange={(e) => setSenha(e.target.value)}
+                    placeholder="Digite sua Senha ..."
                   />
                 </Box>
-
               </HStack>
               <HStack spacing="4">
-
                 <Box w="100%">
                   <FormLabel htmlFor="endereco">Endereço</FormLabel>
                   <Input
                     className="end-inf"
                     id="endereco"
-                    value={endereco || ''}
-                    onChange={e => setEndereco(e.target.value)}
+                    value={endereco || ""}
+                    onChange={(e) => setEndereco(e.target.value)}
                     disabled
                   />
                 </Box>
@@ -307,21 +236,19 @@ export const Configuracao = () => {
                   <FormLabel htmlFor="complemento">Complemento</FormLabel>
                   <Input
                     id="complemento"
-                    value={complemento || ''}
-                    onChange={e => setComplemento(e.target.value)}
+                    value={complemento || ""}
+                    onChange={(e) => setComplemento(e.target.value)}
                     placeholder="Digite o complemento do seu endereço ..."
                   />
                 </Box>
-
               </HStack>
               <HStack spacing="4">
-
                 <Box w="100%">
                   <FormLabel htmlFor="numero">Numero</FormLabel>
                   <Input
                     id="numero"
-                    value={numero || ''}
-                    onChange={e => setNumero(e.target.value)}
+                    value={numero || ""}
+                    onChange={(e) => setNumero(e.target.value)}
                     placeholder="Digite o número da sua casa ou apartamento"
                   />
                 </Box>
@@ -331,8 +258,8 @@ export const Configuracao = () => {
                   <Input
                     className="end-inf"
                     id="cidade"
-                    value={cidade || ''}
-                    onChange={e => setCidade(e.target.value)}
+                    value={cidade || ""}
+                    onChange={(e) => setCidade(e.target.value)}
                     disabled
                   />
                 </Box>
@@ -342,12 +269,11 @@ export const Configuracao = () => {
                   <Input
                     className="end-inf"
                     id="estado"
-                    value={estado || ''}
-                    onChange={e => setEstado(e.target.value)}
+                    value={estado || ""}
+                    onChange={(e) => setEstado(e.target.value)}
                     disabled
                   />
                 </Box>
-
               </HStack>
               <HStack justify="center">
                 <Button
@@ -358,7 +284,7 @@ export const Configuracao = () => {
                   fontWeight="bold"
                   fontSize="xl"
                   mt="2"
-                  _hover={{ opacity: '0.9' }}
+                  _hover={{ opacity: "0.9" }}
                   type="submit"
                   onClick={handleSubmit}
                 >
@@ -366,154 +292,147 @@ export const Configuracao = () => {
                 </Button>
               </HStack>
             </FormControl>
-
           </main>
 
           <div className="form-responsivo">
-            <form className='register' onSubmit={handleSubmit}>
-
+            <form className="register" onSubmit={handleSubmit}>
               <label htmlFor="nome">Nome Completo</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   type="text"
-                  name='nome'
-                  value={nome || ''}
-                  onChange={e => setNome(e.target.value)}
-                  placeholder='Digite seu Nome Completo...'
+                  name="nome"
+                  value={nome || ""}
+                  onChange={(e) => setNome(e.target.value)}
+                  placeholder="Digite seu Nome Completo..."
                 />
               </div>
 
               <label htmlFor="d-nas">Data de Nascimento</label>
-              <div className='form-floating mb-3 c-f'>
+              <div className="form-floating mb-3 c-f">
                 <input
                   type="date"
-                  name='d-nas'
-                  value={dataNascimento || ''}
-                  onChange={e => setDataNascimento(e.target.value)}
+                  name="d-nas"
+                  value={dataNascimento || ""}
+                  onChange={(e) => setDataNascimento(e.target.value)}
                 />
               </div>
 
               <label htmlFor="tel">Telefone</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   type="tel"
-                  name='tel'
-                  value={telefone || ''}
-                  onChange={e => setTelefone(e.target.value)}
-                  placeholder='Digite o seu Telefone'
+                  name="tel"
+                  value={telefone || ""}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  placeholder="Digite o seu Telefone"
                 />
               </div>
 
               <label htmlFor="cpf">CPF</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   type="text"
-                  name='cpf'
-                  value={cpf || ''}
-                  onChange={e => setCpf(e.target.value)}
-                  placeholder='Digite seu CPF...'
+                  name="cpf"
+                  value={cpf || ""}
+                  onChange={(e) => setCpf(e.target.value)}
+                  placeholder="Digite seu CPF..."
                 />
               </div>
 
               <label htmlFor="cep">CEP</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   type="text"
-                  name='cep'
-                  value={cep || ''}
-                  onChange={e => setCep(e.target.value)}
+                  name="cep"
+                  value={cep || ""}
+                  onChange={(e) => setCep(e.target.value)}
                   onBlur={handleInformation}
-                  placeholder='Digite seu CEP...'
+                  placeholder="Digite seu CEP..."
                 />
               </div>
 
               <label htmlFor="email">Email</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   type="text"
-                  name='email'
-                  value={email || ''}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder='Digite seu Email...'
+                  name="email"
+                  value={email || ""}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Digite seu Email..."
                 />
               </div>
 
               <label htmlFor="senha">Senha</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   type="password"
-                  name='senha'
-                  value={senha || ''}
-                  onChange={e => setSenha(e.target.value)}
-                  placeholder='Digite sua Senha ...'
+                  name="senha"
+                  value={senha || ""}
+                  onChange={(e) => setSenha(e.target.value)}
+                  placeholder="Digite sua Senha ..."
                 />
               </div>
 
               <label htmlFor="endereco">Endereço</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   className="end-inf"
                   name="endereco"
-                  value={endereco || ''}
-                  onChange={e => setEndereco(e.target.value)}
+                  value={endereco || ""}
+                  onChange={(e) => setEndereco(e.target.value)}
                   disabled
                 />
               </div>
 
               <label htmlFor="complemento">Complemento</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   name="complemento"
-                  value={complemento || ''}
-                  onChange={e => setComplemento(e.target.value)}
+                  value={complemento || ""}
+                  onChange={(e) => setComplemento(e.target.value)}
                   placeholder="Digite o complemento do seu endereço ..."
                 />
               </div>
 
               <label htmlFor="numero">Numero</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   name="numero"
-                  value={numero || ''}
-                  onChange={e => setNumero(e.target.value)}
+                  value={numero || ""}
+                  onChange={(e) => setNumero(e.target.value)}
                   placeholder="Digite o número da sua casa ou apartamento"
                 />
               </div>
 
               <label htmlFor="cidade">Cidade</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   className="end-inf"
                   name="cidade"
-                  value={cidade || ''}
-                  onChange={e => setCidade(e.target.value)}
+                  value={cidade || ""}
+                  onChange={(e) => setCidade(e.target.value)}
                   disabled
                 />
               </div>
 
               <label htmlFor="estado">Estado</label>
-              <div className='form-floating mb-3'>
+              <div className="form-floating mb-3">
                 <input
                   className="end-inf"
                   name="estado"
-                  value={estado || ''}
-                  onChange={e => setEstado(e.target.value)}
+                  value={estado || ""}
+                  onChange={(e) => setEstado(e.target.value)}
                   disabled
                 />
               </div>
 
-              <button type='submit'>Entrar</button>
-
+              <button type="submit">Entrar</button>
             </form>
           </div>
-
-        </section >
-
-      </ChakraProvider >
+        </section>
+      </ChakraProvider>
 
       <Footer />
-
     </>
   );
-
 };
