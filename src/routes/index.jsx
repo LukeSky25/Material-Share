@@ -1,28 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { Home } from '../pages/Home';
-import { Page404 } from '../pages/Page404';
-import { Login } from '../pages/Login';
-import { Register } from '../pages/Register';
-import { Configuracao } from '../pages/Configuracao';
-import { Avaliacao } from '../pages/Avaliacao';
-import { Notificacao } from '../pages/Notificacao';
-import { Suporte } from '../pages/Suporte';
-import { Logout } from '../pages/Logout';
+import { Home } from "../pages/Home";
+import { Page404 } from "../pages/Page404";
+import { Login } from "../pages/Login";
+import { Register } from "../pages/Register";
+import { Administracao } from "../pages/Administracao";
+import { Configuracao } from "../pages/Configuracao";
+import { Avaliacao } from "../pages/Avaliacao";
+import { Notificacao } from "../pages/Notificacao";
+import { Suporte } from "../pages/Suporte";
+import { Logout } from "../pages/Logout";
 
-import { PrivateRoutes } from './PrivateRoutes';
+import { PrivateRoutes } from "./PrivateRoutes";
 
 export const Rotas = () => {
-
   return (
-
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
-          path='/user'
+          path="/user"
           element={
             <PrivateRoutes>
               <Configuracao />
@@ -30,7 +29,15 @@ export const Rotas = () => {
           }
         />
         <Route
-          path='/user/notificacao'
+          path="/administracao"
+          element={
+            <PrivateRoutes>
+              <Administracao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/user/notificacao"
           element={
             <PrivateRoutes>
               <Notificacao />
@@ -38,7 +45,7 @@ export const Rotas = () => {
           }
         />
         <Route
-          path='/user/suporte'
+          path="/user/suporte"
           element={
             <PrivateRoutes>
               <Suporte />
@@ -46,7 +53,7 @@ export const Rotas = () => {
           }
         />
         <Route
-          path='/user/avaliacao'
+          path="/user/avaliacao"
           element={
             <PrivateRoutes>
               <Avaliacao />
@@ -54,17 +61,15 @@ export const Rotas = () => {
           }
         />
         <Route
-          path='/user/logout'
+          path="/user/logout"
           element={
             <PrivateRoutes>
               <Logout />
             </PrivateRoutes>
           }
         />
-        <Route path='*' element={<Page404 />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
-
   );
-
 };

@@ -1,0 +1,21 @@
+.confirm {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+}
+
+.confirm button {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.confirm .cancel {
+  background-color: red;
+  color: aliceblue;
+}
+
+.confirm .ok {
+  background-color: green;
+  color: aliceblue;
+}
