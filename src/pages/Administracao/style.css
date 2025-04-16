@@ -19,3 +19,20 @@
   background-color: green;
   color: aliceblue;
 }
+
+/* */
+
+.adm_acoes {
+  display: flex;
+  gap: 25px;
+}
+
+.adm_exclude_b {
+  border: 1px;
+  border-radius: 5px;
+  background-color: #f01010;
+  color: aliceblue;
+  padding: 3px;
+  width: 65px;
+  cursor: pointer;
+}
