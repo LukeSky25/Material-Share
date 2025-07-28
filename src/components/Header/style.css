@@ -1,87 +1,76 @@
-nav {
+.navbar {
   display: flex;
   align-items: center;
-  text-align: center;
   justify-content: space-between;
   background-color: var(--primaryColor);
-  color: aliceblue;
   height: auto;
+  color: aliceblue;
 }
 
-.navbar-brand {
+/* Parte da esquerda */
+.navbar-left {
+  flex: 1;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  margin-left: 200px;
+}
+
+/* Parte da direita */
+.navbar-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 100px;
+}
+
+/* Logo */
+.navbar-brand {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-decoration: none;
 }
 
 .logo {
-  width: 150px;
-  height: auto;
-  object-fit: contain;
+  font-size: 25px;
+  color: aliceblue;
+  margin: 0;
 }
 
+/* Botões e links */
 .c_button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   color: aliceblue;
   text-decoration: none;
-  padding: 19px;
-  font-size: 18px;
+  font-size: 16px;
+  padding: 15px;
 }
 
-.user {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
+/* Ícone do usuário */
+.user-icon {
+  font-size: 20px;
   color: aliceblue;
-  margin: 10px;
-  font-size: 35px;
 }
 
 a:hover {
   opacity: 0.8;
 }
 
-@media screen and (max-width:425px) {
-  .logo {
-    width: 130px;
+/* Responsivo */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
   }
 
-  .c_button {
-    font-size: 17px;
-    padding: 15px;
+  .navbar-right {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
   }
 
-  .user {
-    margin: 4px;
-    font-size: 30px;
-  }
-}
-
-@media screen and (max-width:375px) {
-  .logo {
-    width: 110px;
-  }
-
-  .c_button {
+  .c_button,
+  .user-icon {
     font-size: 16px;
     padding: 10px;
-  }
-}
-
-@media screen and (max-width:320px) {
-  .logo {
-    width: 110px;
-  }
-
-  .c_button {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .user {
-    margin: 2px;
-    font-size: 30px;
   }
 }

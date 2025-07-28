@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
-import { User } from "../../components/Navbar";
 
 import "./style.css";
 
@@ -18,7 +18,7 @@ export const Logout = () => {
 
   return (
     <>
-      <User />
+      <Header />
 
       <section>
         <main>

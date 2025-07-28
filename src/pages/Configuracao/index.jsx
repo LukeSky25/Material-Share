@@ -13,8 +13,8 @@ import {
   ChakraProvider,
 } from "@chakra-ui/react";
 
+import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
-import { User } from "../../components/Navbar";
 
 import "./style.css";
 
@@ -134,7 +134,7 @@ export const Configuracao = () => {
 
   return (
     <>
-      <User />
+      <Header />
 
       <ChakraProvider>
         <section>

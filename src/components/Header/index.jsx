@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 
-import logo from "../../assets/Material-Share.png";
-
 import "./style.css";
 import "../../styles/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,26 +10,32 @@ export const Header = () => {
 
   return (
     <nav className="navbar">
-      <Link to={"/"} className="navbar-brand">
-        <img src={logo} alt="Texto Logo" className="logo" id="logo" />
-      </Link>
+      {/* Logo à esquerda */}
+      <div className="navbar-left">
+        <Link to="/" className="navbar-brand">
+          <p className="logo">Material Share</p>
+        </Link>
+      </div>
 
-      {user ? (
-        <div className="ml-auto">
-          <Link to={"/user"} className="navbar-brand">
-            <FaRegUserCircle className="user" />
+      {/* Links à direita */}
+      <div className="navbar-right">
+        <Link to="/" className="c_button">
+          Início
+        </Link>
+        <Link to="/servicos" className="c_button">
+          Serviços
+        </Link>
+        <Link to="/sobre" className="c_button">
+          Sobre
+        </Link>
+        {user ? (
+          <Link to="/user" className="user-icon">
+            <FaRegUserCircle />
           </Link>
-        </div>
-      ) : (
-        <div className="ml-auto">
-          <Link to={"/login"} className="c_button">
-            Entrar
-          </Link>
-          <Link to={"/register"} className="c_button">
-            Criar Conta
-          </Link>
-        </div>
-      )}
+        ) : (
+          <></>
+        )}
+      </div>
     </nav>
   );
 };

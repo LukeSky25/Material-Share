@@ -1,14 +1,14 @@
 import { FaEdit } from "react-icons/fa";
 
 import { Footer } from "../../components/Footer";
-import { Header2 } from "../../components/Header2";
+import { Header } from "../../components/Adm-Sidebar/Header";
 
 import "./style.css";
 
 export const Administracao = () => {
   return (
     <>
-      <Header2 />
+      <Header />
 
       <section>
         <main>
@@ -23,6 +23,14 @@ export const Administracao = () => {
                   <th>Usuário</th>
                   <th>Ativo</th>
                   <th>Ações</th>
+                  <div className="adm-b">
+                    <th className="none_table">
+                      <div className="add_adm_b"></div>
+                      <button className="add_b">
+                        <span className="add_adm">+</span> Adicionar
+                      </button>
+                    </th>
+                  </div>
                 </tr>
               </thead>
               <tbody>
@@ -32,7 +40,7 @@ export const Administracao = () => {
                   <td>Usuário1</td>
                   <td>Sim</td>
                   <td className="adm_acoes">
-                    <div className="adm_exclude_b">Excluir</div>
+                    <button className="adm_exclude_b">Excluir</button>
                     <FaEdit size={30} className="adm_edit" />
                   </td>
                 </tr>

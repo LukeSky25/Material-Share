@@ -4,9 +4,9 @@ import { FaBars } from "react-icons/fa";
 
 import Sidebar from "../Sidebar";
 
-import "../../styles/global.css";
+import "../../../styles/global.css";
 
-export const Header2 = () => {
+export const Header = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const showSideBar = () => setSidebar(!sidebar);
@@ -21,4 +21,4 @@ export const Header2 = () => {
   );
 };
 
-export default Header2;
+export default Header;

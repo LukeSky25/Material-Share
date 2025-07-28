@@ -13,68 +13,49 @@ main {
   overflow-x: hidden;
 }
 
+/* Container de Boas Vindas */
 
-/* Banners */
-
-
-.banner {
-  display: flex;
-  width: 120pc;
-  height: 35pc;
-}
-
-.swiper {
-  border-top: 2px rgb(2, 34, 63) groove;
-  border-bottom: 2px rgb(2, 34, 63) groove;
-  height: 500px;
-  height: 80%;
-}
-
-/* .logo-info {
-  width: 500px;
-} */
-
-.banner-html {
-  display: flex;
-  padding: 220px;
-  height: 80%;
-  color: aliceblue;
+.welcome-container {
+  background-color: var(--primaryColor);
+  height: 420px;
   text-align: center;
 }
 
-.banner-1 {
-  background: rgb(2, 0, 36);
-  background: -moz-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  background: -webkit-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#00d4ff", GradientType=1);
+.welcome-container .title {
+  font-size: 55px;
+  color: aliceblue;
+  font-weight: bolder;
+  padding-top: 40px;
+  margin: 0;
 }
 
-.faca-login {
-  font-family: 'Courier New', Courier, monospace;
+.welcome-container .title span {
+  color: #bfdbfe;
 }
 
-.faca-login p {
-  margin-top: 10px;
+.welcome-container .subtitle {
+  color: aliceblue;
+  font-size: 17px;
 }
 
-.login-feito {
-  position: relative;
-  top: 0;
+.welcome-container .buttons {
+  padding-top: 30px;
 }
 
-
-.banner-2 {
-  background: rgb(58, 67, 180);
-  background: -moz-linear-gradient(90deg, rgba(58, 67, 180, 1) 0%, rgba(29, 86, 253, 1) 50%, rgba(69, 229, 252, 1) 100%);
-  background: -webkit-linear-gradient(90deg, rgba(58, 67, 180, 1) 0%, rgba(29, 86, 253, 1) 50%, rgba(69, 229, 252, 1) 100%);
-  background: linear-gradient(90deg, rgba(58, 67, 180, 1) 0%, rgba(29, 86, 253, 1) 50%, rgba(69, 229, 252, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a43b4", endColorstr="#45e5fc", GradientType=1);
+.welcome-container .buttons button {
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 5px;
+  width: 150px;
 }
 
+.welcome-container .buttons button a {
+  text-decoration: none;
+  color: #365f98;
+}
 
 /* Informações do projeto */
-
 
 .info-container {
   margin-top: 10px;
@@ -107,7 +88,6 @@ main {
   line-height: 24px;
 }
 
-
 /* Informações para o usuário */
 
 .abaixar-app p {
@@ -122,35 +102,35 @@ main {
   margin-top: 10px;
 }
 
-@media screen and (max-width:2560px) {
+@media screen and (max-width: 2560px) {
   .banner {
     width: 160pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:2306px) {
+@media screen and (max-width: 2306px) {
   .banner {
     width: 155pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:2238px) {
+@media screen and (max-width: 2238px) {
   .banner {
     width: 150pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:2161px) {
+@media screen and (max-width: 2161px) {
   .banner {
     width: 145pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:2141px) {
+@media screen and (max-width: 2141px) {
   .banner-html {
     padding: 200px;
   }
@@ -160,28 +140,28 @@ main {
   }
 }
 
-@media screen and (max-width:2087px) {
+@media screen and (max-width: 2087px) {
   .banner {
     width: 140pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:2018px) {
+@media screen and (max-width: 2018px) {
   .banner {
     width: 135pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:2000px) {
+@media screen and (max-width: 2000px) {
   .banner {
     width: 125pc;
     height: 45pc;
   }
 }
 
-@media screen and (max-width:1880px) {
+@media screen and (max-width: 1880px) {
   .banner {
     width: 120pc;
     height: 40pc;
@@ -192,20 +172,20 @@ main {
   }
 }
 
-@media screen and (max-width:1728px) {
+@media screen and (max-width: 1728px) {
   .banner {
     width: 110pc;
     height: 39pc;
   }
 }
 
-@media screen and (max-width:1726px) {
+@media screen and (max-width: 1726px) {
   .banner-html {
     padding: 175px;
   }
 }
 
-@media screen and (max-width:1588px) {
+@media screen and (max-width: 1588px) {
   .banner {
     width: 105pc;
     height: 38pc;
@@ -216,65 +196,62 @@ main {
   }
 }
 
-@media screen and (max-width:1514px) {
+@media screen and (max-width: 1514px) {
   .banner {
     width: 95pc;
     height: 37pc;
   }
 }
 
-@media screen and (max-width:1504px) {
+@media screen and (max-width: 1504px) {
   .banner-html {
     padding: 155px;
   }
 }
 
-
-@media screen and (max-width:1444px) {
+@media screen and (max-width: 1444px) {
   .banner {
     width: 95pc;
     height: 37pc;
   }
 }
 
-
-
-@media screen and (max-width:1372px) {
+@media screen and (max-width: 1372px) {
   .banner {
     width: 90pc;
     height: 37pc;
   }
 }
 
-@media screen and (max-width:1298px) {
+@media screen and (max-width: 1298px) {
   .banner {
     width: 85pc;
     height: 37pc;
   }
 }
 
-@media screen and (max-width:1226px) {
+@media screen and (max-width: 1226px) {
   .banner {
     width: 80pc;
     height: 37pc;
   }
 }
 
-@media screen and (max-width:1152px) {
+@media screen and (max-width: 1152px) {
   .banner {
     width: 75pc;
     height: 37pc;
   }
 }
 
-@media screen and (max-width:1078px) {
+@media screen and (max-width: 1078px) {
   .banner {
     width: 70pc;
     height: 37pc;
   }
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width: 1024px) {
   .banner {
     width: 65pc;
     height: 25pc;
@@ -285,28 +262,28 @@ main {
   }
 }
 
-@media screen and (max-width:938px) {
+@media screen and (max-width: 938px) {
   .banner {
     width: 60pc;
     height: 25pc;
   }
 }
 
-@media screen and (max-width:866px) {
+@media screen and (max-width: 866px) {
   .banner {
     width: 55pc;
     height: 25pc;
   }
 }
 
-@media screen and (max-width:794px) {
+@media screen and (max-width: 794px) {
   .banner {
     width: 53pc;
     height: 25pc;
   }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .banner {
     width: 50pc;
     height: 20pc;
@@ -317,106 +294,104 @@ main {
   }
 }
 
-@media screen and (max-width:722px) {
+@media screen and (max-width: 722px) {
   .banner {
     width: 48pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:694px) {
+@media screen and (max-width: 694px) {
   .banner {
     width: 45pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:650px) {
+@media screen and (max-width: 650px) {
   .banner {
     width: 43pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:620px) {
+@media screen and (max-width: 620px) {
   .banner {
     width: 41pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:592px) {
+@media screen and (max-width: 592px) {
   .banner {
     width: 38pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:564px) {
+@media screen and (max-width: 564px) {
   .banner {
     width: 37.5pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width: 576px) {
   .info-container ul {
     flex-direction: column;
   }
-
 }
 
-@media screen and (max-width:540px) {
+@media screen and (max-width: 540px) {
   .banner {
     width: 36pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:520px) {
+@media screen and (max-width: 520px) {
   .banner {
     width: 35pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:506px) {
+@media screen and (max-width: 506px) {
   .banner {
     width: 34pc;
     height: 20pc;
   }
 }
 
-
-@media screen and (max-width:496px) {
+@media screen and (max-width: 496px) {
   .banner {
     width: 33pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:478px) {
+@media screen and (max-width: 478px) {
   .banner {
     width: 32pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:464px) {
+@media screen and (max-width: 464px) {
   .banner {
     width: 31pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:448px) {
+@media screen and (max-width: 448px) {
   .banner {
     width: 30pc;
     height: 20pc;
   }
 }
 
-@media screen and (max-width:425px) {
+@media screen and (max-width: 425px) {
   .banner {
     width: 29pc;
     height: 16pc;
@@ -432,14 +407,14 @@ main {
   }
 }
 
-@media screen and (max-width:375px) {
+@media screen and (max-width: 375px) {
   .banner {
     width: 24pc;
     height: 15pc;
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width: 320px) {
   .banner {
     width: 20pc;
     height: 14pc;
