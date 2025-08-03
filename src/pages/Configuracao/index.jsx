@@ -4,19 +4,20 @@ import { toast } from "react-toastify";
 import validarCpf from "validar-cpf";
 
 import {
-  Box,
-  FormControl,
-  Input,
-  FormLabel,
-  HStack,
-  Button,
-  ChakraProvider,
-} from "@chakra-ui/react";
+  Settings,
+  Edit,
+  User,
+  Calendar,
+  Phone,
+  CreditCard,
+  Mail,
+  MapPin,
+} from "lucide-react";
+
+import "./style.css"; // Importe o seu arquivo CSS
 
 import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
-
-import "./style.css";
 
 export const Configuracao = () => {
   const [nome, setNome] = useState("");
@@ -25,18 +26,56 @@ export const Configuracao = () => {
   const [cpf, setCpf] = useState("");
   const [cep, setCep] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
   const [endereco, setEndereco] = useState("");
   const [complemento, setComplemento] = useState("");
   const [numero, setNumero] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
 
-  const handleInformation = (e) => {
-    e.preventDefault();
+  const inverteData = (data) => data.split("/").reverse().join("/");
 
-    if (!validarCep(cep)) {
-      toast.error("CEP Inválido");
+  const isValidPhone = (valor) => {
+    const phoneRegex = /^\+?\d{1,3}\d{10}$/;
+    if (!phoneRegex.test(valor)) {
+      toast.error("O número de telefone fornecido é inválido.");
+      return false;
+    }
+    return true;
+  };
+
+  const buscarCep = async (cepValue) => {
+    const cepLimpo = cepValue.replace(/\D/g, "");
+    if (cepLimpo.length !== 8) {
+      toast.error("CEP deve conter 8 dígitos.");
+      return false;
+    }
+
+    try {
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`
+      );
+      const data = await response.json();
+
+      if (data.erro) {
+        toast.error("CEP não encontrado.");
+        return false;
+      }
+
+      setEndereco(data.logradouro);
+      setEstado(data.uf); // O campo correto é 'uf'
+      setCidade(data.localidade);
+      toast.success("Endereço preenchido!");
+      return true;
+    } catch (error) {
+      toast.error("Erro ao buscar CEP. Verifique sua conexão.");
+      return false;
+    }
+  };
+
+  const handleCepBlur = (e) => {
+    const cepValue = e.target.value;
+    if (cepValue) {
+      buscarCep(cepValue);
     }
   };
 
@@ -46,392 +85,219 @@ export const Configuracao = () => {
 
     if (!nome) {
       formErrors = true;
-      toast.error("Nome Inválido");
+      toast.error("O campo Nome é obrigatório.");
     }
-
     if (!dataNascimento || !isDate(inverteData(dataNascimento))) {
       formErrors = true;
-      toast.error("Data de Nascimento inválida");
+      toast.error("Data de Nascimento inválida.");
     }
-
     if (!isValidPhone(telefone)) {
       formErrors = true;
     }
-
     if (!validarCpf(cpf)) {
       formErrors = true;
-      toast.error("CPF Inválido");
+      toast.error("CPF Inválido.");
     }
-
-    if (!validarCep(cep)) {
+    if (!cep) {
       formErrors = true;
-      toast.error("CEP Inválido");
-    } else {
-      formErrors = false;
+      toast.error("O campo CEP é obrigatório.");
     }
-
     if (!isEmail(email)) {
       formErrors = true;
-      toast.error("Email Inválido");
+      toast.error("Email Inválido.");
     }
-
     if (!complemento) {
       formErrors = true;
-      toast.error("Complemento Inválido");
+      toast.error("O campo Complemento é obrigatório.");
     }
-
     if (!numero || isNaN(numero)) {
       formErrors = true;
-      toast.error("Número Inválido");
+      toast.error("Número Inválido.");
     }
 
     if (formErrors) return;
 
-    toast.success("Informações atualizadas com sucesso");
-  };
-
-  const inverteData = (data) => data.split("/").reverse().join("/");
-
-  const isValidPhone = (valor) => {
-    // Expressão regular que não permite caracteres especiais e exige formato específico
-    const phoneRegex = /^\+?\d{1,3}\d{10}$/;
-
-    if (!phoneRegex.test(valor)) {
-      toast.error("O número de telefone fornecido é inválido.");
-    }
-  };
-
-  const validarCep = (cep) => {
-    if (!cep) return false;
-
-    // Remove qualquer caractere que não seja número
-    const cepLimpo = cep.replace(/\D/g, "");
-
-    // Verifica se o CEP tem exatamente 8 dígitos
-    const cepValido = /^[0-9]{8}$/.test(cepLimpo);
-
-    if (!cepValido) return false;
-
-    return buscarCep(cep);
-  };
-
-  const buscarCep = async (cep) => {
-    try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = await response.json();
-
-      if (data.erro) {
-        toast.error("CEP inválido");
-      }
-
-      setEndereco(data.logradouro);
-      setEstado(data.estado);
-      setCidade(data.localidade);
-    } catch (error) {
-      toast.error("ERRO!!!");
-    }
+    // Se todas as validações passarem, você pode prosseguir com o envio
+    toast.success("Informações atualizadas com sucesso!");
+    // Aqui você enviaria os dados para sua API/backend
   };
 
   return (
     <>
       <Header />
+      <form onSubmit={handleSubmit} noValidate>
+        <div className="config-page">
+          <div className="config-container">
+            <div className="card config-header">
+              <div className="config-header-title">
+                <div className="config-header-icon">
+                  <Settings style={{ color: "white" }} size={24} />
+                </div>
+                <div>
+                  <h1>Configurações</h1>
+                  <p>Gerencie suas informações pessoais e preferências</p>
+                </div>
+              </div>
+              <button type="submit" className="btn-primary">
+                <Edit size={16} />
+                <span>Salvar Alterações</span>
+              </button>
+            </div>
 
-      <ChakraProvider>
-        <section>
-          <main>
-            <h1 className="titulo">Configurações</h1>
-
-            <FormControl className="form-principal" flexDir="column" gap="4">
-              <HStack spacing="4">
-                <Box w="100%">
-                  <FormLabel htmlFor="nome">Nome Completo</FormLabel>
-                  <Input
-                    id="nome"
-                    value={nome || ""}
-                    onChange={(e) => setNome(e.target.value)}
-                    placeholder="Digite seu Nome Completo..."
-                  />
-                </Box>
-
-                <Box w="100%">
-                  <FormLabel htmlFor="nasc">Data de Nascimento</FormLabel>
-                  <Input
-                    id="nasc"
-                    type="date"
-                    value={dataNascimento || ""}
-                    onChange={(e) => setDataNascimento(e.target.value)}
-                  />
-                </Box>
-              </HStack>
-              <HStack spacing="4">
-                <Box w="100%">
-                  <FormLabel htmlFor="Tefone">Telefone</FormLabel>
-                  <Input
-                    id="Tefone"
-                    type="number"
-                    value={telefone || ""}
-                    onChange={(e) => setTelefone(e.target.value)}
-                    placeholder="Digite o seu Telefone"
-                  />
-                </Box>
-
-                <Box w="100%">
-                  <FormLabel htmlFor="cpf">CPF</FormLabel>
-                  <Input
-                    id="cpf"
-                    type="text"
-                    value={cpf || ""}
-                    onChange={(e) => setCpf(e.target.value)}
-                    placeholder="Digite seu CPF..."
-                  />
-                </Box>
-
-                <Box w="100%">
-                  <FormLabel htmlFor="cep">CEP</FormLabel>
-                  <Input
-                    id="cep"
-                    type="text"
-                    value={cep || ""}
-                    onChange={(e) => setCep(e.target.value)}
-                    onBlur={handleInformation}
-                    placeholder="Digite seu CEP..."
-                  />
-                </Box>
-              </HStack>
-              <HStack spacing="4">
-                <Box w="100%">
-                  <FormLabel htmlFor="email">E-mail</FormLabel>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email || ""}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Digite seu Email..."
-                  />
-                </Box>
-                <Box w="100%">
-                  <FormLabel htmlFor="senha">Senha</FormLabel>
-                  <Input
-                    id="senha"
-                    type="password"
-                    value={senha || ""}
-                    onChange={(e) => setSenha(e.target.value)}
-                    placeholder="Digite sua Senha ..."
-                  />
-                </Box>
-              </HStack>
-              <HStack spacing="4">
-                <Box w="100%">
-                  <FormLabel htmlFor="endereco">Endereço</FormLabel>
-                  <Input
-                    className="end-inf"
-                    id="endereco"
-                    value={endereco || ""}
-                    onChange={(e) => setEndereco(e.target.value)}
-                    disabled
-                  />
-                </Box>
-
-                <Box w="100%">
-                  <FormLabel htmlFor="complemento">Complemento</FormLabel>
-                  <Input
-                    id="complemento"
-                    value={complemento || ""}
-                    onChange={(e) => setComplemento(e.target.value)}
-                    placeholder="Digite o complemento do seu endereço ..."
-                  />
-                </Box>
-              </HStack>
-              <HStack spacing="4">
-                <Box w="100%">
-                  <FormLabel htmlFor="numero">Numero</FormLabel>
-                  <Input
-                    id="numero"
-                    value={numero || ""}
-                    onChange={(e) => setNumero(e.target.value)}
-                    placeholder="Digite o número da sua casa ou apartamento"
-                  />
-                </Box>
-
-                <Box w="100%">
-                  <FormLabel htmlFor="cidade">Cidade</FormLabel>
-                  <Input
-                    className="end-inf"
-                    id="cidade"
-                    value={cidade || ""}
-                    onChange={(e) => setCidade(e.target.value)}
-                    disabled
-                  />
-                </Box>
-
-                <Box w="100%">
-                  <FormLabel htmlFor="estado">Estado</FormLabel>
-                  <Input
-                    className="end-inf"
-                    id="estado"
-                    value={estado || ""}
-                    onChange={(e) => setEstado(e.target.value)}
-                    disabled
-                  />
-                </Box>
-              </HStack>
-              <HStack justify="center">
-                <Button
-                  w={240}
-                  p="6"
-                  bg="#203874"
-                  color="white"
-                  fontWeight="bold"
-                  fontSize="xl"
-                  mt="2"
-                  _hover={{ opacity: "0.9" }}
-                  type="submit"
-                  onClick={handleSubmit}
-                >
-                  Editar
-                </Button>
-              </HStack>
-            </FormControl>
-          </main>
-
-          <div className="form-responsivo">
-            <form className="register" onSubmit={handleSubmit}>
-              <label htmlFor="nome">Nome Completo</label>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  name="nome"
-                  value={nome || ""}
-                  onChange={(e) => setNome(e.target.value)}
-                  placeholder="Digite seu Nome Completo..."
-                />
+            <div className="form-grid">
+              {/* Informações Pessoais */}
+              <div className="card">
+                <div className="form-card-header">
+                  <User style={{ color: "#2563eb" }} size={22} />
+                  <h2>Informações Pessoais</h2>
+                </div>
+                <div className="form-group-stack">
+                  <div>
+                    <label className="form-label">
+                      <User size={16} />
+                      <span>Nome Completo</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Digite seu Nome Completo..."
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
+                      className="form-input focus-blue"
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">
+                      <Calendar size={16} />
+                      <span>Data de Nascimento</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="dd/mm/aaaa"
+                      value={dataNascimento}
+                      onChange={(e) => setDataNascimento(e.target.value)}
+                      className="form-input focus-blue"
+                    />
+                  </div>
+                  <div className="form-row-2-cols">
+                    <div>
+                      <label className="form-label">
+                        <Phone size={16} />
+                        <span>Telefone</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="+5511999998888"
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
+                        className="form-input focus-blue"
+                      />
+                    </div>
+                    <div>
+                      <label className="form-label">
+                        <CreditCard size={16} />
+                        <span>CPF</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Digite seu CPF..."
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
+                        className="form-input focus-blue"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="form-label">
+                      <Mail size={16} />
+                      <span>E-mail</span>
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="Digite seu Email..."
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="form-input focus-blue"
+                    />
+                  </div>
+                </div>
               </div>
 
-              <label htmlFor="d-nas">Data de Nascimento</label>
-              <div className="form-floating mb-3 c-f">
-                <input
-                  type="date"
-                  name="d-nas"
-                  value={dataNascimento || ""}
-                  onChange={(e) => setDataNascimento(e.target.value)}
-                />
+              {/* Endereço */}
+              <div className="card">
+                <div className="form-card-header">
+                  <MapPin style={{ color: "#16a34a" }} size={22} />
+                  <h2>Endereço</h2>
+                </div>
+                <div className="form-group-stack">
+                  <div>
+                    <label className="form-label">CEP</label>
+                    <input
+                      type="text"
+                      placeholder="Digite seu CEP..."
+                      value={cep}
+                      onChange={(e) => setCep(e.target.value)}
+                      onBlur={handleCepBlur}
+                      className="form-input focus-green"
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">Endereço</label>
+                    <input
+                      type="text"
+                      placeholder="Preenchido automaticamente"
+                      value={endereco}
+                      onChange={(e) => setEndereco(e.target.value)}
+                      className="form-input focus-green"
+                      readOnly
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">Complemento</label>
+                    <input
+                      type="text"
+                      placeholder="Apartamento, bloco, etc..."
+                      value={complemento}
+                      onChange={(e) => setComplemento(e.target.value)}
+                      className="form-input focus-green"
+                    />
+                  </div>
+                  <div className="form-row-3-cols">
+                    <div>
+                      <label className="form-label">Número</label>
+                      <input
+                        type="text"
+                        value={numero}
+                        onChange={(e) => setNumero(e.target.value)}
+                        className="form-input focus-green"
+                      />
+                    </div>
+                    <div>
+                      <label className="form-label">Cidade</label>
+                      <input
+                        type="text"
+                        value={cidade}
+                        onChange={(e) => setCidade(e.target.value)}
+                        className="form-input focus-green"
+                        readOnly
+                      />
+                    </div>
+                    <div>
+                      <label className="form-label">Estado</label>
+                      <input
+                        type="text"
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                        className="form-input focus-green"
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <label htmlFor="tel">Telefone</label>
-              <div className="form-floating mb-3">
-                <input
-                  type="tel"
-                  name="tel"
-                  value={telefone || ""}
-                  onChange={(e) => setTelefone(e.target.value)}
-                  placeholder="Digite o seu Telefone"
-                />
-              </div>
-
-              <label htmlFor="cpf">CPF</label>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  name="cpf"
-                  value={cpf || ""}
-                  onChange={(e) => setCpf(e.target.value)}
-                  placeholder="Digite seu CPF..."
-                />
-              </div>
-
-              <label htmlFor="cep">CEP</label>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  name="cep"
-                  value={cep || ""}
-                  onChange={(e) => setCep(e.target.value)}
-                  onBlur={handleInformation}
-                  placeholder="Digite seu CEP..."
-                />
-              </div>
-
-              <label htmlFor="email">Email</label>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  name="email"
-                  value={email || ""}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Digite seu Email..."
-                />
-              </div>
-
-              <label htmlFor="senha">Senha</label>
-              <div className="form-floating mb-3">
-                <input
-                  type="password"
-                  name="senha"
-                  value={senha || ""}
-                  onChange={(e) => setSenha(e.target.value)}
-                  placeholder="Digite sua Senha ..."
-                />
-              </div>
-
-              <label htmlFor="endereco">Endereço</label>
-              <div className="form-floating mb-3">
-                <input
-                  className="end-inf"
-                  name="endereco"
-                  value={endereco || ""}
-                  onChange={(e) => setEndereco(e.target.value)}
-                  disabled
-                />
-              </div>
-
-              <label htmlFor="complemento">Complemento</label>
-              <div className="form-floating mb-3">
-                <input
-                  name="complemento"
-                  value={complemento || ""}
-                  onChange={(e) => setComplemento(e.target.value)}
-                  placeholder="Digite o complemento do seu endereço ..."
-                />
-              </div>
-
-              <label htmlFor="numero">Numero</label>
-              <div className="form-floating mb-3">
-                <input
-                  name="numero"
-                  value={numero || ""}
-                  onChange={(e) => setNumero(e.target.value)}
-                  placeholder="Digite o número da sua casa ou apartamento"
-                />
-              </div>
-
-              <label htmlFor="cidade">Cidade</label>
-              <div className="form-floating mb-3">
-                <input
-                  className="end-inf"
-                  name="cidade"
-                  value={cidade || ""}
-                  onChange={(e) => setCidade(e.target.value)}
-                  disabled
-                />
-              </div>
-
-              <label htmlFor="estado">Estado</label>
-              <div className="form-floating mb-3">
-                <input
-                  className="end-inf"
-                  name="estado"
-                  value={estado || ""}
-                  onChange={(e) => setEstado(e.target.value)}
-                  disabled
-                />
-              </div>
-
-              <button type="submit">Entrar</button>
-            </form>
+            </div>
           </div>
-        </section>
-      </ChakraProvider>
-
+        </div>
+      </form>
       <Footer />
     </>
   );

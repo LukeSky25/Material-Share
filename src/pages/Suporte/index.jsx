@@ -1,5 +1,7 @@
 import { MdOutlineMailOutline } from "react-icons/md";
 import { SiWhatsapp } from "react-icons/si";
+import { FaPhone } from "react-icons/fa";
+import { GoArrowUpRight } from "react-icons/go";
 
 import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
@@ -11,58 +13,65 @@ export const Suporte = () => {
     <>
       <Header />
 
-      <section>
-        <main className="suporte">
-          <h1 className="title">Suporte</h1>
+      <div className="suporte-page">
+        <div className="suporte-hero">
+          <p className="suporte-title">Central de Suporte</p>
+          <p className="suporte-subtitle">
+            Em caso de dúvida ou problema, entre em contato conosco enviando uma
+            <br />
+            mensagem. Em um dos nossos meios de contato
+          </p>
+        </div>
 
-          <div>
-            <p>
-              Em caso de dúvida ou problema, entre em contato conosco enviando
-              uma mensamgem, em um dos nossos meios de contato, temos suporte
-              24H:
-            </p>
-          </div>
+        <div className="suporte-contact">
+          <h2 className="suporte-subtitle suporte-heading">Meios de Contato</h2>
 
-          <div className="meios-contato">
-            <h3 className="title">Meios de Contato</h3>
-            <table>
-              <thead>
-                <tr></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <SiWhatsapp size={35} color="green" />
-                  </td>
-                  <td>
-                    <a
-                      className="whatsapp"
-                      href="https://web.whatsapp.com/"
-                      target="_blank"
-                    >
-                      (11) 90000-0000
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <MdOutlineMailOutline size={35} color="red" />
-                  </td>
-                  <td>
-                    <a
-                      className="email"
-                      href="https://www.google.com/intl/pt-BR/gmail/about/"
-                      target="_blank"
-                    >
-                      materialShareSuporte@gmail.com
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="suporte-info">
+            <ul>
+              <li>
+                <SiWhatsapp className="suporte-icon" color="#2cc76a" />
+                <h3 className="suporte-subtitle">WhatsApp</h3>
+                <p className="suporte-description">
+                  Atendimento rápido via WhatsApp
+                </p>
+                <p className="suporte-contact-text">(11) 90000-0000</p>
+                <button className="suporte-button">
+                  <a href="#">
+                    Abrir WhatsApp <GoArrowUpRight size={20} />
+                  </a>
+                </button>
+              </li>
+              <li>
+                <MdOutlineMailOutline
+                  className="suporte-icon"
+                  color="#ef3f29"
+                />
+                <h3 className="suporte-subtitle">Email</h3>
+                <p className="suporte-description">
+                  Envie sua dúvida por e-mail
+                </p>
+                <p className="suporte-contact-text">materialShare@gmail.com</p>
+                <button className="suporte-button">
+                  <a href="#">
+                    Enviar Email <GoArrowUpRight size={20} />
+                  </a>
+                </button>
+              </li>
+              <li>
+                <FaPhone className="suporte-icon" color="#3737a3" />
+                <h3 className="suporte-subtitle">Telefone</h3>
+                <p className="suporte-description">Fale diretamente conosco</p>
+                <p className="suporte-contact-text">(11) 91111-1111</p>
+                <button className="suporte-button">
+                  <a href="#">
+                    Ligar Agora <GoArrowUpRight size={20} />
+                  </a>
+                </button>
+              </li>
+            </ul>
           </div>
-        </main>
-      </section>
+        </div>
+      </div>
 
       <Footer />
     </>

@@ -1,38 +1,161 @@
-.titulo {
-  margin-bottom: 50px;
+/* Estilos gerais da página */
+.config-page {
+  background-color: #f9fafb;
+  min-height: 100vh;
+  padding: 1.5rem;
 }
 
-.form-principal {
+.config-container {
+  max-width: 1280px; /* Largura máxima aumentada para acomodar duas colunas */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilo de card genérico */
+.card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Cabeçalho da página (menor) */
+.config-header {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
-.form-responsivo {
-  display: none;
+.config-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.end-inf {
-  font-weight: bold;
+.config-header-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #2563eb;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.config-header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
 
+.config-header p {
+  color: #6b7280;
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+}
 
-@media screen and (max-width:950px) {
+/* Botão principal */
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-  .form-principal {
-    display: none;
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+/* Grade principal dos formulários */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Padrão de 1 coluna para mobile */
+  gap: 1.5rem; /* Espaçamento entre os cards */
+}
+
+/* Media Query para telas grandes */
+@media (min-width: 1024px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas grandes */
   }
+}
 
-  .end-inf {
-    font-weight: lighter;
-  }
+/* Estilos de formulário */
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
 
-  .form-responsivo {
-    display: flex;
-  }
+.form-card-header h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+}
 
-  .form-responsivo input {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
+.form-group-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ring-color, #3b82f6);
+  border-color: transparent;
+}
+
+.focus-blue:focus {
+  --ring-color: #3b82f6;
+}
+.focus-green:focus {
+  --ring-color: #22c55e;
+}
+
+/* Linhas com 2 ou 3 colunas dentro dos formulários */
+.form-row-2-cols,
+.form-row-3-cols {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-row-3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Layout responsivo para as colunas internas */
+@media (min-width: 768px) {
+  .form-row-2-cols {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

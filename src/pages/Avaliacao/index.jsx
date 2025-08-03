@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaStar, FaPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-import { Header } from "../../components/Adm-Sidebar/Header";
+import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
 
 import "./style.css";

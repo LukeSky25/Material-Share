@@ -1,3 +1,124 @@
+.suporte-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+  font-size: 17px;
+  overflow-x: hidden;
+}
+
+.suporte-hero {
+  background-color: #3580c5;
+  width: 100%;
+  height: 250px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: aliceblue;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.suporte-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.suporte-subtitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.suporte-heading {
+  font-size: 2.3rem;
+  margin: 50px 0;
+
+  font-weight: bold;
+  text-align: center;
+}
+
+.suporte-contact {
+  flex: 1;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.suporte-info ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.suporte-info li {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  width: 260px;
+  height: 350px;
+  margin: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 0 10px #0000001a;
+  transition: transform 0.2s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.suporte-info li:hover {
+  transform: scale(1.03);
+}
+
+.suporte-icon {
+  margin-bottom: 30px;
+  font-size: 50px;
+}
+
+.suporte-description,
+.suporte-contact-text {
+  margin: 20px 0;
+}
+
+.suporte-contact-text {
+  font-weight: bold;
+}
+
+.suporte-button {
+  margin-top: auto;
+  padding: 8px 12px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.suporte-button:hover {
+  background-color: #555;
+}
+
+.suporte-button a {
+  text-decoration: none;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+/*
 .meios-contato {
   width: 40pc;
   padding: 25px;
@@ -34,10 +155,7 @@ table td {
   color: red;
 }
 
-.whatsapp:hover,
-.email:hover {
-  opacity: 0.7;
-}
+
 
 @media screen and (max-width: 966px) {
   .meios-contato {
@@ -74,7 +192,6 @@ table td {
     margin-left: 60px;
   }
 }
-
 
 @media screen and (max-width: 828px) {
   .suporte {
@@ -147,7 +264,6 @@ table td {
 }
 
 @media screen and (max-width: 382px) {
-
   table th,
   table td {
     display: flex;
@@ -171,4 +287,4 @@ table td {
   .meios-contato h3 {
     margin-right: 300px;
   }
-}
+} */
