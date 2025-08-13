@@ -78,7 +78,7 @@ export const Home = () => {
 
           {user ? (
             <div className="abaixar-app">
-              <IoLogoGooglePlaystore size={80} color="#08b834" />
+              <IoLogoGooglePlaystore className="icon" size={80} color="#08b834" />
               <p>
                 Abaixe já o nosso aplicativo na PlayStore,
                 <br /> para utilizar os benefícios do nosso projeto, clicando{" "}

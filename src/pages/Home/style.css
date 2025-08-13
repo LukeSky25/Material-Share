@@ -48,6 +48,7 @@ main {
   margin: 10px;
   padding: 5px;
   width: 150px;
+  background-color: aliceblue;
 }
 
 .welcome-container .buttons button a {
@@ -77,7 +78,8 @@ main {
 
 .info-container .icon {
   font-size: 55px;
-  margin-bottom: 15px;
+  margin: 0 auto 15px auto;
+  display: block;
 }
 
 .info-container h3 {
@@ -92,6 +94,12 @@ main {
 
 .abaixar-app p {
   margin-top: 10px;
+}
+
+.abaixar-app .icon {
+  font-size: 55px;
+  margin: 0 auto 15px auto;
+  display: block;
 }
 
 .abaixar-app a {

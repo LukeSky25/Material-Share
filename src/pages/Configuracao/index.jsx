@@ -128,21 +128,19 @@ export const Configuracao = () => {
       <form onSubmit={handleSubmit} noValidate>
         <div className="config-page">
           <div className="config-container">
-            <div className="card config-header">
-              <div className="config-header-title">
+            <div className="config-header">
+              <div className="config-header-left">
                 <div className="config-header-icon">
                   <Settings style={{ color: "white" }} size={24} />
-                </div>
-                <div>
+                  </div>
                   <h1>Configurações</h1>
-                  <p>Gerencie suas informações pessoais e preferências</p>
                 </div>
+                <button type="submit" className="btn-primary">
+                  <Edit size={16} />
+                  <span>Salvar Alterações</span>
+                </button>
+                <p className="config-subtitle">Gerencie suas informações pessoais e preferências</p>
               </div>
-              <button type="submit" className="btn-primary">
-                <Edit size={16} />
-                <span>Salvar Alterações</span>
-              </button>
-            </div>
 
             <div className="form-grid">
               {/* Informações Pessoais */}
@@ -266,6 +264,7 @@ export const Configuracao = () => {
                       <label className="form-label">Número</label>
                       <input
                         type="text"
+                        placeholder="Número"
                         value={numero}
                         onChange={(e) => setNumero(e.target.value)}
                         className="form-input focus-green"
@@ -275,6 +274,7 @@ export const Configuracao = () => {
                       <label className="form-label">Cidade</label>
                       <input
                         type="text"
+                        placeholder="Cidade"
                         value={cidade}
                         onChange={(e) => setCidade(e.target.value)}
                         className="form-input focus-green"
@@ -285,6 +285,7 @@ export const Configuracao = () => {
                       <label className="form-label">Estado</label>
                       <input
                         type="text"
+                        placeholder="Estado"
                         value={estado}
                         onChange={(e) => setEstado(e.target.value)}
                         className="form-input focus-green"
