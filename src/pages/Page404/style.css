@@ -1,18 +1,61 @@
 .container-404 {
-  background-image: url('/src/assets/construcao-civil-tendencias.webp');
-  object-fit: cover;
   height: 100vh;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
-  color: aliceblue;
+  text-align: center;
+  color: #f0f8ff;
 }
 
-.arrowIcon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 30px;
-  color: aliceblue;
+p.title1 {
+  font-size: 10rem;
+  color: var(--primaryColor);
+  opacity: 0.5;
 }
+
+p.title2 {
+  color: #272626;
+  font-size: 2.5rem;
+}
+
+p.subtitle {
+  color: #272626;
+  font-size: 1.4rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.button-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--primaryColor);
+  color: white;
+  text-decoration: none;
+  padding: 15px 25px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.button-link .back {
+  background-color: #ddd;
+  
+}
+
+.button-link:hover {
+  background-color: #0056b3;
+}
+
+.icon {
+  font-size: 20px;
+}
+
