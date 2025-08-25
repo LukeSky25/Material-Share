@@ -1,6 +1,6 @@
-import { IoMdBookmarks } from "react-icons/io";
-import { TbTargetArrow } from "react-icons/tb";
-import { PiHandshake } from "react-icons/pi";
+import { CiTrophy } from "react-icons/ci";
+import { CiStar } from "react-icons/ci";
+import { GiPadlock } from "react-icons/gi";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 
@@ -12,7 +12,7 @@ import "../../styles/global.css";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const user = true;
+  const user = false;
 
   return (
     <>
@@ -43,42 +43,30 @@ export const Home = () => {
           <div className="info-container">
             <ul>
               <li>
-                <IoMdBookmarks className="icon" color="#2cc76a" />
-                <h3>Historia</h3>
-                <p>
-                  A Material Share é um projeto social, criado em 2024, por
-                  alunos do Instituto Tecnológico de Barueri (ITB) do Jardim
-                  Belval, para um Trabalho de Conclusão de Curso (TCC).
-                </p>
+                <GiPadlock className="icon" color="#3737a3" />
+                <h3>Segurança</h3>
+                <p>Materiais confiáveis para sua contrução.</p>
               </li>
               <li>
-                <TbTargetArrow className="icon" color="#ef3f29" />
-                <h3>Objetivo</h3>
-                <p>
-                  O objetivo principal da Material Share é a redução do
-                  desperdício de materiais de construçao, ajudando assim
-                  preferencialmente pessoas de baixa renda, com a construção de
-                  suas casas. Mas não se limitando somente a pessoas de baixa
-                  renda mais tâmbem qualquer pessoa que necessite de materias de
-                  construção, mas dando preferência a pessoas de baixa renda.
-                </p>
+                <CiStar className="icon" color="#F0CD0C" />
+                <h3>Qualidade</h3>
+                <p>Materiais premium com acabamento impecável.</p>
               </li>
               <li>
-                <PiHandshake className="icon" color="#3737a3" />
-                <h3>Auxilios</h3>
-                <p>
-                  Os nossos principais auxilios ultimamente são escolares, de
-                  professores que nos auxiliam como desenvolver o nosso projeto.
-                  Você tâmbem pode ajudar a fazer o projeto crescer, basta nos
-                  enviar sugestões de melhorias, etc.
-                </p>
+                <CiTrophy className="icon" color="#ff7800" />
+                <h3>Excelencia</h3>
+                <p>Padrão Superior em cada detalhe do projeto.</p>
               </li>
             </ul>
           </div>
 
           {user ? (
             <div className="abaixar-app">
-              <IoLogoGooglePlaystore className="icon" size={80} color="#08b834" />
+              <IoLogoGooglePlaystore
+                className="icon"
+                size={80}
+                color="#08b834"
+              />
               <p>
                 Abaixe já o nosso aplicativo na PlayStore,
                 <br /> para utilizar os benefícios do nosso projeto, clicando{" "}
@@ -88,13 +76,30 @@ export const Home = () => {
               </p>
             </div>
           ) : (
-            <div className="efetuar-login">
-              <BsFillDoorOpenFill size={80} color="#203874" />
-              <p>
-                Efetue login ou crie uma conta para <br /> utilizar os
-                benefícios do projeto
-              </p>
-            </div>
+            <>
+              <div className="categorias">
+                <p className="title">
+                  Produtos de <br />
+                  <span>Construção</span>
+                </p>
+                <p className="subtitle">
+                  Materiais de alta qualidade para seus projetos de contrução e
+                  reforma
+                </p>
+              </div>
+
+              <div className="efetuar-login">
+                <BsFillDoorOpenFill
+                  size={80}
+                  color="#203874"
+                  className="icon"
+                />
+                <p>
+                  Efetue login ou crie uma conta para <br /> utilizar os
+                  benefícios do projeto
+                </p>
+              </div>
+            </>
           )}
         </main>
       </section>

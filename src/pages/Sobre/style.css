@@ -1,0 +1,38 @@
+section {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+  font-size: 17px;
+  margin-top: 50px;
+}
+
+main {
+  flex: 1;
+}
+
+
+.login input,
+.login button {
+  display: flex;
+  margin: 20px;
+  width: 250px;
+  height: 35px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.login button {
+  margin-top: 30px;
+  border: none;
+  background-color: var(--primaryColor);
+  color: aliceblue;
+}
+
+.login button:hover {
+  opacity: 0.9;
+}
+
+span {
+  margin-top: 25px;
+}

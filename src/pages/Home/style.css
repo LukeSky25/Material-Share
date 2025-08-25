@@ -90,13 +90,28 @@ main {
   line-height: 24px;
 }
 
+/* Categorias */
+
+.categorias {
+  font-size: 35px;
+  color: #07397e;
+  font-weight: bolder;
+  padding-top: 40px;
+  margin: 0;
+}
+
+.categorias .title span {
+  color: #3a7fd3;
+}
+
 /* Informações para o usuário */
 
 .abaixar-app p {
   margin-top: 10px;
 }
 
-.abaixar-app .icon {
+.abaixar-app .icon,
+.efetuar-login .icon {
   font-size: 55px;
   margin: 0 auto 15px auto;
   display: block;

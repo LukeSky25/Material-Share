@@ -10,6 +10,7 @@ import { Avaliacao } from "../pages/Avaliacao";
 import { Notificacao } from "../pages/Notificacao";
 import { Suporte } from "../pages/Suporte";
 import { Logout } from "../pages/Logout";
+import { Sobre } from "../pages/Sobre";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 
@@ -20,6 +21,7 @@ export const Rotas = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/sobre" element={<Sobre />} />
         <Route
           path="/user"
           element={
