@@ -1,0 +1,106 @@
+/* ProductCard.css */
+
+.product-card {
+  /* Aumente a largura do card para 300px */
+  width: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra mais suave e espalhada */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: white;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
+}
+
+/* Estilos para o cabeçalho do card (header) */
+.card-header {
+  padding: 30px 20px; /* Mais padding para mais espaço interno */
+  position: relative;
+  min-height: 140px; /* Altura mínima para consistência */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ajuste o tamanho do ícone para melhor visualização */
+.icon {
+  font-size: 4rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* Ajuste o estilo do label para melhor contraste */
+.label {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Estilos para os gradientes e a borda inferior */
+.card-header.gradient-orange {
+  background-image: linear-gradient(135deg, #ff7e5f, #feb47b);
+  border-bottom: 5px solid #ff5733; /* Aumente a espessura da borda */
+}
+.card-header.gradient-red {
+  background-image: linear-gradient(135deg, #e74c3c, #c0392b);
+  border-bottom: 5px solid #c0392b;
+}
+.card-header.gradient-gray {
+  background-image: linear-gradient(135deg, #bdc3c7, #7f8c8d);
+  border-bottom: 5px solid #7f8c8d;
+}
+.card-header.gradient-yellow {
+  background-image: linear-gradient(135deg, #f1c40f, #f39c12);
+  border-bottom: 5px solid #f39c12;
+}
+
+/* Estilos para o conteúdo do card */
+.card-content {
+  padding: 20px 25px; /* Ajuste o padding para maior harmonia */
+  text-align: left;
+}
+
+.card-content h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.product-card .card-button {
+  width: 100%;
+  padding: 12px; /* Aumente o padding do botão */
+  height: auto;
+  border: 2px solid #3498db; /* Borda mais grossa no botão */
+  border-radius: 8px;
+  background-color: transparent;
+  color: #3498db;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  margin-top: 15px; /* Espaço entre a descrição e o botão */
+}
+.product-card .card-button:hover {
+  background-color: #3498db;
+  color: white;
+}

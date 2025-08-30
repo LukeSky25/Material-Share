@@ -41,9 +41,9 @@ export const Login = () => {
     <>
       <Header />
 
-      <section>
+      <section className="login">
         <main>
-          <h1>Login</h1>
+          <h1 className="title">Login</h1>
 
           <form className="login" onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>

@@ -11,6 +11,7 @@ import { Notificacao } from "../pages/Notificacao";
 import { Suporte } from "../pages/Suporte";
 import { Logout } from "../pages/Logout";
 import { Sobre } from "../pages/Sobre";
+import { Servicos } from "../pages/Servicos";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 
@@ -22,6 +23,7 @@ export const Rotas = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/servicos" element={<Servicos />} />
         <Route
           path="/user"
           element={

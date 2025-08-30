@@ -111,9 +111,9 @@
   gap: 5px;
 }
 
-a:link,
-a:visited,
-a:active {
+.link-cards:link,
+.link-cards:visited,
+.link-cards:active {
   text-decoration: none;
   color: aliceblue;
 }

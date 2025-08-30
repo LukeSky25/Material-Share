@@ -3,6 +3,7 @@ import { CiStar } from "react-icons/ci";
 import { GiPadlock } from "react-icons/gi";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 import { BsFillDoorOpenFill } from "react-icons/bs";
+import ProductCard from "../../components/ProductCard/ProductCard.jsx";
 
 import { Header } from "../../components/Header/index.jsx";
 import { Footer } from "../../components/Footer/index.jsx";
@@ -13,6 +14,46 @@ import { Link } from "react-router-dom";
 
 export const Home = () => {
   const user = false;
+
+  const products = [
+    {
+      id: 1,
+      label: "Premium",
+      title: "Telhas Cerâmicas",
+      description:
+        "Telhas de alta qualidade com excelente resistência e durabilidade",
+      icon: "...",
+      gradientClass: "gradient-orange",
+      path: "/",
+    },
+    {
+      id: 2,
+      label: "Resistente",
+      title: "Tijolos Cerâmicos",
+      description: "Tijolos de 6 furos com alta resistência estrutural",
+      icon: "...",
+      gradientClass: "gradient-red",
+      path: "/",
+    },
+    {
+      id: 3,
+      label: "CP-II",
+      title: "Cimento Portland",
+      description: "Cimento de alta qualidade para estruturas e acabamentos",
+      icon: "...",
+      gradientClass: "gradient-gray",
+      path: "/",
+    },
+    {
+      id: 4,
+      label: "Fina",
+      title: "Areia Fina",
+      description: "Areia lavada ideal para reboco e acabamentos",
+      icon: "...",
+      gradientClass: "gradient-yellow",
+      path: "/",
+    },
+  ];
 
   return (
     <>
@@ -29,10 +70,10 @@ export const Home = () => {
           pessoas prontas para transformá-los em novos começos
         </p>
         <div className="buttons">
-          <button className="">
+          <button className="welcome-button">
             <Link to="/register">Começar Agora</Link>
           </button>
-          <button>
+          <button className="welcome-button">
             <Link to="/login">Entrar</Link>
           </button>
         </div>
@@ -77,7 +118,7 @@ export const Home = () => {
             </div>
           ) : (
             <>
-              <div className="categorias">
+              <section className="products-section categorias">
                 <p className="title">
                   Produtos de <br />
                   <span>Construção</span>
@@ -86,7 +127,20 @@ export const Home = () => {
                   Materiais de alta qualidade para seus projetos de contrução e
                   reforma
                 </p>
-              </div>
+                <div className="cards-container">
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      label={product.label}
+                      title={product.title}
+                      description={product.description}
+                      icon={product.icon}
+                      gradientClass={product.gradientClass}
+                      path={product.path}
+                    />
+                  ))}
+                </div>
+              </section>
 
               <div className="efetuar-login">
                 <BsFillDoorOpenFill

@@ -59,9 +59,9 @@ export const Avaliacao = () => {
         <main>
           <h1 className="title">Avaliação</h1>
           <h5 className="title">
-            Nos Ajude a Melhorar{" "}
+            Nos Ajude a Melhorar <br />
             <FaPlus className="icon" color="green" size={25} />
-            <FaPlus color="green" size={25} /> o Projeto!!!
+            <FaPlus className="icon" color="green" size={25} /> o Projeto!!!
           </h5>
           <p>
             Faça uma avaliação geral do projeto e escreva explicando os <br />{" "}

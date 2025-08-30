@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #203874;
+  background-color: #337dc2;
   box-shadow: 0 0 20px 3px;
   position: relative;
 

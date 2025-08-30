@@ -12,6 +12,9 @@ input[type="radio"] {
   display: none;
 }
 
+.icon {
+  display: inline;
+}
 .star {
   cursor: pointer;
 }
@@ -20,7 +23,7 @@ input[type="radio"] {
   margin-top: 50px;
 }
 
-.gold {
+a.gold {
   text-decoration: none;
   color: #e1b32c;
 }

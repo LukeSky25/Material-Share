@@ -36,7 +36,7 @@ export const Suporte = () => {
                 </p>
                 <p className="suporte-contact-text">(11) 90000-0000</p>
                 <button className="suporte-button">
-                  <a href="#">
+                  <a className="link-cards" href="#">
                     Abrir WhatsApp <GoArrowUpRight size={20} />
                   </a>
                 </button>
@@ -52,7 +52,7 @@ export const Suporte = () => {
                 </p>
                 <p className="suporte-contact-text">materialShare@gmail.com</p>
                 <button className="suporte-button">
-                  <a href="#">
+                  <a className="link-cards" href="#">
                     Enviar Email <GoArrowUpRight size={20} />
                   </a>
                 </button>
@@ -63,7 +63,7 @@ export const Suporte = () => {
                 <p className="suporte-description">Fale diretamente conosco</p>
                 <p className="suporte-contact-text">(11) 91111-1111</p>
                 <button className="suporte-button">
-                  <a href="#">
+                  <a className="link-cards" href="#">
                     Ligar Agora <GoArrowUpRight size={20} />
                   </a>
                 </button>

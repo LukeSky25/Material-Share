@@ -1,38 +1,81 @@
-section {
+/* Container de Seções */
+.conteudo-secao {
   display: flex;
-  flex-direction: column;
-  min-height: 90vh;
-  font-size: 17px;
+  align-items: center; /* Alinha verticalmente os itens no centro */
+  gap: 50px; /* Espaço entre a foto e o texto */
   margin-top: 50px;
+  margin-bottom: 80px; /* Espaço entre as seções */
+  padding: 0 50px; /* Adiciona padding nas laterais */
 }
 
-main {
-  flex: 1;
+/* Ordem padrão (foto na esquerda, texto na direita) */
+.conteudo-secao {
+  flex-direction: row;
 }
 
+/* Ordem invertida (foto na direita, texto na esquerda) */
+.conteudo-secao.reverso {
+  flex-direction: row-reverse;
+}
 
-.login input,
-.login button {
+/* Estilo para a seção de texto */
+.secao-texto {
+  flex: 1; /* Ocupa o espaço disponível */
+  padding: 20px;
+}
+
+/* Container do título com ícone */
+.secao-titulo-com-icone {
   display: flex;
-  margin: 20px;
-  width: 250px;
-  height: 35px;
-  text-align: center;
   align-items: center;
-  justify-content: center;
+  gap: 15px; /* Espaço entre o ícone e o título */
+  margin-bottom: 20px;
 }
 
-.login button {
-  margin-top: 30px;
-  border: none;
-  background-color: var(--primaryColor);
-  color: aliceblue;
+/* Estilo para os ícones */
+.icone-secao {
+  font-size: 3rem; /* Aumenta o tamanho do ícone */
 }
 
-.login button:hover {
-  opacity: 0.9;
+/* Estilo para o título */
+.secao-texto h3 {
+  font-size: 2.2rem;
+  color: #333;
+  margin: 0;
 }
 
-span {
-  margin-top: 25px;
+/* Estilo para o parágrafo */
+.secao-texto p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Estilo para a seção da imagem */
+.secao-imagem {
+  flex: 1; /* Ocupa o espaço disponível */
+  display: flex;
+  justify-content: center; /* Centraliza a imagem horizontalmente */
+  align-items: center; /* Centraliza a imagem verticalmente */
+}
+
+.secao-imagem img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .conteudo-secao,
+  .conteudo-secao.reverso {
+    flex-direction: column; /* Em telas menores, a imagem vai para cima e o texto para baixo */
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .secao-texto {
+    padding: 0;
+  }
 }

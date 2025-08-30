@@ -42,13 +42,14 @@ main {
   padding-top: 30px;
 }
 
-.welcome-container .buttons button {
+.welcome-button {
   border: none;
   border-radius: 10px;
   margin: 10px;
   padding: 5px;
   width: 150px;
   background-color: aliceblue;
+  /* e outros estilos que você precisar */
 }
 
 .welcome-container .buttons button a {
@@ -96,12 +97,30 @@ main {
   font-size: 35px;
   color: #07397e;
   font-weight: bolder;
-  padding-top: 40px;
   margin: 0;
 }
 
 .categorias .title span {
   color: #3a7fd3;
+}
+
+.products-section h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.products-section .subtitle {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 60px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaço entre os cards */
+  flex-wrap: wrap; /* Permite que os cards quebrem a linha em telas menores */
 }
 
 /* Informações para o usuário */
@@ -115,6 +134,10 @@ main {
   font-size: 55px;
   margin: 0 auto 15px auto;
   display: block;
+}
+
+.efetuar-login {
+  margin-top: 90px;
 }
 
 .abaixar-app a {

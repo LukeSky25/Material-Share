@@ -1,4 +1,4 @@
-section {
+section.login {
   display: flex;
   flex-direction: column;
   min-height: 90vh;
@@ -10,6 +10,11 @@ main {
   flex: 1;
 }
 
+.login input {
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Opcional: para bordas arredondadas */
+  padding: 0 10px;
+}
 
 .login input,
 .login button {
