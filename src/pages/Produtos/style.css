@@ -1,0 +1,109 @@
+/* Layout principal - filtros à esquerda e produtos à direita */
+.produtos-page-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 30px;
+}
+
+/* Filtros */
+.filtros-container {
+  flex: 0 0 250px; /* largura fixa */
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: max-content;
+}
+
+.filtros-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.4em;
+  color: #333;
+}
+
+.filtro-group {
+  margin-bottom: 20px;
+}
+
+.filtro-group h3 {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.filtro-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #444;
+  cursor: pointer;
+}
+
+/* Coluna da direita */
+.produtos-content-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra de pesquisa */
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.search-bar-container input {
+  width: 100%;
+  max-width: 900px;
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid de produtos responsiva */
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 0 20px;
+}
+
+/* Card de produto */
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* responsivo */
+  gap: 25px;
+  padding: 20px 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .produtos-page-layout {
+    flex-direction: column;
+  }
+
+  .filtros-container {
+    width: 100%;
+  }
+}

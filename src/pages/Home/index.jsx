@@ -3,7 +3,7 @@ import { CiStar } from "react-icons/ci";
 import { GiPadlock } from "react-icons/gi";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 import { BsFillDoorOpenFill } from "react-icons/bs";
-import ProductCard from "../../components/ProductCard/ProductCard.jsx";
+import CategoriaCard from "../../components/CategoriaCard/CategoriaCard.jsx";
 
 import { Header } from "../../components/Header/index.jsx";
 import { Footer } from "../../components/Footer/index.jsx";
@@ -13,9 +13,9 @@ import "../../styles/global.css";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const user = false;
+  const user = true;
 
-  const products = [
+  const categorias = [
     {
       id: 1,
       label: "Premium",
@@ -102,21 +102,6 @@ export const Home = () => {
           </div>
 
           {user ? (
-            <div className="abaixar-app">
-              <IoLogoGooglePlaystore
-                className="icon"
-                size={80}
-                color="#08b834"
-              />
-              <p>
-                Abaixe já o nosso aplicativo na PlayStore,
-                <br /> para utilizar os benefícios do nosso projeto, clicando{" "}
-                <a href="https://play.google.com/store/games" target="_blank">
-                  aqui.
-                </a>
-              </p>
-            </div>
-          ) : (
             <>
               <section className="products-section categorias">
                 <p className="title">
@@ -127,9 +112,9 @@ export const Home = () => {
                   Materiais de alta qualidade para seus projetos de contrução e
                   reforma
                 </p>
-                <div className="cards-container">
-                  {products.map((product) => (
-                    <ProductCard
+                <div className="categoria-container">
+                  {categorias.map((product) => (
+                    <CategoriaCard
                       key={product.id}
                       label={product.label}
                       title={product.title}
@@ -141,7 +126,23 @@ export const Home = () => {
                   ))}
                 </div>
               </section>
-
+              <div className="abaixar-app">
+                <IoLogoGooglePlaystore
+                  className="icon"
+                  size={80}
+                  color="#08b834"
+                />
+                <p>
+                  Abaixe já o nosso aplicativo na PlayStore,
+                  <br /> para utilizar os benefícios do nosso projeto, clicando{" "}
+                  <a href="https://play.google.com/store/games" target="_blank">
+                    aqui.
+                  </a>
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
               <div className="efetuar-login">
                 <BsFillDoorOpenFill
                   size={80}

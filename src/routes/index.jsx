@@ -12,6 +12,7 @@ import { Suporte } from "../pages/Suporte";
 import { Logout } from "../pages/Logout";
 import { Sobre } from "../pages/Sobre";
 import { Servicos } from "../pages/Servicos";
+import { Produtos } from "../pages/Produtos";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 
@@ -24,6 +25,7 @@ export const Rotas = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/servicos" element={<Servicos />} />
+        <Route path="/produtos" element={<Produtos />} />
         <Route
           path="/user"
           element={

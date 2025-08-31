@@ -116,7 +116,7 @@ main {
   margin-bottom: 60px;
 }
 
-.cards-container {
+.categoria-container {
   display: flex;
   justify-content: center;
   gap: 20px; /* Espaço entre os cards */
@@ -136,7 +136,8 @@ main {
   display: block;
 }
 
-.efetuar-login {
+.efetuar-login,
+.abaixar-app {
   margin-top: 90px;
 }
 
