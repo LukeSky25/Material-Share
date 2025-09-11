@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import usuarioService from "../../services/UsuarioService";
+
 import { isEmail, isDate } from "validator";
 import { toast } from "react-toastify";
 import validarCpf from "validar-cpf";
@@ -20,6 +24,8 @@ import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
 
 export const Configuracao = () => {
+  const { id } = useParams();
+
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -31,6 +37,35 @@ export const Configuracao = () => {
   const [numero, setNumero] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
+
+  useEffect(() => {
+    // Adicione um array de dependências vazio para o useEffect rodar apenas uma vez
+    const fetchData = async () => {
+      try {
+        const response = await usuarioService.findById(id);
+
+        // Garanta que cada valor seja uma string, nunca undefined ou null
+        setNome(response.data.nome || "");
+        setDataNascimento(response.data.dataNascimento || "");
+        setTelefone(response.data.telefone || "");
+        setCpf(response.data.cpf || "");
+        setEmail(response.data.email || "");
+        setCep(response.data.cep || "");
+        setEndereco(response.data.endereco || "");
+        setComplemento(response.data.complemento || "");
+        setNumero(response.data.numero || "");
+        setCidade(response.data.cidade || "");
+        setEstado(response.data.estado || "");
+      } catch (error) {
+        console.error("Erro ao buscar dados do usuário:", error);
+        toast.error("Não foi possível carregar os dados do usuário.");
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
 
   const inverteData = (data) => data.split("/").reverse().join("/");
 
@@ -132,15 +167,17 @@ export const Configuracao = () => {
               <div className="config-header-left">
                 <div className="config-header-icon">
                   <Settings style={{ color: "white" }} size={24} />
-                  </div>
-                  <h1>Configurações</h1>
                 </div>
-                <button type="submit" className="btn-primary">
-                  <Edit size={16} />
-                  <span>Salvar Alterações</span>
-                </button>
-                <p className="config-subtitle">Gerencie suas informações pessoais e preferências</p>
+                <h1>Configurações</h1>
               </div>
+              <button type="submit" className="btn-primary">
+                <Edit size={16} />
+                <span>Salvar Alterações</span>
+              </button>
+              <p className="config-subtitle">
+                Gerencie suas informações pessoais e preferências
+              </p>
+            </div>
 
             <div className="form-grid">
               {/* Informações Pessoais */}

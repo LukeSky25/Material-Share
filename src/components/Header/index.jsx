@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import { isUserLoggedIn } from "../../auth/authService";
+
 import { FaRegUserCircle } from "react-icons/fa";
 
 import "./style.css";
@@ -6,18 +10,20 @@ import "../../styles/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const Header = () => {
-  const user = true;
+  const [user, setUser] = useState({ loggedIn: false, data: null });
+
+  useEffect(() => {
+    setUser(isUserLoggedIn());
+  }, []);
 
   return (
     <nav className="navbar">
-      {/* Logo à esquerda */}
       <div className="navbar-left">
         <Link to="/" className="navbar-brand">
           <p className="logo">Material Share</p>
         </Link>
       </div>
 
-      {/* Links à direita */}
       <div className="navbar-right">
         <Link to="/" className="c_button">
           Início
@@ -28,8 +34,8 @@ export const Header = () => {
         <Link to="/sobre" className="c_button">
           Sobre
         </Link>
-        {user ? (
-          <Link to="/user" className="user-icon">
+        {user.loggedIn && user.data ? (
+          <Link to={`/user/${user.data.id}`} className="user-icon">
             <FaRegUserCircle />
           </Link>
         ) : (

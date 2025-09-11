@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import { isUserLoggedIn } from "../../auth/authService";
+
 import { CiTrophy } from "react-icons/ci";
 import { CiStar } from "react-icons/ci";
 import { GiPadlock } from "react-icons/gi";
@@ -10,10 +15,13 @@ import { Footer } from "../../components/Footer/index.jsx";
 
 import "./style.css";
 import "../../styles/global.css";
-import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const user = true;
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    setUser(isUserLoggedIn());
+  }, []);
 
   const categorias = [
     {

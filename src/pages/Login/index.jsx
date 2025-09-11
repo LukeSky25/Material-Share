@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import usuarioService from "../../services/UsuarioService";
+
 import { isEmail } from "validator";
 import { toast } from "react-toastify";
 
@@ -14,7 +16,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,15 +28,24 @@ export const Login = () => {
       toast.error("Email Inválido");
     }
 
-    if (!senha) {
+    if (!password) {
       formErrors = true;
       toast.error("Senha Inválida");
     }
 
     if (formErrors) return;
 
-    toast.success("Login realizado com sucesso");
-    navigate("/");
+    usuarioService.signIn(email, password).then(() => {
+      const userJson = localStorage.getItem("user");
+      const user = JSON.parse(userJson || "{}");
+
+      if (user.statusUsuario === "ATIVO") {
+        toast.success("Login realizado com sucesso");
+        navigate("/");
+      } else if (user.statusUsuario === "TROCAR_SENHA") {
+        navigate(`/newpass/${user.id}`);
+      }
+    });
   };
 
   return (
@@ -62,8 +73,8 @@ export const Login = () => {
               <input
                 type="password"
                 name="senha"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Digite sua Senha ..."
               />
               <button type="submit">Entrar</button>

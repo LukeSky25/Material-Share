@@ -27,7 +27,7 @@ export const Rotas = () => {
         <Route path="/servicos" element={<Servicos />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route
-          path="/user"
+          path="/user/:id"
           element={
             <PrivateRoutes>
               <Configuracao />
