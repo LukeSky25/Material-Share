@@ -4,6 +4,8 @@ import { isEmail, isDate } from "validator";
 import { toast } from "react-toastify";
 import validarCpf from "validar-cpf";
 
+import PessoaService from "../../services/PessoaService";
+
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 
@@ -72,6 +74,8 @@ export const Register = () => {
 
     toast.success("Conta criada com sucesso");
     navigate("/");
+
+    PessoaService.save();
   };
 
   const inverteData = (data) => data.split("/").reverse().join("-");

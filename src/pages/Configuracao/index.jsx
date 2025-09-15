@@ -18,7 +18,7 @@ import {
   MapPin,
 } from "lucide-react";
 
-import "./style.css"; // Importe o seu arquivo CSS
+import "./style.css";
 
 import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
@@ -39,12 +39,10 @@ export const Configuracao = () => {
   const [estado, setEstado] = useState("");
 
   useEffect(() => {
-    // Adicione um array de dependências vazio para o useEffect rodar apenas uma vez
     const fetchData = async () => {
       try {
         const response = await usuarioService.findById(id);
 
-        // Garanta que cada valor seja uma string, nunca undefined ou null
         setNome(response.data.nome || "");
         setDataNascimento(response.data.dataNascimento || "");
         setTelefone(response.data.telefone || "");

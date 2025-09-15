@@ -21,10 +21,15 @@ const signIn = async (email, senha) => {
   return response.data;
 };
 
+const logout = () => {
+  localStorage.removeItem("user");
+};
+
 const usuarioService = {
   findAll,
   findById,
   signIn,
+  logout,
 };
 
 export default usuarioService;
