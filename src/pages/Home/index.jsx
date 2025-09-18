@@ -94,7 +94,7 @@ export const Home = () => {
               <li>
                 <GiPadlock className="icon" color="#3737a3" />
                 <h3>Segurança</h3>
-                <p>Materiais confiáveis para sua contrução.</p>
+                <p>Materiais confiáveis para sua obra, construção.</p>
               </li>
               <li>
                 <CiStar className="icon" color="#F0CD0C" />
@@ -104,7 +104,7 @@ export const Home = () => {
               <li>
                 <CiTrophy className="icon" color="#ff7800" />
                 <h3>Excelencia</h3>
-                <p>Padrão Superior em cada detalhe do projeto.</p>
+                <p>Padrão superior em cada detalhe do projeto.</p>
               </li>
             </ul>
           </div>

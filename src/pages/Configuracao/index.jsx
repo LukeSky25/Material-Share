@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import usuarioService from "../../services/UsuarioService";
+import UsuarioService from "../../services/UsuarioService";
 
 import { isEmail, isDate } from "validator";
 import { toast } from "react-toastify";
@@ -41,7 +41,7 @@ export const Configuracao = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await usuarioService.findById(id);
+        const response = await UsuarioService.findById(id);
 
         setNome(response.data.nome || "");
         setDataNascimento(response.data.dataNascimento || "");
