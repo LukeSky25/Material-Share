@@ -1,43 +1,95 @@
-section.login {
+/* Container principal da página de login */
+.login-container {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
-  font-size: 17px;
-  margin-top: 50px;
-}
-
-main {
-  flex: 1;
-}
-
-.login input {
-  border: 1px solid #ccc;
-  border-radius: 8px; /* Opcional: para bordas arredondadas */
-  padding: 0 10px;
-}
-
-.login input,
-.login button {
-  display: flex;
-  margin: 20px;
-  width: 250px;
-  height: 35px;
-  text-align: center;
   align-items: center;
-  justify-content: center;
+  padding: 2rem 1rem;
+  width: 100%;
+  min-height: calc(100vh - 120px);
 }
 
-.login button {
-  margin-top: 30px;
+.login-container .title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 3rem;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login-form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.login-form-group input {
+  width: 400px;
+  height: 45px;
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #faf8f8;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.submit-button {
+  width: 100%;
+  height: 45px;
+  background-color: var(--primaryColor, #007bff);
+  color: white;
   border: none;
-  background-color: var(--primaryColor);
-  color: aliceblue;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
 }
 
-.login button:hover {
-  opacity: 0.9;
+.submit-button:hover {
+  background-color: var(--primaryColorHover, #0056b3);
 }
 
-span {
-  margin-top: 25px;
+.submit-button:disabled {
+  background-color: #a0c9f5;
+  cursor: not-allowed;
+}
+
+.register-link {
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+.register-link a {
+  color: var(--primaryColor, #007bff);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
 }

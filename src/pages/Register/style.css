@@ -1,67 +1,116 @@
-section {
-  margin-top: 10px;
+section.register-section {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   font-size: 17px;
-  text-align: center;
+  margin-top: 10px;
 }
 
-h1 {
-  font-size: 45px;
-  margin-top: 35px;
+.title {
+  font-size: 40px;
+  margin-top: 30px;
+  font-weight: bolder;
 }
 
-.register {
-  margin-top: 25px;
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
 }
 
-.register input {
-  border: 1px solid #ccc;
-  border-radius: 8px; /* Opcional: para bordas arredondadas */
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 500px;
+  height: 45px;
   padding: 0 10px;
-}
-
-.register input,
-.register button {
-  display: flex;
-  margin: 15px;
-  width: 260px;
-  height: 30px;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-}
-
-select {
-  display: flex;
-  margin: 15px;
-  width: 260px;
-  height: 30px;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+  font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 0 10px;
-}
-
-.register button {
-  margin-top: 30px;
-  border: none;
-  background-color: var(--primaryColor);
-  color: aliceblue;
-}
-
-.register button:hover {
-  opacity: 0.9;
-}
-
-span {
-  margin-top: 25px;
+  background: #faf8f8;
+  box-sizing: border-box;
 }
 
 .c-f {
   font-size: 16px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--primaryColor, #007bff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submit-button:hover {
+  background-color: var(--primaryColorHover, #0056b3);
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.login-link {
+  margin-top: 1.8rem;
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+}
+
+.login-link a {
+  color: var(--primaryColor, #007bff);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+  color: var(--primaryColorHover, #0056b3);
+}
+
+@media (max-width: 600px) {
+  .register-section {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .register-section .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .register-form {
+    padding: 1.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .submit-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .login-link {
+    font-size: 0.85rem;
+    margin-top: 1.2rem;
+  }
 }

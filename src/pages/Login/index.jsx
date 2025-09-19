@@ -1,11 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-
-import usuarioService from "../../services/UsuarioService";
-
 import { isEmail } from "validator";
 import { toast } from "react-toastify";
 
+import UsuarioService from "../../services/UsuarioService";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 
@@ -14,81 +12,89 @@ import "../../styles/global.css";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [email, setEmail] = useState("");
+  const initialEmail = location.state?.email || "";
+
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let formErrors = false;
+    setIsLoading(true);
 
     if (!isEmail(email)) {
-      formErrors = true;
-      toast.error("Email Inválido");
+      toast.error("O formato do e-mail é inválido.");
+      setIsLoading(false);
+      return;
     }
-
     if (!password) {
-      formErrors = true;
-      toast.error("Senha Inválida");
+      toast.error("A senha é obrigatória.");
+      setIsLoading(false);
+      return;
     }
 
-    if (formErrors) return;
-
-    usuarioService.signIn(email, password).then(() => {
+    try {
+      await UsuarioService.signIn(email, password);
       const userJson = localStorage.getItem("user");
       const user = JSON.parse(userJson || "{}");
 
       if (user.statusUsuario === "ATIVO") {
-        toast.success("Login realizado com sucesso");
+        toast.success("Login realizado com sucesso!");
         navigate("/");
       } else if (user.statusUsuario === "TROCAR_SENHA") {
         navigate(`/newpass/${user.id}`);
+      } else {
+        toast.warn("Usuário inativo ou status desconhecido.");
       }
-    });
+    } catch (error) {
+      console.error("Erro no login:", error);
+      toast.error("E-mail ou senha incorretos.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
       <Header />
-
-      <section className="login">
-        <main>
-          <h1 className="title">Login</h1>
-
-          <form className="login" onSubmit={handleSubmit}>
+      <section className="login-container">
+        <h1 className="title">Login</h1>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="login-form-group">
             <label htmlFor="email">Email</label>
-            <div className="form-floating mb-3">
-              <input
-                type="text"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Digite seu Email..."
-              />
-            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Digite seu Email..."
+            />
+          </div>
 
+          <div className="login-form-group">
             <label htmlFor="senha">Senha</label>
-            <div className="form-floating mb-3">
-              <input
-                type="password"
-                name="senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Digite sua Senha ..."
-              />
-              <button type="submit">Entrar</button>
-            </div>
-          </form>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Digite sua Senha..."
+            />
+          </div>
 
-          <span>
-            Não tem uma conta ainda?,
-            <br /> crie sua conta já clicando{" "}
-            <Link to={"/register"}>aqui!</Link>
-          </span>
-        </main>
+          <button type="submit" className="submit-button" disabled={isLoading}>
+            {isLoading ? "Entrando..." : "Entrar"}
+          </button>
+        </form>
+
+        <p className="register-link">
+          Não tem uma conta? <Link to={"/register"}>Crie uma agora!</Link>
+        </p>
       </section>
-
       <Footer />
     </>
   );

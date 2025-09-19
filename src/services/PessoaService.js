@@ -11,20 +11,11 @@ const findById = (id) => {
 };
 
 const findByTipo = (tipo) => {
-  return http.mainInstace.get(`${API_URL}findByTipo/${tipo}`);
+  return http.mul.get(`${API_URL}findByTipo/${tipo}`);
 };
 
 const save = (data) => {
-  const formData = new FormData();
-  formData.append("nome", data.nome);
-  formData.append("dataNascimento", data.dataNascimento);
-  formData.append("cpf_cnpj", data.cpf_cnpj);
-  formData.append("numeroResidencia", data.numeroResidencia);
-  formData.append("tipo", data.tipo);
-  formData.append("usuario_id", data.usuario_id);
-  formData.append("statusDoador", "ATIVO");
-
-  return http.mainInstace.post(API_URL + "save", formData);
+  return http.mainInstace.post(`${API_URL}save`, data);
 };
 
 const editar = (id, data) => {

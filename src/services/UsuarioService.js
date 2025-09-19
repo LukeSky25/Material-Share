@@ -25,11 +25,21 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+const save = (data) => {
+  const formData = new FormData();
+  formData.append("nome", data.nome);
+  formData.append("email", data.email);
+  formData.append("senha", data.senha);
+
+  return http.mainInstace.post(`${API_URL}save`, formData);
+};
+
 const usuarioService = {
   findAll,
   findById,
   signIn,
   logout,
+  save,
 };
 
 export default usuarioService;
