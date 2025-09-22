@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.13.0",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.3",
+    "cnpj": "^5.0.0",
     "dayjs": "^1.11.18",
     "framer-motion": "^11.5.4",
     "lucide-react": "^0.536.0",

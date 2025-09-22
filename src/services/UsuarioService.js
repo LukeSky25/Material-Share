@@ -26,12 +26,7 @@ const logout = () => {
 };
 
 const save = (data) => {
-  const formData = new FormData();
-  formData.append("nome", data.nome);
-  formData.append("email", data.email);
-  formData.append("senha", data.senha);
-
-  return http.mainInstace.post(`${API_URL}save`, formData);
+  return http.mainInstace.post(`${API_URL}save`, data);
 };
 
 const usuarioService = {

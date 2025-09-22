@@ -8,7 +8,7 @@ export const isUserLoggedIn = () => {
   try {
     const userData = JSON.parse(userDataString);
 
-    if (userData && userData.id && userData.email) {
+    if (userData && userData.id && userData.usuario && userData.usuario.email) {
       return {
         loggedIn: true,
         data: userData,

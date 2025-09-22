@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { isEmail } from "validator";
 import { toast } from "react-toastify";
+import * as cnpj from "cnpj";
 import validarCpf from "validar-cpf";
 import dayjs from "dayjs";
 
@@ -19,20 +20,30 @@ export const Register = () => {
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [celular, setCelular] = useState("");
-  const [cpf, setCpf] = useState("");
+  const [cpfCnpj, setCpfCnpj] = useState("");
   const [cep, setCep] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [t_user, setT_user] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const formatCPF = (value) => {
+  const formatCpfCnpj = (value) => {
     const cleanedValue = value.replace(/\D/g, "");
-    return cleanedValue
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
-      .slice(0, 14);
+
+    if (cleanedValue.length <= 11) {
+      return cleanedValue
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+        .slice(0, 14);
+    } else {
+      return cleanedValue
+        .replace(/(\d{2})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1/$2")
+        .replace(/(\d{4})(\d{1,2})/, "$1-$2")
+        .slice(0, 18);
+    }
   };
 
   const formatCEP = (value) => {
@@ -55,7 +66,7 @@ export const Register = () => {
   };
 
   const validateForm = async () => {
-    const cleanedCpf = cpf.replace(/\D/g, "");
+    const cleanedDoc = cpfCnpj.replace(/\D/g, "");
     const cleanedCelular = celular.replace(/\D/g, "");
     const cleanedCep = cep.replace(/\D/g, "");
 
@@ -76,10 +87,19 @@ export const Register = () => {
       toast.error("O número de celular está incompleto.");
       return true;
     }
-    if (!validarCpf(cleanedCpf)) {
-      toast.error("O CPF é inválido.");
+
+    let isDocValid = false;
+    if (cleanedDoc.length === 11) {
+      isDocValid = validarCpf(cleanedDoc);
+    } else if (cleanedDoc.length === 14) {
+      isDocValid = cnpj.isValid(cleanedDoc);
+    }
+
+    if (!isDocValid) {
+      toast.error("O CPF ou CNPJ informado é inválido.");
       return true;
     }
+
     if (cleanedCep.length !== 8) {
       toast.error("O CEP deve conter 8 dígitos.");
       return true;
@@ -139,12 +159,10 @@ export const Register = () => {
         return;
       }
 
-      // celular: celular.replace(/\D/g, ''),
-
       const dadosPessoa = {
         nome: nome,
         dataNascimento: dataNascimento,
-        cpf_cnpj: cpf.replace(/\D/g, ""),
+        cpf_cnpj: cpfCnpj.replace(/\D/g, ""),
         cep: cep.replace(/\D/g, ""),
         tipo: t_user,
         usuario: { id: novoUsuarioId },
@@ -186,6 +204,7 @@ export const Register = () => {
 
           <div className="form-group">
             <label htmlFor="dataNascimento">Data de Nascimento</label>
+
             <input
               type="date"
               id="dataNascimento"
@@ -197,6 +216,7 @@ export const Register = () => {
 
           <div className="form-group">
             <label htmlFor="celular">Celular</label>
+
             <input
               type="tel"
               id="celular"
@@ -207,22 +227,21 @@ export const Register = () => {
               maxLength="15"
             />
           </div>
-
           <div className="form-group">
-            <label htmlFor="cpf">CPF</label>
+            <label htmlFor="cpfCnpj">CPF ou CNPJ</label>
             <input
               type="text"
-              id="cpf"
-              name="cpf"
-              value={cpf}
-              onChange={(e) => setCpf(formatCPF(e.target.value))}
-              placeholder="XXX.XXX.XXX-XX"
-              maxLength="14"
+              id="cpfCnpj"
+              name="cpfCnpj"
+              value={cpfCnpj}
+              onChange={(e) => setCpfCnpj(formatCpfCnpj(e.target.value))}
+              placeholder="Digite seu CPF ou CNPJ"
+              maxLength="18"
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="cep">CEP</label>
+
             <input
               type="text"
               id="cep"
@@ -236,6 +255,7 @@ export const Register = () => {
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
+
             <input
               type="email"
               id="email"
@@ -248,6 +268,7 @@ export const Register = () => {
 
           <div className="form-group">
             <label htmlFor="senha">Senha</label>
+
             <input
               type="password"
               id="senha"
@@ -260,6 +281,7 @@ export const Register = () => {
 
           <div className="form-group">
             <label htmlFor="t_user">Tipo de Usuário</label>
+
             <select
               id="t_user"
               name="t_user"
@@ -273,7 +295,6 @@ export const Register = () => {
               <option value="BENEFICIADO">Beneficiado</option>
             </select>
           </div>
-
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Cadastrando..." : "Cadastrar"}
           </button>

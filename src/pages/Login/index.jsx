@@ -4,6 +4,7 @@ import { isEmail } from "validator";
 import { toast } from "react-toastify";
 
 import UsuarioService from "../../services/UsuarioService";
+
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 
@@ -36,15 +37,13 @@ export const Login = () => {
     }
 
     try {
-      await UsuarioService.signIn(email, password);
-      const userJson = localStorage.getItem("user");
-      const user = JSON.parse(userJson || "{}");
+      const pessoaLogada = await UsuarioService.signIn(email, password);
 
-      if (user.statusUsuario === "ATIVO") {
+      if (pessoaLogada.usuario.statusUsuario === "ATIVO") {
         toast.success("Login realizado com sucesso!");
         navigate("/");
-      } else if (user.statusUsuario === "TROCAR_SENHA") {
-        navigate(`/newpass/${user.id}`);
+      } else if (pessoaLogada.usuario.statusUsuario === "TROCAR_SENHA") {
+        navigate(`/newpass/${pessoaLogada.usuario.id}`);
       } else {
         toast.warn("Usuário inativo ou status desconhecido.");
       }

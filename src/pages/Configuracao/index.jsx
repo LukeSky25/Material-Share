@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-
-import UsuarioService from "../../services/UsuarioService";
-
-import { isEmail, isDate } from "validator";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
+import { isEmail } from "validator";
 import validarCpf from "validar-cpf";
+import * as cnpj from "cnpj";
+
+import PessoaService from "../../services/PessoaService";
+import { Header } from "../../components/User-Sidebar/Header";
+import { Footer } from "../../components/Footer";
 
 import {
   Settings,
@@ -20,16 +23,18 @@ import {
 
 import "./style.css";
 
-import { Header } from "../../components/User-Sidebar/Header";
-import { Footer } from "../../components/Footer";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 export const Configuracao = () => {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Estados do formulário
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [cpf, setCpf] = useState("");
+  const [celular, setCelular] = useState("");
+  const [cpfCnpj, setCpfCnpj] = useState("");
   const [cep, setCep] = useState("");
   const [email, setEmail] = useState("");
   const [endereco, setEndereco] = useState("");
@@ -38,22 +43,106 @@ export const Configuracao = () => {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
 
+  // --- FUNÇÕES DE FORMATAÇÃO (MÁSCARAS) ---
+  const formatDate = (value) => {
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .slice(0, 10);
+  };
+
+  const formatCelular = (value) => {
+    const cleanedValue = value.replace(/\D/g, "");
+    if (cleanedValue.length <= 10) {
+      return cleanedValue
+        .replace(/(\d{2})(\d)/, "($1) $2")
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .slice(0, 14);
+    }
+    return cleanedValue
+      .replace(/(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{5})(\d)/, "$1-$2")
+      .slice(0, 15);
+  };
+
+  const formatCpfCnpj = (value) => {
+    const cleanedValue = value.replace(/\D/g, "");
+    if (cleanedValue.length <= 11) {
+      return cleanedValue
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+        .slice(0, 14);
+    } else {
+      return cleanedValue
+        .replace(/(\d{2})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1/$2")
+        .replace(/(\d{4})(\d{1,2})/, "$1-$2")
+        .slice(0, 18);
+    }
+  };
+
+  const formatCEP = (value) => {
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{5})(\d)/, "$1-$2")
+      .slice(0, 9);
+  };
+
+  // --- LÓGICA DE BUSCA DE DADOS E CEP ---
+
+  const buscarCep = useCallback(async (cepValue) => {
+    const cepLimpo = cepValue.replace(/\D/g, "");
+    if (cepLimpo.length !== 8) return;
+
+    try {
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`
+      );
+      const data = await response.json();
+      if (data.erro) {
+        toast.error("CEP não encontrado.");
+        return;
+      }
+      setEndereco(data.logradouro);
+      setEstado(data.uf);
+      setCidade(data.localidade);
+    } catch (error) {
+      toast.error("Erro ao buscar CEP. Verifique sua conexão.");
+    }
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await UsuarioService.findById(id);
+        const response = await PessoaService.findById(id);
+        const pessoa = response.data;
 
-        setNome(response.data.nome || "");
-        setDataNascimento(response.data.dataNascimento || "");
-        setTelefone(response.data.telefone || "");
-        setCpf(response.data.cpf || "");
-        setEmail(response.data.email || "");
-        setCep(response.data.cep || "");
-        setEndereco(response.data.endereco || "");
-        setComplemento(response.data.complemento || "");
-        setNumero(response.data.numero || "");
-        setCidade(response.data.cidade || "");
-        setEstado(response.data.estado || "");
+        setNome(pessoa.nome || "");
+        setEmail(pessoa.usuario.email || "");
+
+        setDataNascimento(
+          pessoa.dataNascimento
+            ? dayjs(pessoa.dataNascimento).format("DD/MM/YYYY")
+            : ""
+        );
+        setCelular(pessoa.telefone ? formatCelular(pessoa.telefone) : "");
+        setCpfCnpj(pessoa.cpf_cnpj ? formatCpfCnpj(pessoa.cpf_cnpj) : "");
+
+        const cepDoBanco = pessoa.cep || "";
+        setCep(cepDoBanco ? formatCEP(cepDoBanco) : "");
+
+        setEndereco(pessoa.endereco || "");
+        setComplemento(pessoa.complemento || "");
+        setNumero(pessoa.numeroResidencia || "");
+        setCidade(pessoa.cidade || "");
+        setEstado(pessoa.estado || "");
+
+        if (cepDoBanco && !pessoa.endereco) {
+          buscarCep(cepDoBanco);
+        }
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
         toast.error("Não foi possível carregar os dados do usuário.");
@@ -63,96 +152,95 @@ export const Configuracao = () => {
     if (id) {
       fetchData();
     }
-  }, [id]);
+  }, [id, buscarCep]);
 
-  const inverteData = (data) => data.split("/").reverse().join("/");
+  useEffect(() => {
+    const cepLimpo = cep.replace(/\D/g, "");
+    if (cepLimpo.length === 8) {
+      buscarCep(cepLimpo);
+    }
+  }, [cep, buscarCep]);
 
-  const isValidPhone = (valor) => {
-    const phoneRegex = /^\+?\d{1,3}\d{10}$/;
-    if (!phoneRegex.test(valor)) {
-      toast.error("O número de telefone fornecido é inválido.");
+  const validateForm = () => {
+    const cleanedDoc = cpfCnpj.replace(/\D/g, "");
+    const cleanedCelular = celular.replace(/\D/g, "");
+
+    if (!nome.trim()) {
+      toast.error("O campo Nome é obrigatório.");
       return false;
     }
+
+    const dataNascObj = dayjs(dataNascimento, "DD/MM/YYYY");
+    if (!dataNascObj.isValid() || dataNascObj.isAfter(dayjs())) {
+      toast.error("Data de Nascimento inválida ou futura.");
+      return false;
+    }
+
+    if (cleanedCelular.length < 10 || cleanedCelular.length > 11) {
+      toast.error("O número de celular está incompleto.");
+      return false;
+    }
+
+    let isDocValid = false;
+    if (cleanedDoc.length === 11) isDocValid = validarCpf(cleanedDoc);
+    else if (cleanedDoc.length === 14) isDocValid = cnpj.isValid(cleanedDoc);
+    if (!isDocValid) {
+      toast.error("O CPF ou CNPJ informado é inválido.");
+      return false;
+    }
+
+    if (!isEmail(email)) {
+      toast.error("Email Inválido.");
+      return false;
+    }
+
+    if (cep.replace(/\D/g, "").length !== 8) {
+      toast.error("O campo CEP é obrigatório e deve ter 8 dígitos.");
+      return false;
+    }
+
+    if (!numero || isNaN(numero)) {
+      toast.error(
+        "O campo Número do endereço é obrigatório e deve ser numérico."
+      );
+      return false;
+    }
+
     return true;
   };
 
-  const buscarCep = async (cepValue) => {
-    const cepLimpo = cepValue.replace(/\D/g, "");
-    if (cepLimpo.length !== 8) {
-      toast.error("CEP deve conter 8 dígitos.");
-      return false;
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `https://viacep.com.br/ws/${cepLimpo}/json/`
-      );
-      const data = await response.json();
+      const dadosAtualizados = {
+        nome,
+        dataNascimento: dayjs(dataNascimento, "DD/MM/YYYY").format(
+          "YYYY-MM-DD"
+        ),
+        telefone: celular.replace(/\D/g, ""),
+        cpf_cnpj: cpfCnpj.replace(/\D/g, ""),
+        cep: cep.replace(/\D/g, ""),
+        email,
+        complemento,
+        numeroResidencia: numero,
+      };
 
-      if (data.erro) {
-        toast.error("CEP não encontrado.");
-        return false;
-      }
+      await PessoaService.editar(id, dadosAtualizados);
 
-      setEndereco(data.logradouro);
-      setEstado(data.uf); // O campo correto é 'uf'
-      setCidade(data.localidade);
-      toast.success("Endereço preenchido!");
-      return true;
+      toast.success("Informações atualizadas com sucesso!");
+      console.log("Enviando dados:", dadosAtualizados);
     } catch (error) {
-      toast.error("Erro ao buscar CEP. Verifique sua conexão.");
-      return false;
+      console.error("Erro ao editar usuário:", error);
+      toast.error(
+        "Não foi possível editar a conta. Verifique os dados ou tente mais tarde."
+      );
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const handleCepBlur = (e) => {
-    const cepValue = e.target.value;
-    if (cepValue) {
-      buscarCep(cepValue);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let formErrors = false;
-
-    if (!nome) {
-      formErrors = true;
-      toast.error("O campo Nome é obrigatório.");
-    }
-    if (!dataNascimento || !isDate(inverteData(dataNascimento))) {
-      formErrors = true;
-      toast.error("Data de Nascimento inválida.");
-    }
-    if (!isValidPhone(telefone)) {
-      formErrors = true;
-    }
-    if (!validarCpf(cpf)) {
-      formErrors = true;
-      toast.error("CPF Inválido.");
-    }
-    if (!cep) {
-      formErrors = true;
-      toast.error("O campo CEP é obrigatório.");
-    }
-    if (!isEmail(email)) {
-      formErrors = true;
-      toast.error("Email Inválido.");
-    }
-    if (!complemento) {
-      formErrors = true;
-      toast.error("O campo Complemento é obrigatório.");
-    }
-    if (!numero || isNaN(numero)) {
-      formErrors = true;
-      toast.error("Número Inválido.");
-    }
-
-    if (formErrors) return;
-
-    // Se todas as validações passarem, você pode prosseguir com o envio
-    toast.success("Informações atualizadas com sucesso!");
-    // Aqui você enviaria os dados para sua API/backend
   };
 
   return (
@@ -168,9 +256,13 @@ export const Configuracao = () => {
                 </div>
                 <h1>Configurações</h1>
               </div>
-              <button type="submit" className="btn-primary">
+              <button
+                type="submit"
+                className="btn-primary"
+                disabled={isLoading}
+              >
                 <Edit size={16} />
-                <span>Salvar Alterações</span>
+                <span>{isLoading ? "Salvando" : "Salvar Alterações"}</span>
               </button>
               <p className="config-subtitle">
                 Gerencie suas informações pessoais e preferências
@@ -178,7 +270,6 @@ export const Configuracao = () => {
             </div>
 
             <div className="form-grid">
-              {/* Informações Pessoais */}
               <div className="card">
                 <div className="form-card-header">
                   <User style={{ color: "#2563eb" }} size={22} />
@@ -195,7 +286,7 @@ export const Configuracao = () => {
                       placeholder="Digite seu Nome Completo..."
                       value={nome}
                       onChange={(e) => setNome(e.target.value)}
-                      className="form-input focus-blue"
+                      className="form-input"
                     />
                   </div>
                   <div>
@@ -207,35 +298,43 @@ export const Configuracao = () => {
                       type="text"
                       placeholder="dd/mm/aaaa"
                       value={dataNascimento}
-                      onChange={(e) => setDataNascimento(e.target.value)}
-                      className="form-input focus-blue"
+                      onChange={(e) =>
+                        setDataNascimento(formatDate(e.target.value))
+                      }
+                      className="form-input"
                     />
                   </div>
                   <div className="form-row-2-cols">
                     <div>
                       <label className="form-label">
                         <Phone size={16} />
-                        <span>Telefone</span>
+                        <span>Celular</span>
                       </label>
                       <input
                         type="text"
-                        placeholder="+5511999998888"
-                        value={telefone}
-                        onChange={(e) => setTelefone(e.target.value)}
-                        className="form-input focus-blue"
+                        placeholder="(DD) 9XXXX-XXXX"
+                        value={celular}
+                        maxLength="15"
+                        onChange={(e) =>
+                          setCelular(formatCelular(e.target.value))
+                        }
+                        className="form-input"
                       />
                     </div>
                     <div>
                       <label className="form-label">
                         <CreditCard size={16} />
-                        <span>CPF</span>
+                        <span>CPF ou CNPJ</span>
                       </label>
                       <input
                         type="text"
-                        placeholder="Digite seu CPF..."
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
-                        className="form-input focus-blue"
+                        value={cpfCnpj}
+                        placeholder="Seu CPF ou CNPJ"
+                        maxLength="18"
+                        onChange={(e) =>
+                          setCpfCnpj(formatCpfCnpj(e.target.value))
+                        }
+                        className="form-input"
                       />
                     </div>
                   </div>
@@ -249,13 +348,12 @@ export const Configuracao = () => {
                       placeholder="Digite seu Email..."
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="form-input focus-blue"
+                      className="form-input"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Endereço */}
               <div className="card">
                 <div className="form-card-header">
                   <MapPin style={{ color: "#16a34a" }} size={22} />
@@ -268,9 +366,9 @@ export const Configuracao = () => {
                       type="text"
                       placeholder="Digite seu CEP..."
                       value={cep}
-                      onChange={(e) => setCep(e.target.value)}
-                      onBlur={handleCepBlur}
-                      className="form-input focus-green"
+                      onChange={(e) => setCep(formatCEP(e.target.value))}
+                      className="form-input"
+                      maxLength="9"
                     />
                   </div>
                   <div>
@@ -280,7 +378,7 @@ export const Configuracao = () => {
                       placeholder="Preenchido automaticamente"
                       value={endereco}
                       onChange={(e) => setEndereco(e.target.value)}
-                      className="form-input focus-green"
+                      className="form-input"
                       readOnly
                     />
                   </div>
@@ -291,7 +389,7 @@ export const Configuracao = () => {
                       placeholder="Apartamento, bloco, etc..."
                       value={complemento}
                       onChange={(e) => setComplemento(e.target.value)}
-                      className="form-input focus-green"
+                      className="form-input"
                     />
                   </div>
                   <div className="form-row-3-cols">
@@ -302,7 +400,7 @@ export const Configuracao = () => {
                         placeholder="Número"
                         value={numero}
                         onChange={(e) => setNumero(e.target.value)}
-                        className="form-input focus-green"
+                        className="form-input"
                       />
                     </div>
                     <div>
@@ -312,7 +410,7 @@ export const Configuracao = () => {
                         placeholder="Cidade"
                         value={cidade}
                         onChange={(e) => setCidade(e.target.value)}
-                        className="form-input focus-green"
+                        className="form-input"
                         readOnly
                       />
                     </div>
@@ -323,7 +421,7 @@ export const Configuracao = () => {
                         placeholder="Estado"
                         value={estado}
                         onChange={(e) => setEstado(e.target.value)}
-                        className="form-input focus-green"
+                        className="form-input"
                         readOnly
                       />
                     </div>

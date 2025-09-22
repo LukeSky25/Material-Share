@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { isUserLoggedIn } from "../auth/authService"; // Mantenha sua função
+import { isUserLoggedIn } from "../auth/authService";
 
 export const PrivateRoutes = ({ children }) => {
   const isAuthenticated = isUserLoggedIn();
