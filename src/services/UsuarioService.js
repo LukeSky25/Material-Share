@@ -29,12 +29,17 @@ const save = (data) => {
   return http.mainInstace.post(`${API_URL}save`, data);
 };
 
+const alterarSenha = (id, data) => {
+  return http.mainInstace.put(`${API_URL}alterarSenha/${id}`, data);
+};
+
 const usuarioService = {
   findAll,
   findById,
   signIn,
   logout,
   save,
+  alterarSenha,
 };
 
 export default usuarioService;

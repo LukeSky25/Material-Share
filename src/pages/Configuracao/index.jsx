@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import { isEmail } from "validator";
@@ -8,29 +8,19 @@ import * as cnpj from "cnpj";
 
 import PessoaService from "../../services/PessoaService";
 import { Header } from "../../components/User-Sidebar/Header";
-import { Footer } from "../../components/Footer";
+import { Footer } from "../../components/Footer/index";
 
-import {
-  Settings,
-  Edit,
-  User,
-  Calendar,
-  Phone,
-  CreditCard,
-  Mail,
-  MapPin,
-} from "lucide-react";
+import { Settings, Edit, User, MapPin, Lock } from "lucide-react";
 
 import "./style.css";
-
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
 export const Configuracao = () => {
   const { id } = useParams();
+  const userId = JSON.parse(localStorage.getItem("user")).usuario.id;
   const [isLoading, setIsLoading] = useState(false);
 
-  // Estados do formulário
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [celular, setCelular] = useState("");
@@ -43,7 +33,6 @@ export const Configuracao = () => {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
 
-  // --- FUNÇÕES DE FORMATAÇÃO (MÁSCARAS) ---
   const formatDate = (value) => {
     return value
       .replace(/\D/g, "")
@@ -91,8 +80,6 @@ export const Configuracao = () => {
       .slice(0, 9);
   };
 
-  // --- LÓGICA DE BUSCA DE DADOS E CEP ---
-
   const buscarCep = useCallback(async (cepValue) => {
     const cepLimpo = cepValue.replace(/\D/g, "");
     if (cepLimpo.length !== 8) return;
@@ -122,18 +109,15 @@ export const Configuracao = () => {
 
         setNome(pessoa.nome || "");
         setEmail(pessoa.usuario.email || "");
-
         setDataNascimento(
           pessoa.dataNascimento
             ? dayjs(pessoa.dataNascimento).format("DD/MM/YYYY")
             : ""
         );
-        setCelular(pessoa.telefone ? formatCelular(pessoa.telefone) : "");
+        setCelular(pessoa.celular ? formatCelular(pessoa.celular) : "");
         setCpfCnpj(pessoa.cpf_cnpj ? formatCpfCnpj(pessoa.cpf_cnpj) : "");
-
         const cepDoBanco = pessoa.cep || "";
         setCep(cepDoBanco ? formatCEP(cepDoBanco) : "");
-
         setEndereco(pessoa.endereco || "");
         setComplemento(pessoa.complemento || "");
         setNumero(pessoa.numeroResidencia || "");
@@ -169,18 +153,15 @@ export const Configuracao = () => {
       toast.error("O campo Nome é obrigatório.");
       return false;
     }
-
     const dataNascObj = dayjs(dataNascimento, "DD/MM/YYYY");
     if (!dataNascObj.isValid() || dataNascObj.isAfter(dayjs())) {
       toast.error("Data de Nascimento inválida ou futura.");
       return false;
     }
-
     if (cleanedCelular.length < 10 || cleanedCelular.length > 11) {
       toast.error("O número de celular está incompleto.");
       return false;
     }
-
     let isDocValid = false;
     if (cleanedDoc.length === 11) isDocValid = validarCpf(cleanedDoc);
     else if (cleanedDoc.length === 14) isDocValid = cnpj.isValid(cleanedDoc);
@@ -188,24 +169,20 @@ export const Configuracao = () => {
       toast.error("O CPF ou CNPJ informado é inválido.");
       return false;
     }
-
     if (!isEmail(email)) {
       toast.error("Email Inválido.");
       return false;
     }
-
     if (cep.replace(/\D/g, "").length !== 8) {
       toast.error("O campo CEP é obrigatório e deve ter 8 dígitos.");
       return false;
     }
-
     if (!numero || isNaN(numero)) {
       toast.error(
         "O campo Número do endereço é obrigatório e deve ser numérico."
       );
       return false;
     }
-
     return true;
   };
 
@@ -221,23 +198,35 @@ export const Configuracao = () => {
         dataNascimento: dayjs(dataNascimento, "DD/MM/YYYY").format(
           "YYYY-MM-DD"
         ),
-        telefone: celular.replace(/\D/g, ""),
+        celular: celular.replace(/\D/g, ""),
         cpf_cnpj: cpfCnpj.replace(/\D/g, ""),
         cep: cep.replace(/\D/g, ""),
         email,
         complemento,
         numeroResidencia: numero,
+        usuario: {
+          id: JSON.parse(localStorage.getItem("user")).usuario.id,
+          email,
+        },
       };
 
       await PessoaService.editar(id, dadosAtualizados);
 
       toast.success("Informações atualizadas com sucesso!");
-      console.log("Enviando dados:", dadosAtualizados);
     } catch (error) {
       console.error("Erro ao editar usuário:", error);
-      toast.error(
-        "Não foi possível editar a conta. Verifique os dados ou tente mais tarde."
-      );
+      const errorResponseString = JSON.stringify(error.response?.data || "");
+      if (
+        errorResponseString.includes("UNIQUE KEY") ||
+        errorResponseString.includes("chave duplicada") ||
+        errorResponseString.includes("Este e-mail já está cadastrado")
+      ) {
+        toast.error("Este e-mail já está em uso por outra conta.");
+      } else {
+        toast.error(
+          "Não foi possível editar a conta. Verifique os dados ou tente mais tarde."
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -251,10 +240,13 @@ export const Configuracao = () => {
           <div className="config-container">
             <div className="config-header">
               <div className="config-header-left">
-                <div className="config-header-icon">
-                  <Settings style={{ color: "white" }} size={24} />
+                <div className="config-icon-wrapper">
+                  <Settings size={28} color="#2563eb" />
                 </div>
-                <h1>Configurações</h1>
+                <div className="config-header-text">
+                  <h1>Configurações</h1>
+                  <p>Gerencie suas informações pessoais e preferências</p>
+                </div>
               </div>
               <button
                 type="submit"
@@ -262,26 +254,25 @@ export const Configuracao = () => {
                 disabled={isLoading}
               >
                 <Edit size={16} />
-                <span>{isLoading ? "Salvando" : "Salvar Alterações"}</span>
+                <span>{isLoading ? "Salvando..." : "Editar"}</span>
               </button>
-              <p className="config-subtitle">
-                Gerencie suas informações pessoais e preferências
-              </p>
             </div>
 
-            <div className="form-grid">
-              <div className="card">
-                <div className="form-card-header">
-                  <User style={{ color: "#2563eb" }} size={22} />
-                  <h2>Informações Pessoais</h2>
-                </div>
-                <div className="form-group-stack">
-                  <div>
-                    <label className="form-label">
-                      <User size={16} />
-                      <span>Nome Completo</span>
-                    </label>
+            <div className="main-card">
+              <div className="profile-form-grid">
+                <div className="form-column">
+                  <div className="column-header">
+                    <User
+                      className="column-icon"
+                      size={22}
+                      style={{ color: "#447aef" }}
+                    />
+                    <h3>Informações Pessoais</h3>
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="nome">Nome Completo</label>
                     <input
+                      id="nome"
                       type="text"
                       placeholder="Digite seu Nome Completo..."
                       value={nome}
@@ -289,12 +280,10 @@ export const Configuracao = () => {
                       className="form-input"
                     />
                   </div>
-                  <div>
-                    <label className="form-label">
-                      <Calendar size={16} />
-                      <span>Data de Nascimento</span>
-                    </label>
+                  <div className="form-field">
+                    <label htmlFor="dataNascimento">Data de Nascimento</label>
                     <input
+                      id="dataNascimento"
                       type="text"
                       placeholder="dd/mm/aaaa"
                       value={dataNascimento}
@@ -305,14 +294,12 @@ export const Configuracao = () => {
                     />
                   </div>
                   <div className="form-row-2-cols">
-                    <div>
-                      <label className="form-label">
-                        <Phone size={16} />
-                        <span>Celular</span>
-                      </label>
+                    <div className="form-field">
+                      <label htmlFor="celular">Telefone</label>
                       <input
+                        id="celular"
                         type="text"
-                        placeholder="(DD) 9XXXX-XXXX"
+                        placeholder="Digite o seu Telefone..."
                         value={celular}
                         maxLength="15"
                         onChange={(e) =>
@@ -321,15 +308,13 @@ export const Configuracao = () => {
                         className="form-input"
                       />
                     </div>
-                    <div>
-                      <label className="form-label">
-                        <CreditCard size={16} />
-                        <span>CPF ou CNPJ</span>
-                      </label>
+                    <div className="form-field">
+                      <label htmlFor="cpfCnpj">CPF</label>
                       <input
+                        id="cpfCnpj"
                         type="text"
                         value={cpfCnpj}
-                        placeholder="Seu CPF ou CNPJ"
+                        placeholder="Digite seu CPF..."
                         maxLength="18"
                         onChange={(e) =>
                           setCpfCnpj(formatCpfCnpj(e.target.value))
@@ -338,12 +323,10 @@ export const Configuracao = () => {
                       />
                     </div>
                   </div>
-                  <div>
-                    <label className="form-label">
-                      <Mail size={16} />
-                      <span>E-mail</span>
-                    </label>
+                  <div className="form-field">
+                    <label htmlFor="email">E-mail</label>
                     <input
+                      id="email"
                       type="email"
                       placeholder="Digite seu Email..."
                       value={email}
@@ -352,17 +335,20 @@ export const Configuracao = () => {
                     />
                   </div>
                 </div>
-              </div>
 
-              <div className="card">
-                <div className="form-card-header">
-                  <MapPin style={{ color: "#16a34a" }} size={22} />
-                  <h2>Endereço</h2>
-                </div>
-                <div className="form-group-stack">
-                  <div>
-                    <label className="form-label">CEP</label>
+                <div className="form-column">
+                  <div className="column-header">
+                    <MapPin
+                      className="column-icon"
+                      size={22}
+                      style={{ color: "#44ef4d" }}
+                    />
+                    <h3>Endereço</h3>
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="cep">CEP</label>
                     <input
+                      id="cep"
                       type="text"
                       placeholder="Digite seu CEP..."
                       value={cep}
@@ -371,20 +357,21 @@ export const Configuracao = () => {
                       maxLength="9"
                     />
                   </div>
-                  <div>
-                    <label className="form-label">Endereço</label>
+                  <div className="form-field">
+                    <label htmlFor="endereco">Endereço</label>
                     <input
+                      id="endereco"
                       type="text"
                       placeholder="Preenchido automaticamente"
                       value={endereco}
                       onChange={(e) => setEndereco(e.target.value)}
                       className="form-input"
-                      readOnly
                     />
                   </div>
-                  <div>
-                    <label className="form-label">Complemento</label>
+                  <div className="form-field">
+                    <label htmlFor="complemento">Complemento</label>
                     <input
+                      id="complemento"
                       type="text"
                       placeholder="Apartamento, bloco, etc..."
                       value={complemento}
@@ -393,40 +380,61 @@ export const Configuracao = () => {
                     />
                   </div>
                   <div className="form-row-3-cols">
-                    <div>
-                      <label className="form-label">Número</label>
+                    <div className="form-field">
+                      <label htmlFor="numero">Número</label>
                       <input
+                        id="numero"
                         type="text"
-                        placeholder="Número"
+                        placeholder="Digite o número"
                         value={numero}
                         onChange={(e) => setNumero(e.target.value)}
                         className="form-input"
                       />
                     </div>
-                    <div>
-                      <label className="form-label">Cidade</label>
+                    <div className="form-field">
+                      <label htmlFor="cidade">Cidade</label>
                       <input
+                        id="cidade"
                         type="text"
                         placeholder="Cidade"
                         value={cidade}
-                        onChange={(e) => setCidade(e.target.value)}
-                        className="form-input"
                         readOnly
+                        className="form-input"
                       />
                     </div>
-                    <div>
-                      <label className="form-label">Estado</label>
+                    <div className="form-field">
+                      <label htmlFor="estado">Estado</label>
                       <input
+                        id="estado"
                         type="text"
                         placeholder="Estado"
                         value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
-                        className="form-input"
                         readOnly
+                        className="form-input"
                       />
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className="bottom-cards-grid">
+              <div className="action-card">
+                <div className="action-card-header">
+                  <Lock size={22} style={{ color: "#ef4444" }} />
+                  <h4>Segurança</h4>
+                </div>
+                <p className="action-card-description">
+                  Gerencie suas configurações de segurança
+                </p>
+
+                <Link
+                  type="button"
+                  className="btn btn-danger"
+                  to={`/alterarSenha/${userId}`}
+                >
+                  Alterar Senha
+                </Link>
               </div>
             </div>
           </div>

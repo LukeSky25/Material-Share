@@ -10,6 +10,7 @@ import { Avaliacao } from "../pages/Avaliacao";
 import { Notificacao } from "../pages/Notificacao";
 import { Suporte } from "../pages/Suporte";
 import { Logout } from "../pages/Logout";
+import { Trocar_a_Senha } from "../pages/Trocar_a_Senha";
 import { Sobre } from "../pages/Sobre";
 import { Servicos } from "../pages/Servicos";
 import { Produtos } from "../pages/Produtos";
@@ -31,6 +32,14 @@ export const Rotas = () => {
           element={
             <PrivateRoutes>
               <Configuracao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/alterarSenha/:id"
+          element={
+            <PrivateRoutes>
+              <Trocar_a_Senha />
             </PrivateRoutes>
           }
         />
