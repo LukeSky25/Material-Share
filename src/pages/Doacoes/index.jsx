@@ -1,10 +1,68 @@
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
+import { useEffect, useState } from "react";
+
+import { Footer } from "../../components/Footer/index.jsx";
+import { Header } from "../../components/Header/index.jsx";
 import ProductCard from "../../components/ProductCard/ProductCard.jsx";
+import { toast } from "react-toastify";
+
+import doacaoService from "../../services/DoacaoService.js";
 
 import "./style.css";
 
-export const Produtos = () => {
+export const Doacoes = () => {
+  const [doacoes, setDoacoes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDoacoes = async () => {
+      setIsLoading(true);
+      try {
+        const response = await doacaoService.findAll();
+        const doacoesIniciais = response.data;
+
+        const doacoesAtivas = doacoesIniciais.filter(
+          (doacao) => doacao.statusDoacao === "ATIVO"
+        );
+
+        const doacoesComEnderecoPromises = doacoesAtivas.map(async (doacao) => {
+          const cepLimpo = doacao.cep.replace(/\D/g, "");
+
+          if (cepLimpo.length === 8) {
+            try {
+              const viaCepResponse = await fetch(
+                `https://viacep.com.br/ws/${cepLimpo}/json/`
+              );
+              const endereco = await viaCepResponse.json();
+
+              return {
+                ...doacao,
+                localidade: endereco.localidade,
+                bairro: endereco.bairro,
+              };
+            } catch (error) {
+              console.error(`Erro ao buscar CEP ${cepLimpo}:`, error);
+              return doacao;
+            }
+          }
+          return doacao;
+        });
+
+        const doacoesCompletas = await Promise.all(doacoesComEnderecoPromises);
+
+        setDoacoes(doacoesCompletas);
+      } catch (error) {
+        console.error("Erro ao buscar doações:", error);
+        toast.error("Não foi possível carregar as doações.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDoacoes();
+  }, []);
+
+  console.log(doacoes);
+
   const products = [
     {
       id: 1,
@@ -148,6 +206,37 @@ export const Produtos = () => {
                 />
               ))}
             </div>
+
+            {isLoading ? (
+              <div className="loading-container">
+                <div className="loader"></div>
+                <p>Carregando produtos...</p>
+              </div>
+            ) : doacoes.length > 0 ? (
+              <div className="cards-container">
+                {doacoes.map((doacao) => {
+                  const imageUrl = `data:image/jpeg;base64,${doacao.foto}`;
+
+                  return (
+                    <ProductCard
+                      key={doacao.id}
+                      title={doacao.nome}
+                      img_url={imageUrl}
+                      quant={doacao.quantidade}
+                      local={`${doacao.localidade || "Cidade"} / ${
+                        doacao.bairro || "Bairro"
+                      }`}
+                      category={doacao.categoria}
+                      path={`/produto/${doacao.id}`}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="empty-state-container">
+                <p>Nenhum produto encontrado no momento.</p>
+              </div>
+            )}
           </main>
         </div>
       </section>

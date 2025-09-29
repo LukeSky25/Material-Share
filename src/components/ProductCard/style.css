@@ -1,11 +1,9 @@
-/* ProductCard.css */
-
 .product-card {
-  /* Aumente a largura do card para 300px */
+  position: relative;
   width: 300px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra mais suave e espalhada */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -15,28 +13,69 @@
 
 .product-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada no hover */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilos para o cabeçalho do card (header) */
+.category-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+  z-index: 2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.alvenaria-bg {
+  background-color: #e67e22;
+}
+.estrutura-bg {
+  background-color: #95a5a6;
+}
+.hidraulica-bg {
+  background-color: #3498db;
+}
+.eletrica-bg {
+  background-color: #f1c40f;
+}
+.pintura-bg {
+  background-color: #9b59b6;
+}
+.madeira-bg {
+  background-color: #8c5a3b;
+}
+.revestimento-bg {
+  background-color: #1abc9c;
+}
+.cobertura-bg {
+  background-color: #c0392b;
+}
+.ferramentas-bg {
+  background-color: #34495e;
+}
+.default-bg {
+  background-color: #7f8c8d;
+}
+
 .card-header {
-  padding: 30px 20px; /* Mais padding para mais espaço interno */
+  padding: 30px 20px;
   position: relative;
-  min-height: 140px; /* Altura mínima para consistência */
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* Ajuste o tamanho do ícone para melhor visualização */
 .icon {
   font-size: 4rem;
   color: white;
   margin-bottom: 10px;
 }
 
-/* Ajuste o estilo do label para melhor contraste */
 .label {
   position: absolute;
   top: 15px;
@@ -49,10 +88,9 @@
   font-weight: bold;
 }
 
-/* Estilos para os gradientes e a borda inferior */
 .card-header.gradient-orange {
   background-image: linear-gradient(135deg, #ff7e5f, #feb47b);
-  border-bottom: 5px solid #ff5733; /* Aumente a espessura da borda */
+  border-bottom: 5px solid #ff5733;
 }
 .card-header.gradient-red {
   background-image: linear-gradient(135deg, #e74c3c, #c0392b);
@@ -67,9 +105,8 @@
   border-bottom: 5px solid #f39c12;
 }
 
-/* Estilos para o conteúdo do card */
 .card-content {
-  padding: 20px 25px; /* Ajuste o padding para maior harmonia */
+  padding: 20px 25px;
   text-align: left;
 }
 
