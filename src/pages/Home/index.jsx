@@ -32,7 +32,7 @@ export const Home = () => {
         "Telhas de alta qualidade com excelente resistência e durabilidade",
       icon: "...",
       gradientClass: "gradient-orange",
-      path: "/produtos",
+      path: "/doacoes",
     },
     {
       id: 2,
@@ -41,7 +41,7 @@ export const Home = () => {
       description: "Tijolos de 6 furos com alta resistência estrutural",
       icon: "...",
       gradientClass: "gradient-red",
-      path: "/produtos",
+      path: "/doacoes",
     },
     {
       id: 3,
@@ -50,7 +50,7 @@ export const Home = () => {
       description: "Cimento de alta qualidade para estruturas e acabamentos",
       icon: "...",
       gradientClass: "gradient-gray",
-      path: "/produtos",
+      path: "/doacoes",
     },
     {
       id: 4,
@@ -59,7 +59,7 @@ export const Home = () => {
       description: "Areia lavada ideal para reboco e acabamentos",
       icon: "...",
       gradientClass: "gradient-yellow",
-      path: "/produtos",
+      path: "/doacoes",
     },
   ];
 

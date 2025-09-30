@@ -14,6 +14,7 @@ import { Trocar_a_Senha } from "../pages/Trocar_a_Senha";
 import { Sobre } from "../pages/Sobre";
 import { Servicos } from "../pages/Servicos";
 import { Doacoes } from "../pages/Doacoes";
+import { Doacao } from "../pages/Doacao";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 
@@ -26,7 +27,22 @@ export const Rotas = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/servicos" element={<Servicos />} />
-        <Route path="/doacoes" element={<Doacoes />} />
+        <Route
+          path="/doacoes"
+          element={
+            <PrivateRoutes>
+              <Doacoes />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/doacao/:id"
+          element={
+            <PrivateRoutes>
+              <Doacao />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/user/:id"
           element={
