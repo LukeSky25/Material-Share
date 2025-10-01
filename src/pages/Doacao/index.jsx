@@ -17,6 +17,7 @@ import {
   RiHashtag,
   RiChatQuoteLine,
   RiMailSendLine,
+  RiWhatsappLine,
 } from "react-icons/ri";
 
 import doacao_sem_imagem from "../../assets/doacao_sem_imagem.png";
@@ -28,6 +29,10 @@ export const Doacao = () => {
   const [doacao, setDoacao] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [solicitacaoFeita, setSolicitacaoFeita] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -69,8 +74,25 @@ export const Doacao = () => {
     fetchDoacao();
   }, [id]);
 
-  const handleSolicitarClick = () => {
-    toast.success("Doação solicitada com sucesso! O doador será notificado.");
+  const handleConfirmarSolicitacao = async () => {
+    if (!doacao) {
+      toast.error("Erro: informações da doação não encontradas.");
+      return;
+    }
+
+    setIsConfirming(true);
+    try {
+      await doacaoService.inativar(doacao.id, "SOLICITADO");
+
+      toast.success("Solicitação confirmada! Contate o doador.");
+      setIsModalOpen(false);
+      setSolicitacaoFeita(true);
+    } catch (err) {
+      console.error("Erro ao solicitar doação:", err);
+      toast.error("Não foi possível confirmar a solicitação. Tente novamente.");
+    } finally {
+      setIsConfirming(false);
+    }
   };
 
   const formatCEP = (cep) => {
@@ -158,8 +180,14 @@ export const Doacao = () => {
                   )}
                 </div>
               </div>
-              <button onClick={handleSolicitarClick} className="solicitar-btn">
-                Solicitar Doação
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="solicitar-btn"
+                disabled={solicitacaoFeita}
+              >
+                {solicitacaoFeita
+                  ? "Solicitação Realizada"
+                  : "Solicitar Doação"}
               </button>
               <p className="doador-info">
                 <RiUserLine />
@@ -188,6 +216,52 @@ export const Doacao = () => {
         <div className="doacao-detalhe-content">{renderContent()}</div>
       </main>
       <Footer />
+
+      {isModalOpen && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            {isConfirming ? (
+              <div className="modal-loading">
+                <div className="loader"></div>
+                <p>Confirmando solicitação...</p>
+              </div>
+            ) : (
+              <>
+                <RiWhatsappLine className="whatsapp-icon" size={48} />
+                <h2>Confirmação de Solicitação</h2>
+                <p>
+                  Ao confirmar, você receberá os dados para combinar a retirada
+                  da doação <strong>{doacao.nome}</strong> diretamente com{" "}
+                  <strong>{doacao.pessoa.nome}</strong> pelo WhatsApp no número{" "}
+                  <strong>
+                    {doacao.pessoa.celular || "(número não informado)"}
+                  </strong>
+                  .
+                </p>
+                <p className="modal-aviso">
+                  <strong>Atenção:</strong> Não se esqueça de marcar a doação
+                  como recebida no site ou aplicativo assim que a retirada for
+                  concluída.
+                </p>
+                <div className="modal-actions">
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="btn-cancelar"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleConfirmarSolicitacao}
+                    className="btn-confirmar"
+                  >
+                    Confirmar e ver contato
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };

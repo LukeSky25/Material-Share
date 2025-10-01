@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Footer } from "../../components/Footer/index.jsx";
 import { Header } from "../../components/Header/index.jsx";
 import ProductCard from "../../components/ProductCard/ProductCard.jsx";
 import { toast } from "react-toastify";
+import { FaSearch, FaPlus } from "react-icons/fa";
 
 import doacao_sem_imagem from "../../assets/doacao_sem_imagem.png";
 
@@ -189,7 +191,16 @@ export const Doacoes = () => {
         {/* Coluna direita - produtos */}
         <div className="produtos-content-main">
           <div className="search-bar-container">
-            <input type="text" placeholder="Pesquisar materiais..." />
+            <div className="search-input-wrapper">
+              <input type="text" placeholder="Pesquisar materiais..." />
+              <button className="search-button">
+                <FaSearch />
+              </button>
+            </div>
+            <Link to="/nova-doacao" className="add-produto-button">
+              <FaPlus className="plus-icon" />
+              Adicionar Produto
+            </Link>
           </div>
 
           <main>

@@ -15,6 +15,7 @@ import { Sobre } from "../pages/Sobre";
 import { Servicos } from "../pages/Servicos";
 import { Doacoes } from "../pages/Doacoes";
 import { Doacao } from "../pages/Doacao";
+import { Nova_Doacao } from "../pages/Nova_Doacao";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 
@@ -27,6 +28,14 @@ export const Rotas = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/servicos" element={<Servicos />} />
+        <Route
+          path="/nova-doacao"
+          element={
+            <PrivateRoutes>
+              <Nova_Doacao />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/doacoes"
           element={
