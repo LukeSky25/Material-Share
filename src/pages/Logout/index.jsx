@@ -10,7 +10,7 @@ import "./style.css";
 
 export const Logout = () => {
   return (
-    <>
+    <div className="page-container">
       <Header />
 
       <section>
@@ -36,6 +36,6 @@ export const Logout = () => {
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 };

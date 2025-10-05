@@ -10,6 +10,22 @@ const findById = (id) => {
   return http.mainInstance.get(`${API_URL}findById/${id}`);
 };
 
+const findByDoador = (pessoaId) => {
+  return http.mainInstance.get(`${API_URL}findByDoador/${pessoaId}`);
+};
+
+const findSolicitadasByBeneficiario = (pessoaId) => {
+  return http.mainInstance.get(
+    `${API_URL}findSolicitadasByBeneficiario/${pessoaId}`
+  );
+};
+
+const solicitar = (doacaoId, beneficiarioId) => {
+  return http.mainInstance.put(
+    `${API_URL}solicitar/${doacaoId}/beneficiario/${beneficiarioId}`
+  );
+};
+
 const create = (data) => {
   const formData = new FormData();
 
@@ -28,31 +44,52 @@ const create = (data) => {
 const createComFoto = (data) => {
   const formData = new FormData();
 
-  // Dados da Doação
   formData.append("nome", data.nome);
   formData.append("descricao", data.descricao);
   formData.append("quantidade", data.quantidade);
   formData.append("cep", data.cep);
   formData.append("numeroResidencia", data.numeroResidencia);
   formData.append("complemento", data.complemento || "");
-
-  // --- CORREÇÃO DEFINITIVA AQUI ---
-  // Enviando os IDs no formato que o @ModelAttribute espera para montar os objetos
   formData.append("categoria.id", data.categoriaId);
   formData.append("pessoa.id", data.pessoaId);
 
-  // Adiciona o arquivo da foto, se existir
   if (data.foto) {
     formData.append("file", data.foto);
   }
 
-  // Debug para verificar os dados antes do envio
-  console.log("--- Dados a serem enviados para a API ---");
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}:`, value);
+  return http.multipartInstance.post(`${API_URL}createComFoto`, formData);
+};
+
+const editar = (id, data) => {
+  const formData = new FormData();
+
+  // Adiciona todos os campos do formulário ao FormData
+  formData.append("nome", data.nome);
+  formData.append("descricao", data.descricao);
+  formData.append("quantidade", data.quantidade);
+  formData.append("cep", data.cep);
+  formData.append("numeroResidencia", data.numeroResidencia);
+  formData.append("complemento", data.complemento || "");
+  formData.append("categoria.id", data.categoriaId);
+  // O 'pessoa.id' não precisa ser enviado, pois o doador não muda.
+
+  // Adiciona a foto SOMENTE se uma nova foi selecionada
+  if (data.foto) {
+    formData.append("file", data.foto);
   }
 
-  return http.multipartInstance.post(`${API_URL}createComFoto`, formData);
+  return http.multipartInstance.put(`/doacao/editar/${id}`, formData);
+};
+
+const filtrar = (nome, categorias) => {
+  const params = new URLSearchParams();
+  if (nome) {
+    params.append("nome", nome);
+  }
+  if (categorias && categorias.length > 0) {
+    categorias.forEach((catId) => params.append("categorias", catId));
+  }
+  return http.mainInstance.get(`${API_URL}filtrar?${params.toString()}`);
 };
 
 const inativar = (id, novoStatus) => {
@@ -62,9 +99,14 @@ const inativar = (id, novoStatus) => {
 const doacaoService = {
   findAll,
   findById,
-  inativar,
+  findByDoador,
+  findSolicitadasByBeneficiario,
   create,
   createComFoto,
+  editar,
+  filtrar,
+  solicitar,
+  inativar,
 };
 
 export default doacaoService;

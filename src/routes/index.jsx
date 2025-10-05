@@ -15,7 +15,8 @@ import { Sobre } from "../pages/Sobre";
 import { Servicos } from "../pages/Servicos";
 import { Doacoes } from "../pages/Doacoes";
 import { Doacao } from "../pages/Doacao";
-import { Nova_Doacao } from "../pages/Nova_Doacao";
+import { FormularioDoacao } from "../pages/FormularioDoacao";
+import { MinhasDoacoes } from "../pages/MinhasDoacoes";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 
@@ -29,10 +30,18 @@ export const Rotas = () => {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/servicos" element={<Servicos />} />
         <Route
+          path="/doacao/editar/:id"
+          element={
+            <PrivateRoutes>
+              <FormularioDoacao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
           path="/nova-doacao"
           element={
             <PrivateRoutes>
-              <Nova_Doacao />
+              <FormularioDoacao />
             </PrivateRoutes>
           }
         />
@@ -49,6 +58,14 @@ export const Rotas = () => {
           element={
             <PrivateRoutes>
               <Doacao />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/minhasDoacoes/:id"
+          element={
+            <PrivateRoutes>
+              <MinhasDoacoes />
             </PrivateRoutes>
           }
         />
@@ -77,7 +94,7 @@ export const Rotas = () => {
           }
         />
         <Route
-          path="/user/notificacao"
+          path="/user/notificacao/:id"
           element={
             <PrivateRoutes>
               <Notificacao />

@@ -1,125 +1,125 @@
-.container {
-  width: 100pc;
-  padding: 25px;
-  padding-bottom: 100px;
+.caixa-entrada-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  font-family: Arial, sans-serif;
+  flex-grow: 1;
 }
 
-.container table {
-  width: 100%;
-  background-color: #f9fafb;
-  border-collapse: collapse;
+.caixa-entrada-container h1 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
-.container thead {
-  border-bottom: 1px black solid;
-}
-
-.container table th,
-.container table td {
-  padding: 15px;
+.page-subtitle,
+.empty-list-message,
+.loading-container {
   text-align: center;
-  border-bottom: 1px black solid;
+  color: #6c757d;
+  padding: 2rem 0;
 }
-
-.notificacao td {
-  padding: 15px;
-  vertical-align: middle;
-  text-align: center;
+.loading-container .loader-icon {
+  font-size: 2.5rem;
+  animation: spin 1s linear infinite;
 }
-
-@media screen and (max-width: 1440px) {
-  .container {
-    width: 95%;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-}
-
-@media screen and (max-width: 1024px) {
-  .container {
-    width: 90%;
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@media screen and (max-width: 768px) {
-  .container {
-    width: 80%;
-    padding: 10px;
-  }
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-@media screen and (max-width: 708px) {
-  .container {
-    width: 100%;
-    padding: 15px;
-  }
+.message-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #0d6efd;
+  overflow: hidden;
 }
 
-@media screen and (max-width: 602px) {
-  .container {
-    width: 95%;
-    padding: 10px;
-  }
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
 }
 
-@media screen and (max-width: 536px) {
-  .container {
-    width: 69%;
-    padding: 2px;
-  }
+.message-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
 }
 
-@media screen and (max-width: 552px) {
-  .container {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
+.message-header h3 a {
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 600;
+}
+.message-header h3 a:hover {
+  text-decoration: underline;
 }
 
-@media screen and (max-width: 425px) {
-  .container {
-    width: 50%;
-    padding: 10px;
-    margin: 15px;
-    padding: 0;
-    font-size: 16px;
-  }
-
-  .container table th,
-  .container table td {
-    padding: 0;
-  }
-
-  .notificacao td {
-    padding: 0;
-  }
+.message-date {
+  font-size: 0.9rem;
+  color: #6c757d;
 }
 
-@media screen and (max-width: 396px) {
-  .container {
-    padding: 5px;
-    margin: 0;
-    padding: 0;
-  }
+.message-body {
+  padding: 1.5rem;
+  line-height: 1.6;
+  color: #444;
 }
 
-@media screen and (max-width: 381px) {
-  .container table th,
-  .container table td {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-  }
+.message-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #555;
+}
 
-  .container {
-    width: 100%;
-    padding: 10px;
-    padding: 0;
-    font-size: 16px;
-  }
+.whatsapp-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #25d366;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
-  .notificacao td {
-    padding: 15px;
-    vertical-align: middle;
-    text-align: center;
-  }
+.whatsapp-button:hover {
+  background-color: #128c7e;
+}
+
+.whatsapp-button svg {
+  font-size: 1.2rem;
+}
+
+.whatsapp-button[disabled] {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  opacity: 0.7;
 }

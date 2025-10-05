@@ -60,7 +60,7 @@ const Sidebar = ({ isOpen, active }) => {
               <Link to={`/user/${user.data.id}`}>
                 <SidebarItem Icon={FaUserAlt} Text="Usuário" />
               </Link>
-              <Link to="/user/notificacao">
+              <Link to={`/user/notificacao/${user.data.id}`}>
                 <SidebarItem Icon={FaRegBell} Text="Notificações" />
               </Link>
               <Link to="/user/suporte">

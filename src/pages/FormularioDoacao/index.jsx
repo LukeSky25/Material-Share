@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUpload, FaSpinner, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -9,11 +9,13 @@ import { isUserLoggedIn } from "../../auth/authService.js";
 import doacaoService from "../../services/DoacaoService.js";
 import categoriaService from "../../services/CategoriaService.js";
 
-import "./style.css";
+import "./style.css"; // Certifique-se de ter um CSS para este formulário
 import "../../styles/global.css";
 
-export const Nova_Doacao = () => {
+export const FormularioDoacao = () => {
+  const { id } = useParams(); // Pega o ID da URL, se existir
   const navigate = useNavigate();
+  const isEditMode = Boolean(id); // Se tem id, estamos editando
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -23,47 +25,86 @@ export const Nova_Doacao = () => {
     numeroResidencia: "",
     complemento: "",
     categoriaId: "",
-    foto: null,
   });
-
-  const [usuarioLogado, setUsuarioLogado] = useState(null);
-  const [address, setAddress] = useState({});
+  const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [cepError, setCepError] = useState("");
+  const [isLoading, setIsLoading] = useState(isEditMode);
+
   const [categorias, setCategorias] = useState([]);
   const [loadingCategorias, setLoadingCategorias] = useState(true);
 
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [address, setAddress] = useState({});
+  const [cepError, setCepError] = useState("");
+
+  // Busca as categorias
   useEffect(() => {
-    const fetchCategorias = async () => {
-      try {
-        const response = await categoriaService.findAll();
-        setCategorias(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
+    categoriaService
+      .findAll()
+      .then((response) => setCategorias(response.data))
+      .catch((error) => {
         toast.error("Não foi possível carregar as categorias.");
-      } finally {
-        setLoadingCategorias(false);
-      }
-    };
-    fetchCategorias();
+        console.log(error);
+      })
+      .finally(() => setLoadingCategorias(false));
   }, []);
 
+  // Verifica o usuário logado
   useEffect(() => {
-    const checkUser = () => {
-      const { loggedIn, data } = isUserLoggedIn();
-      if (loggedIn) {
-        // --- CORREÇÃO 1: Salve o objeto COMPLETO no estado ---
-        // O objeto 'data' já contém tudo que precisamos (Pessoa e Usuário).
-        setUsuarioLogado(data);
-      } else {
-        toast.warn("Você precisa estar logado para criar uma doação.");
-        navigate("/login");
-      }
-    };
-    checkUser();
+    const user = isUserLoggedIn();
+    if (user && user.loggedIn) {
+      // Verificação ajustada
+      setUsuarioLogado(user.data);
+    } else {
+      toast.warn("Você precisa estar logado para acessar esta página.");
+      navigate("/login");
+    }
   }, [navigate]);
 
+  // Busca os dados da doação em modo de edição
+  useEffect(() => {
+    if (isEditMode && id) {
+      setIsLoading(true);
+      doacaoService
+        .findById(id)
+        .then((response) => {
+          const {
+            nome,
+            descricao,
+            quantidade,
+            cep,
+            numeroResidencia,
+            complemento,
+            categoria,
+            foto,
+          } = response.data;
+          setFormData({
+            nome,
+            descricao: descricao || "",
+            quantidade,
+            cep,
+            numeroResidencia,
+            complemento: complemento || "",
+            categoriaId: categoria.id,
+          });
+          if (foto) {
+            setImagePreview(`data:image/jpeg;base64,${foto}`);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(
+            "Doação não encontrada ou você não tem permissão para editá-la."
+          );
+
+          navigate("/minhas-doacoes");
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [id, isEditMode, navigate]);
+
+  // Busca de endereço via CEP
   useEffect(() => {
     const cepLimpo = formData.cep.replace(/\D/g, "");
     if (cepLimpo.length === 8) {
@@ -90,36 +131,27 @@ export const Nova_Doacao = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Cria uma variável para o valor final
-    let finalValue = value;
-
-    // Se o campo for 'categoriaId' e o valor não for vazio, converte para número
-    if (name === "categoriaId") {
-      finalValue = parseInt(value, 10);
-    }
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: finalValue,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
-      setFormData((prev) => ({ ...prev, foto: file }));
+      setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
     } else {
-      setFormData((prev) => ({ ...prev, foto: null }));
-      setImagePreview(null);
-      toast.error("Por favor, selecione um arquivo de imagem válido.");
+      setImageFile(null);
+      if (isEditMode) {
+        // Não limpa a preview se for edição e o usuário cancelar a seleção
+      } else {
+        setImagePreview(null);
+      }
+      if (file)
+        toast.error("Por favor, selecione um arquivo de imagem válido.");
     }
   };
 
   const handleUseMyAddress = () => {
-    // --- CORREÇÃO 2: Acesse os dados de endereço diretamente ---
-    // Agora 'usuarioLogado' é o objeto completo, então podemos acessar 'cep' diretamente.
     if (usuarioLogado && usuarioLogado.cep) {
       setFormData((prev) => ({
         ...prev,
@@ -135,58 +167,65 @@ export const Nova_Doacao = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!usuarioLogado || !usuarioLogado.id) {
-      toast.error("Sessão expirada. Por favor, faça login novamente.");
+    if (!usuarioLogado?.id) {
+      toast.error("Sessão inválida. Por favor, faça login novamente.");
       return;
     }
-
     setIsSubmitting(true);
 
-    const camposObrigatorios = { ...formData };
-    delete camposObrigatorios.foto;
-    delete camposObrigatorios.complemento;
-
-    for (const key in camposObrigatorios) {
-      if (!camposObrigatorios[key]) {
-        toast.error(`O campo "${key}" é obrigatório.`);
-        setIsSubmitting(false);
-        return;
-      }
-    }
-
-    const dataToSend = {
-      ...formData,
-      pessoaId: usuarioLogado.id, // O 'id' do objeto principal (Pessoa)
-    };
-
-    console.log(dataToSend);
+    const dataPayload = { ...formData, foto: imageFile };
 
     try {
-      await doacaoService.createComFoto(dataToSend);
-
-      toast.success("Doação cadastrada com sucesso!");
-      navigate("/doacoes");
+      if (isEditMode) {
+        await doacaoService.editar(id, dataPayload);
+        toast.success("Doação atualizada com sucesso!");
+      } else {
+        dataPayload.pessoaId = usuarioLogado.id;
+        await doacaoService.createComFoto(dataPayload);
+        toast.success("Doação cadastrada com sucesso!");
+      }
+      navigate(`/minhasDoacoes/${usuarioLogado.id}`);
     } catch (error) {
-      console.error("Erro ao cadastrar doação:", error);
-      toast.error("Erro ao cadastrar doação. Tente novamente.");
+      console.error("Erro ao salvar doação:", error);
+      toast.error(
+        "Erro ao salvar doação. Verifique os campos e tente novamente."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="page-container">
+        <Header />
+        <main
+          className="form-page-container"
+          style={{ textAlign: "center", paddingTop: "5rem" }}
+        >
+          <FaSpinner className="spinner" />
+          <p>Carregando dados da doação...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
-    <>
+    <div className="page-container">
       <Header />
       <main className="form-page-container">
         <div className="form-wrapper">
           <header className="form-header">
-            <h1>Cadastrar Nova Doação</h1>
-            <p>Preencha os dados abaixo para disponibilizar o material.</p>
+            <h1>{isEditMode ? "Editar Doação" : "Cadastrar Nova Doação"}</h1>
+            <p>
+              {isEditMode
+                ? "Altere os dados abaixo para atualizar o material."
+                : "Preencha os dados abaixo para disponibilizar o material."}
+            </p>
           </header>
 
           <form onSubmit={handleSubmit} noValidate>
-            {/* O JSX do formulário não precisa de nenhuma alteração */}
             <div className="form-group">
               <label htmlFor="nome">Nome do Material</label>
               <input
@@ -198,6 +237,7 @@ export const Nova_Doacao = () => {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="descricao">Descrição</label>
               <textarea
@@ -209,6 +249,7 @@ export const Nova_Doacao = () => {
                 required
               ></textarea>
             </div>
+
             <div className="form-grid-2-cols">
               <div className="form-group">
                 <label htmlFor="quantidade">
@@ -235,7 +276,7 @@ export const Nova_Doacao = () => {
                 >
                   <option value="" disabled>
                     {loadingCategorias
-                      ? "Carregando categorias..."
+                      ? "Carregando..."
                       : "Selecione uma categoria"}
                   </option>
                   {categorias.map((cat) => (
@@ -246,7 +287,9 @@ export const Nova_Doacao = () => {
                 </select>
               </div>
             </div>
+
             <hr className="form-divider" />
+
             <div className="form-section-header">
               <h2 className="form-subtitle">Endereço de Retirada</h2>
               {usuarioLogado && (
@@ -255,11 +298,11 @@ export const Nova_Doacao = () => {
                   className="use-my-address-btn"
                   onClick={handleUseMyAddress}
                 >
-                  <FaMapMarkerAlt />
-                  Usar meu endereço
+                  <FaMapMarkerAlt /> Usar meu endereço
                 </button>
               )}
             </div>
+
             <div className="form-grid-2-cols">
               <div className="form-group">
                 <label htmlFor="cep">CEP</label>
@@ -289,6 +332,7 @@ export const Nova_Doacao = () => {
                 />
               </div>
             </div>
+
             <div className="form-group">
               <label htmlFor="complemento">Complemento (opcional)</label>
               <input
@@ -299,6 +343,7 @@ export const Nova_Doacao = () => {
                 onChange={handleChange}
               />
             </div>
+
             {address.rua && (
               <div className="address-preview">
                 <p>
@@ -313,15 +358,15 @@ export const Nova_Doacao = () => {
                 </p>
               </div>
             )}
+
             <hr className="form-divider" />
+
             <div className="form-group-upload">
               <div className="upload-actions">
                 <label>Foto do Material (opcional)</label>
                 <label htmlFor="foto" className="file-upload-label">
-                  <FaUpload />
-                  <span>
-                    {formData.foto ? formData.foto.name : "Escolher arquivo"}
-                  </span>
+                  <FaUpload />{" "}
+                  <span>{imageFile ? imageFile.name : "Escolher arquivo"}</span>
                 </label>
                 <input
                   type="file"
@@ -345,6 +390,7 @@ export const Nova_Doacao = () => {
                 )}
               </div>
             </div>
+
             <button
               type="submit"
               className="submit-button"
@@ -352,6 +398,8 @@ export const Nova_Doacao = () => {
             >
               {isSubmitting ? (
                 <FaSpinner className="spinner" />
+              ) : isEditMode ? (
+                "Salvar Alterações"
               ) : (
                 "Cadastrar Doação"
               )}
@@ -360,6 +408,6 @@ export const Nova_Doacao = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };

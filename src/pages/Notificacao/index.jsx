@@ -1,114 +1,139 @@
-import { FcOk } from "react-icons/fc";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import {
+  RiInboxArchiveLine,
+  RiLoader4Line,
+  RiWhatsappLine,
+} from "react-icons/ri";
 
 import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
-
-// import { TbAlertOctagon } from "react-icons/tb";
-
+import mensagemService from "../../services/MensagemService";
 import "./style.css";
 
 export const Notificacao = () => {
-  const notificacao = {
-    isActive: true,
-    notificacoes: [
-      "11/09/2024 14:14:30",
-      "Lucas",
-      "Sei lá é só um teste",
-      "<FcOk size={35} />",
-    ],
+  const { id } = useParams();
+
+  const [mensagens, setMensagens] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!id) {
+      toast.error("Usuário doador não identificado.");
+      setIsLoading(false);
+      return;
+    }
+
+    const carregarMensagens = async () => {
+      setIsLoading(true);
+      try {
+        const response = await mensagemService.findByDoadorId(id);
+        setMensagens(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar mensagens:", error);
+        toast.error("Não foi possível carregar sua caixa de entrada.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    carregarMensagens();
+  }, [id]);
+
+  const formatarData = (data) => {
+    return new Date(data).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
+  const formatarCelular = (celular) => {
+    if (!celular) return "Não informado";
+    const numeros = celular.replace(/\D/g, "");
+    if (numeros.length === 11) {
+      return numeros.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+    }
+    return celular;
+  };
+
+  const gerarLinkWhatsApp = (celular, nomeDoacao) => {
+    if (!celular) return "#";
+    const numeroLimpo = `55${celular.replace(/\D/g, "")}`;
+    const mensagem = `Olá! Vi seu anúncio da doação do item ${nomeDoacao} no Material Share e tenho interesse.`;
+    const mensagemCodificada = encodeURIComponent(mensagem);
+    return `https://wa.me/${numeroLimpo}?text=${mensagemCodificada}`;
   };
 
   return (
-    <>
+    <div className="page-container">
       <Header />
+      <main className="caixa-entrada-container">
+        <h1>
+          <RiInboxArchiveLine /> Minha Caixa de Entrada
+        </h1>
+        <p className="page-subtitle">
+          Notificações de interesse nas suas doações
+        </p>
 
-      <section>
-        <main>
-          <h1 className="title">Notificações</h1>
+        {isLoading ? (
+          <div className="loading-container">
+            <RiLoader4Line className="loader-icon" />
+            <p>Carregando mensagens...</p>
+          </div>
+        ) : mensagens.length > 0 ? (
+          <div className="message-list">
+            {mensagens.map((msg) => (
+              <div key={msg.id} className="message-card">
+                <div className="message-header">
+                  <h3>
+                    Interesse na doação:{" "}
+                    <Link to={`/doacao/${msg.doacao.id}`}>
+                      {msg.doacao.nome}
+                    </Link>
+                  </h3>
+                  <span className="message-date">
+                    {formatarData(msg.dataMensagem)}
+                  </span>
+                </div>
 
-          {notificacao.isActive ? (
-            <>
-              <div className="container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Data</th>
-                      <th>Responsável</th>
-                      <th>Descrição</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="notificacao">
-                      <td className="data">00/00/0000 00:00:00</td>
-                      <td className="responsavel">The Rock</td>
-                      <td className="status">
-                        Doação recebida com sucesso !!!
-                      </td>
-                      <td>
-                        <p>
-                          <FcOk size={35} />
-                        </p>
-                      </td>
-                    </tr>
+                <div className="message-body">
+                  <p>{`O beneficiário '${
+                    msg.pessoa.nome
+                  }' demonstrou interesse na sua doação. Contato: ${formatarCelular(
+                    msg.pessoa.celular
+                  )}`}</p>
+                </div>
 
-                    <tr className="notificacao">
-                      <td>00/00/0000 00:00:00</td>
-                      <td>Tigrinho</td>
-                      <td>Doação recebida com sucesso !!!</td>
-                      <td>
-                        <p>
-                          <FcOk size={35} />
-                        </p>
-                      </td>
-                    </tr>
-
-                    <tr className="notificacao">
-                      <td>00/00/0000 00:00:00</td>
-                      <td>Cariani</td>
-                      <td>Doação recebida com sucesso !!!</td>
-                      <td>
-                        <p>
-                          <FcOk size={35} />
-                        </p>
-                      </td>
-                    </tr>
-
-                    <tr className="notificacao">
-                      <td>00/00/0000 00:00:00</td>
-                      <td>Manoel Gomes das canetas bic com cor azul</td>
-                      <td>
-                        Doação recebida com sucesso !!!, caneta azul azul
-                        caneta. caneta azul azul caneta.
-                      </td>
-                      <td>
-                        <p>
-                          <FcOk size={35} />
-                        </p>
-                      </td>
-                    </tr>
-
-                    <tr className="notificacao">
-                      <td>{notificacao.notificacoes[0]}</td>
-                      <td>{notificacao.notificacoes[1]}</td>
-                      <td>{notificacao.notificacoes[2]}</td>
-                      <td>
-                        <p>
-                          <FcOk size={35} />
-                        </p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className="message-footer">
+                  <span>
+                    Enviado por: <strong>{msg.pessoa.nome}</strong>
+                  </span>
+                  <a
+                    href={gerarLinkWhatsApp(
+                      msg.pessoa.celular,
+                      msg.doacao.nome
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="whatsapp-button"
+                    disabled={!msg.pessoa.celular}
+                  >
+                    <RiWhatsappLine /> Iniciar Conversa
+                  </a>
+                </div>
               </div>
-            </>
-          ) : (
-            <h3>Sem nenhuma notificação por enquanto</h3>
-          )}
-        </main>
-      </section>
-
+            ))}
+          </div>
+        ) : (
+          <p className="empty-list-message">
+            Você não tem nenhuma nova notificação.
+          </p>
+        )}
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };

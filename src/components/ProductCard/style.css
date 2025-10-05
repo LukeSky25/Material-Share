@@ -125,9 +125,9 @@
 
 .product-card .card-button {
   width: 100%;
-  padding: 12px; /* Aumente o padding do botão */
+  padding: 12px;
   height: auto;
-  border: 2px solid #3498db; /* Borda mais grossa no botão */
+  border: 2px solid #3498db;
   border-radius: 8px;
   background-color: transparent;
   color: #3498db;
@@ -135,7 +135,7 @@
   cursor: pointer;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  margin-top: 15px; /* Espaço entre a descrição e o botão */
+  margin-top: 15px;
 }
 .product-card .card-button:hover {
   background-color: #3498db;

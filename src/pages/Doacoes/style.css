@@ -9,7 +9,7 @@
 
 /* Filtros */
 .filtros-container {
-  flex: 0 0 250px; /* largura fixa */
+  flex: 0 0 250px;
   padding: 10px;
   border-radius: 8px;
   background-color: #f8f8f8;
@@ -40,34 +40,31 @@
   cursor: pointer;
 }
 
-/* Coluna da direita */
 .produtos-content-main {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* Container principal que alinha a barra de pesquisa e o botão "Adicionar" */
 .search-bar-container {
   display: flex;
-  justify-content: space-between; /* Coloca um item em cada ponta */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  gap: 1rem; /* Espaço entre a barra e o botão */
+  gap: 1rem;
 }
 
-/* Wrapper que segura o input e o ícone da lupa */
 .search-input-wrapper {
-  position: relative; /* Essencial para posicionar o botão da lupa dentro dele */
-  flex-grow: 1; /* Faz a barra de pesquisa ocupar o máximo de espaço possível */
+  position: relative;
+  flex-grow: 1;
   display: flex;
 }
 
 .search-input-wrapper input {
   width: 100%;
-  padding: 0.8rem 3rem 0.8rem 1.5rem; /* Mais espaço à esquerda e espaço para a lupa à direita */
+  padding: 0.8rem 3rem 0.8rem 1.5rem;
   border: 1px solid #dfe1e5;
-  border-radius: 24px; /* Bordas arredondadas para um visual moderno */
+  border-radius: 24px;
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 1px 6px rgba(32, 33, 36, 0.1);
@@ -75,13 +72,13 @@
 
 .search-input-wrapper input:focus {
   outline: none;
-  border-color: #007bff; /* Cor azul ao focar */
+  border-color: #007bff;
   box-shadow: 0 2px 8px rgba(32, 33, 36, 0.15);
 }
 
 /* Botão de busca (ícone da lupa) */
 .search-button {
-  position: absolute; /* Posiciona o botão sobre o input */
+  position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
@@ -89,7 +86,7 @@
   background-color: transparent;
   padding: 0 1.2rem;
   cursor: pointer;
-  color: #5f6368; /* Cor cinza para o ícone */
+  color: #5f6368;
   font-size: 1.1rem;
   display: flex;
   align-items: center;
@@ -100,23 +97,23 @@
 .add-produto-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Espaço entre o ícone "+" e o texto */
+  gap: 0.5rem;
   padding: 0.8rem 1.5rem;
-  background-color: #007bff; /* Cor principal azul */
+  background-color: #007bff;
   color: white;
-  text-decoration: none; /* Remove o sublinhado do Link */
+  text-decoration: none;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  white-space: nowrap; /* Impede que o texto quebre em duas linhas */
+  white-space: nowrap;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .add-produto-button:hover {
-  background-color: #0056b3; /* Cor mais escura ao passar o mouse */
+  background-color: #0056b3;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -128,13 +125,13 @@
 /* Responsividade para a barra de pesquisa */
 @media (max-width: 768px) {
   .search-bar-container {
-    flex-direction: column; /* Empilha os itens em telas menores */
-    align-items: stretch; /* Faz os itens ocuparem a largura total */
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .add-produto-button {
     width: 100%;
-    justify-content: center; /* Centraliza o conteúdo do botão */
+    justify-content: center;
   }
 }
 /* Grid de produtos responsiva */

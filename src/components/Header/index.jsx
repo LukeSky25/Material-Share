@@ -25,8 +25,8 @@ export const Header = () => {
       </div>
 
       <div className="navbar-right">
-        <Link to="/" className="c_button">
-          Início
+        <Link to="/doacoes" className="c_button">
+          Doações
         </Link>
         <Link to="/servicos" className="c_button">
           Serviços
@@ -34,10 +34,16 @@ export const Header = () => {
         <Link to="/sobre" className="c_button">
           Sobre
         </Link>
+
         {user.loggedIn && user.data ? (
-          <Link to={`/user/${user.data.id}`} className="user-icon">
-            <FaRegUserCircle />
-          </Link>
+          <>
+            <Link to={`/minhasDoacoes/${user.data.id}`} className="c_button">
+              Minhas Doações
+            </Link>
+            <Link to={`/user/${user.data.id}`} className="user-icon">
+              <FaRegUserCircle />
+            </Link>
+          </>
         ) : (
           <></>
         )}

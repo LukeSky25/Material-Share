@@ -6,7 +6,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #337dc2;
-  box-shadow: 0 0 20px 3px;
   position: relative;
 
   > svg {
