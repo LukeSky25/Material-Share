@@ -216,6 +216,23 @@
   color: #f59e0b;
 }
 
+.action-card.danger-zone {
+  border-color: #dc3545;
+}
+
+.action-card.danger-zone .action-card-header h4,
+.action-card.danger-zone .action-card-header svg {
+  color: #dc3545;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
 @media (min-width: 768px) {
   .config-header {
     flex-direction: row;

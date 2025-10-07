@@ -172,9 +172,7 @@ export const Home = () => {
             <section className="final-section">
               <RiGooglePlayLine className="icon" color="#34a853" />
               <p>
-                Acesse também pelo nosso aplicativo na PlayStore.
-                <br />
-                Encontre e doe materiais de onde estiver,{" "}
+                Acesse também pelo nosso aplicativo. <br />
                 <a
                   href="https://play.google.com/store/games"
                   target="_blank"

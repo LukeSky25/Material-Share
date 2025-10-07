@@ -123,3 +123,36 @@
   cursor: not-allowed;
   opacity: 0.7;
 }
+
+@media (max-width: 600px) {
+  .caixa-entrada-container {
+    padding: 1rem;
+  }
+
+  .caixa-entrada-container h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .message-header,
+  .message-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .message-header h3 {
+    font-size: 1rem;
+  }
+
+  .whatsapp-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 320px) {
+  .caixa-entrada-container h1 {
+    font-size: 20px;
+  }
+}

@@ -18,7 +18,6 @@ export const Sobre = () => {
       <Header />
       <section className="sobre-nos">
         <main>
-          {/* Seção 1: Imagem na esquerda, Texto na direita */}
           <div className="conteudo-secao">
             <div className="secao-imagem">
               <img src={ITB} alt="ITB Brasílio Flores de Azevedo (FIEB)" />
@@ -37,8 +36,6 @@ export const Sobre = () => {
               </p>
             </div>
           </div>
-
-          {/* Seção 2: Imagem na direita, Texto na esquerda (invertida) */}
 
           <div className="conteudo-secao reverso">
             <div className="secao-imagem">

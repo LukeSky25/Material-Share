@@ -1,18 +1,20 @@
-/* Container principal da página de login */
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 2rem 1rem;
   width: 100%;
-  min-height: calc(100vh - 120px);
+  box-sizing: border-box;
+  min-height: calc(100vh - 140px);
 }
 
 .login-container .title {
   font-size: 2.5rem;
   font-weight: 700;
   color: #333;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
 }
 
 .login-form {
@@ -38,7 +40,7 @@
 }
 
 .login-form-group input {
-  width: 400px;
+  width: 100%;
   height: 45px;
   padding: 0 15px;
   border: 1px solid #ccc;
@@ -53,6 +55,39 @@
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+
+  padding-right: 40px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 1.2rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn:focus {
+  outline: none;
 }
 
 .submit-button {
@@ -82,6 +117,7 @@
   margin-top: 2rem;
   font-size: 1rem;
   color: #666;
+  text-align: center;
 }
 
 .register-link a {
@@ -92,4 +128,19 @@
 
 .register-link a:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+  .login-container .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .login-form {
+    gap: 1.2rem;
+  }
+
+  .login-container {
+    padding: 1.5rem;
+  }
 }

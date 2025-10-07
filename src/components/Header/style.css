@@ -1,76 +1,112 @@
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: var(--primaryColor);
-  height: auto;
+  height: 70px;
   color: aliceblue;
-}
-
-/* Parte da esquerda */
-.navbar-left {
-  flex: 1;
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-left: 200px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* Parte da direita */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.navbar-left,
 .navbar-right {
   display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: flex-end;
-  margin-right: 100px;
-}
-
-/* Logo */
-.navbar-brand {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  text-decoration: none;
+  gap: 15px;
 }
 
 .logo {
   font-size: 25px;
   color: aliceblue;
   margin: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-/* Botões e links */
+.navbar-brand {
+  text-decoration: none;
+}
+
 .c_button {
   color: aliceblue;
   text-decoration: none;
   font-size: 16px;
-  padding: 15px;
+  padding: 10px 15px;
+  transition: opacity 0.3s ease;
 }
 
-/* Ícone do usuário */
 .user-icon {
-  font-size: 20px;
+  font-size: 24px;
   color: aliceblue;
+  transition: opacity 0.3s ease;
 }
 
 a:hover {
   opacity: 0.8;
 }
 
-/* Responsivo */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
+  .navbar-container {
+    position: relative;
   }
 
   .navbar-right {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 10px;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+
+    background-color: var(--primaryColor);
+    border-radius: 8px;
+    padding: 10px 0;
+    width: 220px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .navbar-right.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .c_button,
   .user-icon {
-    font-size: 16px;
-    padding: 10px;
+    width: 100%;
+    text-align: left;
+    padding: 12px 20px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .logo {
+    font-size: 20px;
+  }
+
+  .navbar-container {
+    padding: 0 30px;
   }
 }

@@ -4,6 +4,7 @@ import { isEmail } from "validator";
 import { toast } from "react-toastify";
 
 import UsuarioService from "../../services/UsuarioService";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
@@ -20,6 +21,7 @@ export const Login = () => {
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +62,7 @@ export const Login = () => {
       <Header />
       <section className="login-container">
         <h1 className="title">Login</h1>
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit} noValidate>
           <div className="login-form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -70,19 +72,30 @@ export const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu Email..."
+              required
             />
           </div>
 
           <div className="login-form-group">
             <label htmlFor="senha">Senha</label>
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Digite sua Senha..."
-            />
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="senha"
+                name="senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Digite sua Senha..."
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
 
           <button type="submit" className="submit-button" disabled={isLoading}>

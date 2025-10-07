@@ -70,7 +70,7 @@ export const Trocar_a_Senha = () => {
       <section className="login-container">
         <h1 className="title">Alterar a Senha</h1>
         <form className="login-form" onSubmit={handleSubmit}>
-          <div className="login-form-group">
+          <div className="login-form-group2">
             <label htmlFor="email">Nova Senha</label>
             <input
               type="password"
@@ -82,7 +82,7 @@ export const Trocar_a_Senha = () => {
             />
           </div>
 
-          <div className="login-form-group">
+          <div className="login-form-group2">
             <label htmlFor="senha">Novamente a Senha</label>
             <input
               type="password"

@@ -1,40 +1,47 @@
-main {
+/* A regra genérica 'main' foi substituída pela classe específica '.avaliacao-container' */
+.avaliacao-container {
   text-align: center;
   align-items: center;
   justify-content: center;
+  padding-bottom: 3rem;
 }
 
-.title {
-  margin-bottom: 35px;
+.avaliacao-container .title {
+  margin-top: 35px;
 }
 
-input[type="radio"] {
+.avaliacao-container input[type="radio"] {
   display: none;
 }
 
-.icon {
+.avaliacao-container .icon {
   display: inline;
+  vertical-align: middle;
 }
-.star {
+
+.avaliacao-container .star {
   cursor: pointer;
+  font-size: 45px;
 }
 
-.stars {
+.avaliacao-container .stars {
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
-a.gold {
+.avaliacao-container a.gold {
   text-decoration: none;
   color: #e1b32c;
 }
 
-star-rating {
-  margin-bottom: 20px;
-}
-
-textarea {
+.avaliacao-container textarea {
   margin-top: 15px;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 200px;
   padding: 12px 20px;
   border: 2px solid #ccc;
@@ -42,48 +49,56 @@ textarea {
   background-color: #f8f8f8;
   font-size: 16px;
   resize: none;
+  box-sizing: border-box;
 }
 
-.doa {
+.avaliacao-container .doa {
   margin-top: 10px;
 }
 
-.submit {
+.avaliacao-container .stars .doa {
+  width: 100%;
+  text-align: center;
   margin-top: 15px;
-  padding: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #555;
+  height: 20px;
+}
+
+.avaliacao-container .submit {
+  margin-top: 15px;
+  padding: 12px;
   border-radius: 7px;
-  width: 240px;
+  width: 100%;
+  max-width: 240px;
   border: none;
-  background-color: var(--primaryColor);
+  background-color: #3580c5;
   color: aliceblue;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 512px) {
-  textarea {
-    width: 450px;
+@media (max-width: 600px) {
+  /* A regra agora só afeta o container da página de avaliação */
+  .avaliacao-container {
+    padding: 0 1rem 3rem 1rem;
   }
-}
 
-@media screen and (max-width: 512px) {
-  textarea {
-    width: 410px;
+  .avaliacao-container .title {
+    font-size: 2rem;
   }
-}
 
-@media screen and (max-width: 425px) {
-  textarea {
-    width: 400px;
+  .avaliacao-container h5.title {
+    font-size: 1.5rem;
   }
-}
 
-@media screen and (max-width: 410px) {
-  textarea {
-    width: 350px;
+  /* Usando um seletor mais específico para o parágrafo */
+  .avaliacao-container > p {
+    font-size: 0.9rem;
   }
-}
 
-@media screen and (max-width: 320px) {
-  textarea {
-    width: 250px;
+  .avaliacao-container .star {
+    font-size: 35px;
   }
 }

@@ -1,29 +1,54 @@
+.page-container-home main {
+  max-width: none !important;
+}
+
 .page-container-home {
   font-family: var(--font-family);
   background-color: #fff;
 }
 
-.welcome-container {
-  background-color: var(--primaryColor);
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+  line-height: 1.6;
+  color: #666;
+}
+
+.welcome-container,
+.thank-you-banner {
   padding: 4rem 1.5rem;
   text-align: center;
   color: aliceblue;
+  background-color: #3580c5;
 }
 
-.welcome-container .title {
-  font-size: 2.5rem;
+.welcome-container .title,
+.thank-you-title {
+  font-size: 2rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
   line-height: 1.2;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.welcome-container .title span {
+.welcome-container .title span,
+.thank-you-title span {
   color: #93c5fd;
 }
 
-.welcome-container .subtitle {
-  font-size: 1.1rem;
+.welcome-container .subtitle,
+.thank-you-subtitle {
+  font-size: 1rem;
   max-width: 600px;
   margin: 0 auto 2.5rem auto;
   line-height: 1.6;
@@ -31,185 +56,94 @@
   color: aliceblue;
 }
 
-.welcome-container .buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.welcome-button {
-  display: inline-block;
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: 2px solid var(--primaryColor);
-  background-color: aliceblue;
-  color: black;
-  cursor: pointer;
-}
-
-.welcome-button a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.welcome-button.primary {
-  background-color: aliceblue;
-  color: black;
-}
-.welcome-button.primary:hover {
-  background-color: #eef2ff;
-}
-.welcome-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.thank-you-banner {
-  position: relative;
-  padding: 5rem 1.5rem;
-  text-align: center;
-  color: aliceblue;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-}
-.thank-you-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-color: var(--primaryColor);
-}
-.thank-you-content {
-  position: relative;
-  z-index: 2;
-}
-.thank-you-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-.thank-you-title span {
-  color: #93c5fd;
-}
-.thank-you-subtitle {
-  font-size: 1.1rem;
-  max-width: 650px;
-  margin: 0 auto 2.5rem auto;
-  line-height: 1.6;
-  opacity: 0.9;
-}
+.welcome-container .buttons,
 .thank-you-buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
+
+.welcome-button,
 .thank-you-buttons .btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.8rem 1.8rem;
+  padding: 0.75rem 1.75rem;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  cursor: pointer;
 }
+
+.welcome-button {
+  background-color: aliceblue;
+  color: black;
+}
+.welcome-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 .thank-you-buttons .btn-primary {
   background-color: aliceblue;
   color: black;
 }
-.thank-you-buttons .btn-primary:hover {
-  background-color: #eef2ff;
-  transform: translateY(-3px);
-}
 .thank-you-buttons .btn-secondary {
   border-color: rgba(255, 255, 255, 0.5);
-  color: var(--text-light);
+  color: aliceblue;
 }
-.thank-you-buttons .btn-secondary:hover {
-  background-color: #ffffff1a;
-  border-color: var(--text-light);
+
+.info-container,
+.next-steps-section,
+.products-section.categorias {
+  padding: 3rem 1.5rem;
 }
 
 .info-container {
-  padding: 4rem 1.5rem;
-  margin-top: 40px;
+  background-color: #f8f9fa;
 }
-.info-container ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 1200px;
+
+.info-container ul,
+.steps-container,
+.categoria-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
 }
+
 .info-container li {
   text-align: center;
 }
 .info-container .icon {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary-color);
 }
 .info-container h3 {
   font-size: 1.25rem;
-  color: var(--text-dark);
   margin: 0 0 0.5rem 0;
 }
 .info-container p {
-  color: var(--text-muted);
   line-height: 1.6;
   margin: 0;
 }
 
 .next-steps-section {
-  padding: 4rem 1.5rem;
-  margin-top: 25px;
-  background-color: var(--secondary-color);
-}
-.section-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.section-subtitle {
-  font-size: 20px;
-  margin-bottom: 5rem;
-}
-
-.steps-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  background-color: #fff;
 }
 .step-card {
   background-color: #fff;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
-}
-.step-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 .step-number {
   position: absolute;
@@ -230,7 +164,7 @@
   height: 60px;
   border-radius: 50%;
   background-color: #dbeafe;
-  color: var(--primary-color);
+  color: #2563eb;
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
@@ -238,101 +172,75 @@
   position: relative;
   z-index: 2;
   font-size: 1.3rem;
-  color: var(--text-dark);
   margin: 0 0 1rem 0;
 }
 .step-description {
   position: relative;
   z-index: 2;
-  color: var(--text-muted);
   line-height: 1.7;
   margin: 0;
 }
-.step-description strong {
-  color: var(--primary-color-dark);
-}
 
 .products-section.categorias {
-  padding: 4rem 1.5rem;
-  background-color: var(--secondary-color);
+  background-color: #f8f9fa;
   text-align: center;
-}
-.products-section .title {
-  font-size: 2.25rem;
-  color: var(--text-dark);
-  font-weight: 700;
-  line-height: 1.2;
-}
-.products-section .title span {
-  color: var(--primary-color);
-}
-.products-section .subtitle {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  max-width: 600px;
-  margin: 1rem auto 3rem auto;
-}
-.categoria-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .final-section {
-  padding: 5rem 1.5rem;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 .final-section.login-prompt {
-  background-color: var(--secondary-color);
+  background-color: #f8f9fa;
 }
 .final-section .icon {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
-  color: var(--primary-color);
 }
 .final-section p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
+  font-size: 1.1rem;
   line-height: 1.7;
   margin: 0;
 }
 .final-section a {
-  color: var(--primary-color);
+  color: #2563eb;
   font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-.final-section a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
 }
 
 @media (min-width: 768px) {
+  .section-title {
+    font-size: 2.25rem;
+  }
+
   .welcome-container {
     padding: 5rem 1.5rem;
   }
-  .welcome-container .title {
-    font-size: 3.5rem;
-  }
+  .welcome-container .title,
   .thank-you-title {
     font-size: 3rem;
   }
-  .info-container ul {
-    grid-template-columns: repeat(3, 1fr);
-  }
+
+  .info-container ul,
   .steps-container {
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
   }
+
   .categoria-container {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
+  .welcome-container .title,
+  .thank-you-title {
+    font-size: 3.5rem;
+  }
+
   .categoria-container {
     grid-template-columns: repeat(4, 1fr);
   }

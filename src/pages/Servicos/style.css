@@ -74,3 +74,9 @@
     max-width: 400px;
   }
 }
+
+@media (max-width: 320px) {
+  .services-container {
+    padding: 1rem;
+  }
+}

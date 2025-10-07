@@ -33,6 +33,10 @@ const alterarSenha = (id, data) => {
   return http.mainInstance.put(`${API_URL}alterarSenha/${id}`, data);
 };
 
+const inativar = (id) => {
+  return http.multipartInstance.put(`${API_URL}inativar/${id}`);
+};
+
 const usuarioService = {
   findAll,
   findById,
@@ -40,6 +44,7 @@ const usuarioService = {
   logout,
   save,
   alterarSenha,
+  inativar,
 };
 
 export default usuarioService;

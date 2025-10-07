@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer";
 
+import AvaliacaoService from "../../services/AvaliacaoService";
+import { isUserLoggedIn } from "../../auth/authService";
+
 import "./style.css";
 
 export const Avaliacao = () => {
@@ -14,9 +17,9 @@ export const Avaliacao = () => {
   const [avaliacao, setAvaliacao] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   let rating_msg = "";
-
   switch (rating) {
     case 1:
       rating_msg = "Ruim";
@@ -33,31 +36,58 @@ export const Avaliacao = () => {
     case 5:
       rating_msg = "Perfeito";
       break;
-
     default:
       break;
   }
 
-  const handleLogout = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    if (rating_msg === "" || avaliacao === "") {
-      toast.error("Avaliação Incorreta");
+    if (!rating || avaliacao.trim() === "") {
+      toast.error("Por favor, preencha a nota e o comentário.");
       return;
     }
 
-    toast.success("Muito obrigado!!!");
-    toast.success("Avaliação enviada com sucesso");
-    navigate("/");
+    const userInfo = isUserLoggedIn();
+    if (!userInfo.loggedIn) {
+      toast.error("Você precisa estar logado para enviar uma avaliação.");
+      return;
+    }
+
+    console.log(userInfo);
+
+    const data = {
+      nota: rating,
+      comentario: avaliacao,
+      pessoa: {
+        id: userInfo.data.id,
+      },
+    };
+
+    console.log(data);
+
+    setIsSubmitting(true);
+
+    try {
+      await AvaliacaoService.save(data);
+
+      toast.success("Muito obrigado pela sua avaliação!");
+      navigate("/");
+    } catch (error) {
+      console.error("Erro ao enviar avaliação:", error);
+      toast.error(
+        "Não foi possível enviar sua avaliação. Tente novamente mais tarde."
+      );
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
       <Header />
-
       <section>
-        <main>
-          <h1 className="title">Avaliação</h1>
+        <main className="avaliacao-container">
           <h5 className="title">
             Nos Ajude a Melhorar <br />
             <FaPlus className="icon" color="green" size={25} />
@@ -75,6 +105,7 @@ export const Avaliacao = () => {
                   <input
                     type="radio"
                     className="rating"
+                    name="rating"
                     value={currentRating}
                     onClick={() => setRating(currentRating)}
                   />
@@ -92,11 +123,13 @@ export const Avaliacao = () => {
             })}
             <p className="doa">{rating_msg}</p>
           </div>
-          <form>
+
+          <form onSubmit={handleSubmit}>
             <textarea
               className="avaliacao"
               value={avaliacao}
               onChange={(e) => setAvaliacao(e.target.value)}
+              placeholder="Deixe seu comentário aqui..."
             ></textarea>
             <p className="doa">
               Ajude o projeto com uma{" "}
@@ -105,17 +138,18 @@ export const Avaliacao = () => {
                 className="gold"
                 href={"https://github.com/LukeSky25/Material-Share"}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 no GitHub
               </a>
             </p>
-            <button className="submit" type="submit" onClick={handleLogout}>
-              Enviar Avaliação
+
+            <button className="submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Enviando..." : "Enviar Avaliação"}
             </button>
           </form>
         </main>
       </section>
-
       <Footer />
     </>
   );

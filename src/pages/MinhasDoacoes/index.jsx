@@ -49,7 +49,6 @@ export const MinhasDoacoes = () => {
           doacaoService.findSolicitadasByBeneficiario(id),
         ]);
 
-        // Mapeia para adicionar informações de localização se houver CEP
         const doacoesFeitasComEndereco = await Promise.all(
           feitasRes.data.map(async (doacao) => {
             if (doacao.cep) {

@@ -53,14 +53,14 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: sticky;
+  top: 20px;
 }
 
 .doacao-info-container {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 24px;
-  position: sticky;
-  top: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -169,6 +169,11 @@
   background-color: #1d4ed8;
 }
 
+.solicitar-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
 .card-adicional {
   background-color: #fff;
   border-radius: 8px;
@@ -212,6 +217,7 @@
 .modal-content {
   background: white;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
@@ -240,20 +246,12 @@
   font-size: 1rem;
 }
 
-.modal-aviso {
-  font-size: 0.9rem;
-  background-color: #fffbe6;
-  border: 1px solid #ffe58f;
-  border-radius: 8px;
-  padding: 0.8rem;
-  margin-top: 1.5rem;
-}
-
 .modal-actions {
   display: flex;
   gap: 1rem;
   justify-content: center;
   margin-top: 2rem;
+  width: 100%;
 }
 
 .modal-actions button {
@@ -326,16 +324,43 @@
   }
 }
 
-.solicitar-btn:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
 @media (max-width: 900px) {
   .doacao-detalhe-grid {
     grid-template-columns: 1fr;
   }
   .doacao-info-container {
     position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .doacao-detalhe-page {
+    padding: 16px;
+  }
+  .doacao-detalhe-card {
+    padding: 16px;
+  }
+  .doacao-detalhe-grid {
+    gap: 24px;
+  }
+  .doacao-imagem-container img {
+    max-height: 300px;
+  }
+  .doacao-titulo {
+    font-size: 1.5rem;
+  }
+  .solicitar-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .modal-actions {
+    flex-direction: column;
+  }
+  .modal-actions button {
+    width: 100%;
   }
 }

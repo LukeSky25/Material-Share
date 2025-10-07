@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 
 import UsuarioService from "../../services/UsuarioService";
 import PessoaService from "../../services/PessoaService";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 
@@ -26,6 +28,7 @@ export const Register = () => {
   const [senha, setSenha] = useState("");
   const [t_user, setT_user] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const formatCpfCnpj = (value) => {
     const cleanedValue = value.replace(/\D/g, "");
@@ -47,8 +50,10 @@ export const Register = () => {
   };
 
   const formatCEP = (value) => {
-    const cleanedValue = value.replace(/\D/g, "");
-    return cleanedValue.replace(/(\d{5})(\d)/, "$1-$2").slice(0, 9);
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{5})(\d)/, "$1-$2")
+      .slice(0, 9);
   };
 
   const formatCelular = (value) => {
@@ -87,24 +92,20 @@ export const Register = () => {
       toast.error("O número de celular está incompleto.");
       return true;
     }
-
     let isDocValid = false;
     if (cleanedDoc.length === 11) {
       isDocValid = validarCpf(cleanedDoc);
     } else if (cleanedDoc.length === 14) {
       isDocValid = cnpj.isValid(cleanedDoc);
     }
-
     if (!isDocValid) {
       toast.error("O CPF ou CNPJ informado é inválido.");
       return true;
     }
-
     if (cleanedCep.length !== 8) {
       toast.error("O CEP deve conter 8 dígitos.");
       return true;
     }
-
     try {
       const response = await fetch(
         `https://viacep.com.br/ws/${cleanedCep}/json/`
@@ -137,24 +138,16 @@ export const Register = () => {
     e.preventDefault();
 
     const hasErrors = await validateForm();
-    if (hasErrors) {
-      return;
-    }
+    if (hasErrors) return;
 
     setIsLoading(true);
-
     try {
-      const dadosUsuario = {
-        nome,
-        email,
-        senha,
-      };
-
+      const dadosUsuario = { nome, email, senha };
       const respostaUsuario = await UsuarioService.save(dadosUsuario);
       const novoUsuarioId = respostaUsuario.data.id;
 
       if (!novoUsuarioId) {
-        toast.error("Falha ao obter o ID do novo usuário. Tente novamente.");
+        toast.error("Falha ao obter o ID do novo usuário.");
         setIsLoading(false);
         return;
       }
@@ -164,6 +157,7 @@ export const Register = () => {
         dataNascimento: dataNascimento,
         cpf_cnpj: cpfCnpj.replace(/\D/g, ""),
         cep: cep.replace(/\D/g, ""),
+        celular: celular.replace(/\D/g, ""),
         tipo: t_user,
         usuario: { id: novoUsuarioId },
         numeroResidencia: "1",
@@ -171,14 +165,13 @@ export const Register = () => {
       };
 
       await PessoaService.save(dadosPessoa);
-
-      toast.success("Conta criada com sucesso! Por favor, faça o login.");
+      toast.success("Conta criada com sucesso! Faça o login.");
       navigate("/login", { state: { email: email } });
     } catch (error) {
       console.error("Erro ao criar conta:", error);
-      toast.error(
-        "Não foi possível criar a conta. Verifique os dados ou tente mais tarde."
-      );
+      const errorMessage =
+        error.response?.data?.message || "Não foi possível criar a conta.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -188,8 +181,8 @@ export const Register = () => {
     <>
       <Header />
       <section className="register-section">
-        <p className="title">Cadastro</p>
-        <form className="register-form" onSubmit={handleSubmit}>
+        <h1 className="title">Cadastro</h1>
+        <form className="register-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
             <label htmlFor="nome">Nome Completo</label>
             <input
@@ -199,24 +192,22 @@ export const Register = () => {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               placeholder="Seu nome completo"
+              required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="dataNascimento">Data de Nascimento</label>
-
             <input
               type="date"
               id="dataNascimento"
               name="dataNascimento"
               value={dataNascimento}
               onChange={(e) => setDataNascimento(e.target.value)}
+              required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="celular">Celular</label>
-
             <input
               type="tel"
               id="celular"
@@ -225,6 +216,7 @@ export const Register = () => {
               onChange={(e) => setCelular(formatCelular(e.target.value))}
               placeholder="(DD) 9XXXX-XXXX"
               maxLength="15"
+              required
             />
           </div>
           <div className="form-group">
@@ -237,11 +229,11 @@ export const Register = () => {
               onChange={(e) => setCpfCnpj(formatCpfCnpj(e.target.value))}
               placeholder="Digite seu CPF ou CNPJ"
               maxLength="18"
+              required
             />
           </div>
           <div className="form-group">
             <label htmlFor="cep">CEP</label>
-
             <input
               type="text"
               id="cep"
@@ -250,12 +242,11 @@ export const Register = () => {
               onChange={(e) => setCep(formatCEP(e.target.value))}
               placeholder="XXXXX-XXX"
               maxLength="9"
+              required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="email">Email</label>
-
             <input
               type="email"
               id="email"
@@ -263,33 +254,42 @@ export const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu.email@exemplo.com"
+              required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="senha">Senha</label>
-
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              placeholder="Mínimo 6 caracteres"
-            />
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="senha"
+                name="senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                placeholder="Mínimo 6 caracteres"
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
-
           <div className="form-group">
-            <label htmlFor="t_user">Tipo de Usuário</label>
-
+            <label htmlFor="t_user">Eu sou</label>
             <select
               id="t_user"
               name="t_user"
               value={t_user}
               onChange={(e) => setT_user(e.target.value)}
+              required
             >
               <option value="" disabled>
-                -- Selecione --
+                -- Selecione uma opção --
               </option>
               <option value="DOADOR">Doador</option>
               <option value="BENEFICIADO">Beneficiado</option>
@@ -299,7 +299,6 @@ export const Register = () => {
             {isLoading ? "Cadastrando..." : "Cadastrar"}
           </button>
         </form>
-
         <p className="login-link">
           Já tem uma conta? <Link to={"/login"}>Faça login aqui!</Link>
         </p>

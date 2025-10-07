@@ -9,13 +9,13 @@ import { isUserLoggedIn } from "../../auth/authService.js";
 import doacaoService from "../../services/DoacaoService.js";
 import categoriaService from "../../services/CategoriaService.js";
 
-import "./style.css"; // Certifique-se de ter um CSS para este formulário
+import "./style.css";
 import "../../styles/global.css";
 
 export const FormularioDoacao = () => {
-  const { id } = useParams(); // Pega o ID da URL, se existir
+  const { id } = useParams();
   const navigate = useNavigate();
-  const isEditMode = Boolean(id); // Se tem id, estamos editando
+  const isEditMode = Boolean(id);
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -38,7 +38,6 @@ export const FormularioDoacao = () => {
   const [address, setAddress] = useState({});
   const [cepError, setCepError] = useState("");
 
-  // Busca as categorias
   useEffect(() => {
     categoriaService
       .findAll()
@@ -50,11 +49,9 @@ export const FormularioDoacao = () => {
       .finally(() => setLoadingCategorias(false));
   }, []);
 
-  // Verifica o usuário logado
   useEffect(() => {
     const user = isUserLoggedIn();
     if (user && user.loggedIn) {
-      // Verificação ajustada
       setUsuarioLogado(user.data);
     } else {
       toast.warn("Você precisa estar logado para acessar esta página.");
@@ -62,7 +59,6 @@ export const FormularioDoacao = () => {
     }
   }, [navigate]);
 
-  // Busca os dados da doação em modo de edição
   useEffect(() => {
     if (isEditMode && id) {
       setIsLoading(true);
@@ -104,7 +100,6 @@ export const FormularioDoacao = () => {
     }
   }, [id, isEditMode, navigate]);
 
-  // Busca de endereço via CEP
   useEffect(() => {
     const cepLimpo = formData.cep.replace(/\D/g, "");
     if (cepLimpo.length === 8) {

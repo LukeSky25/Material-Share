@@ -1,49 +1,123 @@
-/* Layout principal - filtros à esquerda e produtos à direita */
-.produtos-page-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 20px;
-  gap: 30px;
+/* ==========================================================
+   ESTRUTURA DA PÁGINA E STICKY FOOTER
+   ========================================================== */
+html,
+body,
+#root {
+  height: 100%;
 }
 
-/* Filtros */
-.filtros-container {
-  flex: 0 0 250px;
-  padding: 10px;
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9fafb; /* Fundo suave para a página inteira */
+}
+
+.page-container > main {
+  flex-grow: 1;
+}
+
+/* ==========================================================
+   LAYOUT PRINCIPAL DA PÁGINA DE DOAÇÕES
+   ========================================================== */
+
+/* MUDANÇA PRINCIPAL: De Flex para Grid */
+/* Agora temos um grid de 2 colunas: 280px para os filtros e o resto (1fr) para o conteúdo */
+.produtos-page-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr; /* Coluna de filtro fixa + conteúdo flexível */
+  align-items: flex-start;
+  gap: 2rem; /* Espaçamento entre as colunas */
+  max-width: 1600px; /* Aumenta a largura máxima para aproveitar telas grandes */
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ==========================================================
+   FILTROS (LADO ESQUERDO)
+   ========================================================== */
+
+.toggle-filters-button {
+  display: none; /* Agora esta é a única regra de display, e vai funcionar */
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  background-color: #f8f8f8;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  height: max-content;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  /* display: flex; FOI REMOVIDO DAQUI */
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #374151;
+}
+
+.filtros-container {
+  /* O position: sticky faz o painel "colar" no topo ao rolar */
+  position: sticky;
+  top: 2rem;
+
+  /* MELHORIA: Faz o painel de filtros rolar internamente se for muito grande */
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+
+  /* Estilo visual */
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
 }
 
 .filtros-container h2 {
-  margin-bottom: 20px;
-  font-size: 1.4em;
-  color: #333;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 1.25rem;
+  color: #111827;
 }
 
 .filtro-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .filtro-group h3 {
-  font-size: 1.1em;
-  color: #555;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 1rem;
 }
 
+/* Checkbox customizado para um visual mais moderno */
 .filtro-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #374151;
   cursor: pointer;
+  font-size: 0.9rem;
+}
+.filtro-group input[type="checkbox"] {
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 0.25rem;
+  border: 1px solid #d1d5db;
+  accent-color: #2563eb; /* Cor do checkbox marcado */
 }
 
+/* ==========================================================
+   CONTEÚDO PRINCIPAL (LADO DIREITO)
+   ========================================================== */
 .produtos-content-main {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0; /* Correção de bug de layout para grid/flex */
 }
 
 .search-bar-container {
@@ -57,116 +131,62 @@
 .search-input-wrapper {
   position: relative;
   flex-grow: 1;
-  display: flex;
 }
-
 .search-input-wrapper input {
   width: 100%;
-  padding: 0.8rem 3rem 0.8rem 1.5rem;
-  border: 1px solid #dfe1e5;
-  border-radius: 24px;
+  padding: 0.9rem 1rem 0.9rem 2.5rem; /* Espaço para o ícone da lupa */
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 1px 6px rgba(32, 33, 36, 0.1);
 }
-
 .search-input-wrapper input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 2px 8px rgba(32, 33, 36, 0.15);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
-
-/* Botão de busca (ícone da lupa) */
-.search-button {
+.search-input-wrapper .search-button {
+  /* Agora é só o ícone */
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border: none;
-  background-color: transparent;
-  padding: 0 1.2rem;
-  cursor: pointer;
-  color: #5f6368;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
   font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  pointer-events: none; /* O ícone não é clicável */
 }
 
-/* Botão de Adicionar Produto */
 .add-produto-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.5rem;
-  background-color: #007bff;
+  padding: 0.9rem 1.5rem;
+  background-color: #2563eb;
   color: white;
   text-decoration: none;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   white-space: nowrap;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
 }
-
 .add-produto-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: #1d4ed8;
 }
 
-.add-produto-button .plus-icon {
-  font-size: 1rem;
-}
-
-/* Responsividade para a barra de pesquisa */
-@media (max-width: 768px) {
-  .search-bar-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .add-produto-button {
-    width: 100%;
-    justify-content: center;
-  }
-}
-/* Grid de produtos responsiva */
-.produtos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
-  padding: 0 20px;
-}
-
-/* Card de produto */
-.product-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
+/* ==========================================================
+   GRID DE PRODUTOS
+   ========================================================== */
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* responsivo */
-  gap: 25px;
-  padding: 20px 0;
+  /* AJUSTE FINO: Cards menores (240px) para caber mais por linha */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
+/* Estados de Loading e Vazio */
 .loading-container,
 .empty-state-container {
   display: flex;
@@ -174,37 +194,81 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 300px;
-  color: #555;
-  font-size: 1.2rem;
+  min-height: 400px;
+  color: #6b7280;
+  font-size: 1.1rem;
 }
-
-.loader {
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #3498db;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+.spinner {
+  font-size: 2.5rem;
+  color: #2563eb;
   animation: spin 1s linear infinite;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
-
 @keyframes spin {
-  0% {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+/* ==========================================================
+   RESPONSIVIDADE
+   ========================================================== */
+
+/* Botão para alternar os filtros (inicialmente escondido) */
+
+@media (min-width: 992.02px) {
+  /* Garante que os filtros fiquem visíveis em telas grandes */
+  .filtros-container {
+    max-height: calc(100vh - 4rem);
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* VERSÃO CORRIGIDA E UNIFICADA DA MEDIA QUERY */
+@media (max-width: 992px) {
   .produtos-page-layout {
-    flex-direction: column;
+    grid-template-columns: 1fr; /* Apenas uma coluna */
+    padding: 1rem;
   }
 
+  /* Exibe o botão em telas menores */
+  .toggle-filters-button {
+    display: flex;
+  }
+
+  /* Esconde os filtros por padrão em telas menores */
   .filtros-container {
+    position: static; /* Remove o 'sticky' */
     width: 100%;
+    max-height: 0; /* Começa fechado */
+    padding: 0 1.5rem;
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Mostra os filtros quando a classe 'open' é adicionada */
+  .filtros-container.open {
+    max-height: 1000px; /* Expande para mostrar o conteúdo */
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-bar-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .add-produto-button {
+    justify-content: center;
   }
 }

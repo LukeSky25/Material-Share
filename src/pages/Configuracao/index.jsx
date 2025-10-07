@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import { isEmail } from "validator";
@@ -7,19 +7,33 @@ import validarCpf from "validar-cpf";
 import * as cnpj from "cnpj";
 
 import PessoaService from "../../services/PessoaService";
+import UsuarioService from "../../services/UsuarioService";
+
 import { Header } from "../../components/User-Sidebar/Header";
 import { Footer } from "../../components/Footer/index";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
-import { Settings, Edit, User, MapPin, Lock } from "lucide-react";
+import {
+  Settings,
+  Edit,
+  User,
+  MapPin,
+  Lock,
+  AlertTriangle,
+} from "lucide-react";
 
 import "./style.css";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+
 dayjs.extend(customParseFormat);
 
 export const Configuracao = () => {
   const { id } = useParams();
-  const userId = JSON.parse(localStorage.getItem("user")).usuario.id;
+  const navigate = useNavigate();
+
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [pessoa, setPessoa] = useState(null);
 
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
@@ -32,6 +46,8 @@ export const Configuracao = () => {
   const [numero, setNumero] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatDate = (value) => {
     return value
@@ -103,40 +119,55 @@ export const Configuracao = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsPageLoading(true);
       try {
         const response = await PessoaService.findById(id);
-        const pessoa = response.data;
+        const pessoaData = response.data;
 
-        setNome(pessoa.nome || "");
-        setEmail(pessoa.usuario.email || "");
-        setDataNascimento(
-          pessoa.dataNascimento
-            ? dayjs(pessoa.dataNascimento).format("DD/MM/YYYY")
-            : ""
-        );
-        setCelular(pessoa.celular ? formatCelular(pessoa.celular) : "");
-        setCpfCnpj(pessoa.cpf_cnpj ? formatCpfCnpj(pessoa.cpf_cnpj) : "");
-        const cepDoBanco = pessoa.cep || "";
-        setCep(cepDoBanco ? formatCEP(cepDoBanco) : "");
-        setEndereco(pessoa.endereco || "");
-        setComplemento(pessoa.complemento || "");
-        setNumero(pessoa.numeroResidencia || "");
-        setCidade(pessoa.cidade || "");
-        setEstado(pessoa.estado || "");
+        if (pessoaData) {
+          setPessoa(pessoaData);
+          setNome(pessoaData.nome || "");
 
-        if (cepDoBanco && !pessoa.endereco) {
-          buscarCep(cepDoBanco);
+          setEmail(pessoaData.usuario?.email || "");
+          setDataNascimento(
+            pessoaData.dataNascimento
+              ? dayjs(pessoaData.dataNascimento).format("DD/MM/YYYY")
+              : ""
+          );
+          setCelular(
+            pessoaData.celular ? formatCelular(pessoaData.celular) : ""
+          );
+          setCpfCnpj(
+            pessoaData.cpf_cnpj ? formatCpfCnpj(pessoaData.cpf_cnpj) : ""
+          );
+
+          const cepDoBanco = pessoaData.cep || "";
+          setCep(cepDoBanco ? formatCEP(cepDoBanco) : "");
+          setEndereco(pessoaData.endereco || "");
+          setComplemento(pessoaData.complemento || "");
+          setNumero(pessoaData.numeroResidencia || "");
+          setCidade(pessoaData.cidade || "");
+          setEstado(pessoaData.estado || "");
+
+          if (cepDoBanco && !pessoaData.endereco) {
+            buscarCep(cepDoBanco);
+          }
+        } else {
+          toast.error("Usuário não encontrado.");
         }
       } catch (error) {
         console.error("Erro ao buscar dados do usuário:", error);
         toast.error("Não foi possível carregar os dados do usuário.");
+        navigate("/");
+      } finally {
+        setIsPageLoading(false);
       }
     };
 
     if (id) {
       fetchData();
     }
-  }, [id, buscarCep]);
+  }, [id, buscarCep, navigate]);
 
   useEffect(() => {
     const cepLimpo = cep.replace(/\D/g, "");
@@ -231,6 +262,49 @@ export const Configuracao = () => {
       setIsLoading(false);
     }
   };
+
+  const handleInativarClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmarInativacao = async () => {
+    if (!pessoa || !pessoa.usuario?.id) {
+      toast.error("Não foi possível identificar o usuário para inativar.");
+      setIsModalOpen(false);
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await UsuarioService.inativar(pessoa.usuario.id);
+
+      toast.success(
+        "Sua conta foi inativada com sucesso. Você será desconectado."
+      );
+
+      UsuarioService.logout();
+
+      navigate("/");
+    } catch (error) {
+      console.error("Erro ao inativar conta:", error);
+      toast.error("Não foi possível inativar a conta. Tente novamente.");
+      setIsLoading(false);
+    } finally {
+      setIsModalOpen(false);
+    }
+  };
+
+  if (isPageLoading) {
+    return (
+      <>
+        <Header />
+        <div className="config-page">
+          <p>Carregando informações do usuário...</p>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -421,7 +495,7 @@ export const Configuracao = () => {
             <div className="bottom-cards-grid">
               <div className="action-card">
                 <div className="action-card-header">
-                  <Lock size={22} style={{ color: "#ef4444" }} />
+                  <Lock size={22} style={{ color: "#e6d818" }} />
                   <h4>Segurança</h4>
                 </div>
                 <p className="action-card-description">
@@ -430,17 +504,42 @@ export const Configuracao = () => {
 
                 <Link
                   type="button"
-                  className="btn btn-danger"
-                  to={`/alterarSenha/${userId}`}
+                  className="btn btn-warning"
+                  to={`/alterarSenha/${pessoa.usuario.id}`}
                 >
                   Alterar Senha
                 </Link>
+              </div>
+              <div className="action-card danger-zone">
+                <div className="action-card-header">
+                  <AlertTriangle size={22} />
+                  <h4>Inativar Conta</h4>
+                </div>
+                <p className="action-card-description">
+                  Esta ação é permanente e não pode ser desfeita.
+                </p>
+
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleInativarClick}
+                >
+                  Inativar a Conta
+                </button>
               </div>
             </div>
           </div>
         </div>
       </form>
       <Footer />
+
+      {isModalOpen && (
+        <ConfirmationModal
+          message="Tem certeza que deseja inativar sua conta? Esta ação é permanente e você perderá o acesso ao sistema."
+          onConfirm={handleConfirmarInativacao}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      )}
     </>
   );
 };

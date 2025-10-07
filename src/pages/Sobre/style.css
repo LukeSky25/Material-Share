@@ -1,62 +1,53 @@
-/* Container de Seções */
 .conteudo-secao {
   display: flex;
-  align-items: center; /* Alinha verticalmente os itens no centro */
-  gap: 50px; /* Espaço entre a foto e o texto */
+  align-items: center;
+  gap: 50px;
   margin-top: 50px;
-  margin-bottom: 80px; /* Espaço entre as seções */
-  padding: 0 50px; /* Adiciona padding nas laterais */
+  margin-bottom: 80px;
+  padding: 0 50px;
 }
 
-/* Ordem padrão (foto na esquerda, texto na direita) */
 .conteudo-secao {
   flex-direction: row;
 }
 
-/* Ordem invertida (foto na direita, texto na esquerda) */
 .conteudo-secao.reverso {
   flex-direction: row-reverse;
 }
 
-/* Estilo para a seção de texto */
 .secao-texto {
-  flex: 1; /* Ocupa o espaço disponível */
+  flex: 1;
   padding: 20px;
 }
 
-/* Container do título com ícone */
 .secao-titulo-com-icone {
   display: flex;
   align-items: center;
-  gap: 15px; /* Espaço entre o ícone e o título */
+  gap: 15px;
   margin-bottom: 20px;
 }
 
-/* Estilo para os ícones */
 .icone-secao {
-  font-size: 3rem; /* Aumenta o tamanho do ícone */
+  font-size: 3rem;
 }
 
-/* Estilo para o título */
 .secao-texto h3 {
   font-size: 2.2rem;
   color: #333;
   margin: 0;
 }
 
-/* Estilo para o parágrafo */
 .secao-texto p {
   font-size: 1.1rem;
   line-height: 1.6;
   color: #555;
 }
 
-/* Estilo para a seção da imagem */
 .secao-imagem {
-  flex: 1; /* Ocupa o espaço disponível */
+  flex: 1;
   display: flex;
-  justify-content: center; /* Centraliza a imagem horizontalmente */
-  align-items: center; /* Centraliza a imagem verticalmente */
+  justify-content: center;
+  align-items: center;
 }
 
 .secao-imagem img {
@@ -66,16 +57,31 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .conteudo-secao,
   .conteudo-secao.reverso {
-    flex-direction: column; /* Em telas menores, a imagem vai para cima e o texto para baixo */
+    flex-direction: column;
     text-align: center;
     padding: 0 20px;
   }
 
   .secao-texto {
     padding: 0;
+  }
+
+  .secao-titulo-com-icone {
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+}
+
+@media (max-width: 375px) {
+  .conteudo-secao,
+  .conteudo-secao.reverso {
+    padding: 0 15px;
+  }
+
+  .secao-texto p {
+    font-size: 1rem;
   }
 }

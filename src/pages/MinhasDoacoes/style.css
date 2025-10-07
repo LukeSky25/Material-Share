@@ -1,3 +1,6 @@
+/* ==========================================================
+   ESTILOS GERAIS E LAYOUT DA PÁGINA
+   ========================================================== */
 html,
 body,
 #root {
@@ -30,6 +33,9 @@ body {
   flex-grow: 1;
 }
 
+/* ==========================================================
+   CABEÇALHO E ABAS (TABS)
+   ========================================================== */
 .minhas-doacoes-container h1 {
   text-align: center;
   color: #1a202c;
@@ -73,9 +79,13 @@ body {
   border-bottom-color: #4299e1;
 }
 
+/* ==========================================================
+   GRID E CARDS DE DOAÇÃO
+   ========================================================== */
 .doacoes-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  /* ✨ MÁGICA DA RESPONSIVIDADE: Cria colunas automáticas que se ajustam ao tamanho da tela */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.25rem;
   align-content: start;
 }
@@ -110,7 +120,7 @@ body {
 
 .doacao-card-img {
   width: 100%;
-  height: 150px;
+  height: 220px;
   object-fit: cover;
   background-color: #f7f8fa;
 }
@@ -210,10 +220,10 @@ body {
    BREAKPOINTS PARA RESPONSIVIDADE (MEDIA QUERIES)
    ========================================================================== */
 
-/* Telas pequenas para médias (ex: celulares maiores, tablets na vertical) */
-@media (min-width: 540px) {
+@media (max-width: 767px) {
+  /* Para telas até 767px */
   .doacoes-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 3rem; /* Aumenta o espaçamento entre os cards em telas pequenas */
   }
 }
 
@@ -241,5 +251,24 @@ body {
   }
   .doacoes-grid {
     gap: 1.75rem;
+  }
+}
+
+/* ✨ NOVO: Ajustes finos para telas muito pequenas (celulares) */
+@media (max-width: 480px) {
+  .minhas-doacoes-container {
+    padding: 0.5rem;
+    margin-top: 1rem;
+  }
+  .minhas-doacoes-container h1 {
+    font-size: 1.5rem;
+  }
+  .tab {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  /* Empilha os botões de ação verticalmente para não ficarem espremidos */
+  .doacao-card-actions {
+    flex-direction: column;
   }
 }
