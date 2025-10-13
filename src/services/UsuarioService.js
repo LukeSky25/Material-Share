@@ -25,6 +25,23 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+const adminSignIn = async (email, senha) => {
+  const response = await http.mainInstance.post(API_URL + "admin/login", {
+    email,
+    senha,
+  });
+
+  if (response.data) {
+    localStorage.setItem("adminUser", JSON.stringify(response.data));
+  }
+
+  return response.data;
+};
+
+const logoutAdmin = () => {
+  localStorage.removeItem("adminUser");
+};
+
 const save = (data) => {
   return http.mainInstance.post(`${API_URL}save`, data);
 };
@@ -42,6 +59,8 @@ const usuarioService = {
   findById,
   signIn,
   logout,
+  adminSignIn,
+  logoutAdmin,
   save,
   alterarSenha,
   inativar,

@@ -17,8 +17,10 @@ import { Doacoes } from "../pages/Doacoes";
 import { Doacao } from "../pages/Doacao";
 import { FormularioDoacao } from "../pages/FormularioDoacao";
 import { MinhasDoacoes } from "../pages/MinhasDoacoes";
+import { AdminLogin } from "../pages/AdminLogin";
 
 import { PrivateRoutes } from "./PrivateRoutes";
+import { AdminPrivateRoutes } from "./AdminPrivateRoutes";
 
 export const Rotas = () => {
   return (
@@ -29,6 +31,17 @@ export const Rotas = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/servicos" element={<Servicos />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminPrivateRoutes>
+              <Administracao />
+            </AdminPrivateRoutes>
+          }
+        />
+
         <Route
           path="/doacao/editar/:id"
           element={
@@ -82,14 +95,6 @@ export const Rotas = () => {
           element={
             <PrivateRoutes>
               <Trocar_a_Senha />
-            </PrivateRoutes>
-          }
-        />
-        <Route
-          path="/administracao"
-          element={
-            <PrivateRoutes>
-              <Administracao />
             </PrivateRoutes>
           }
         />

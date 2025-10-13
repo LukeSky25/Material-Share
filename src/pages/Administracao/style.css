@@ -1,63 +1,149 @@
-.confirm {
+/* --- Estilo Geral do Container --- */
+.container2 {
+  max-width: 1200px;
+  margin: 2rem auto; /* Centraliza e adiciona espaço */
+  padding: 2rem;
+  background-color: #f8f9fa; /* Um cinza bem claro para o fundo */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Cabeçalho da Tabela (Título e Botão Adicionar) --- */
+.table-header {
   display: flex;
-  justify-content: space-evenly;
-  margin-top: 30px;
+  justify-content: space-between; /* Alinha o título à esquerda e o botão à direita */
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-.confirm button {
-  padding: 5px;
-  border: none;
-  border-radius: 5px;
+.adm_h1 {
+  font-size: 2rem;
+  color: #343a40;
+  margin: 0;
 }
-
-.confirm .cancel {
-  background-color: red;
-  color: aliceblue;
-}
-
-.confirm .ok {
-  background-color: green;
-  color: aliceblue;
-}
-
-/* */
 
 .add_b {
-  border: 1px;
-  background-color: #0e6d58;
-  color: aliceblue;
-  padding: 2px 10px;
-  font-size: 18px;
+  background-color: #007bff; /* Azul primário vibrante */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espaço entre o ícone e o texto */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add_b:hover {
+  background-color: #0056b3; /* Azul mais escuro no hover */
+  transform: translateY(-2px); /* Efeito de elevação sutil */
 }
 
 .add_adm {
-  font-size: 20px;
-  font-weight: bolder;
-  margin: 1.5px;
-  position: relative;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
+/* --- Estilo da Tabela --- */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Remove espaços entre as células */
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden; /* Garante que o border-radius aplique nas bordas da tabela */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Cabeçalho e Células --- */
+th,
+td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6; /* Linha sutil para separar as linhas */
+  vertical-align: middle; /* Alinha o conteúdo verticalmente */
+}
+
+thead th {
+  background-color: #e9ecef; /* Fundo do cabeçalho */
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+/* --- Corpo da Tabela --- */
+tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  background-color: #f1f3f5; /* Efeito de hover suave nas linhas */
+}
+
+tbody tr:last-child td {
+  border-bottom: none; /* Remove a borda da última linha */
+}
+
+/* --- Coluna de Ações --- */
 .adm_acoes {
+  text-align: center;
   display: flex;
-  gap: 25px;
+  gap: 1rem;
+  justify-content: center;
 }
 
-.adm_exclude_b {
-  border: 1px;
-  background-color: #f01010;
-  color: aliceblue;
-  padding: 3px;
-  width: 65px;
-}
-
-.adm_edit {
+.icon-button {
+  background: none;
+  border: none;
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%; /* Deixa o fundo circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-th .none_table {
-  border: none;
+.edit-button {
+  color: #ffc107; /* Amarelo/Laranja para editar */
 }
-.container thead th .none_table,
-.container table th .none_table {
-  border: none;
+
+.edit-button:hover {
+  background-color: rgba(255, 193, 7, 0.1); /* Fundo sutil no hover */
+}
+
+.delete-button {
+  color: #dc3545; /* Vermelho para excluir */
+}
+
+.delete-button:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* --- Badges de Status --- */
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-ativo {
+  background-color: rgba(40, 167, 69, 0.15); /* Fundo verde claro */
+  color: #1a7431; /* Texto verde escuro */
+}
+
+.status-inativo {
+  background-color: rgba(220, 53, 69, 0.15); /* Fundo vermelho claro */
+  color: #a71d2a; /* Texto vermelho escuro */
+}
+
+.status-trocar_senha {
+  background-color: rgba(255, 193, 7, 0.15); /* Fundo amarelo claro */
+  color: #b5830d; /* Texto amarelo escuro */
 }
