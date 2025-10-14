@@ -1,17 +1,15 @@
-/* --- Estilo Geral do Container --- */
 .container2 {
   max-width: 1200px;
-  margin: 2rem auto; /* Centraliza e adiciona espaço */
+  margin: 2rem auto;
   padding: 2rem;
-  background-color: #f8f9fa; /* Um cinza bem claro para o fundo */
+  background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* --- Cabeçalho da Tabela (Título e Botão Adicionar) --- */
 .table-header {
   display: flex;
-  justify-content: space-between; /* Alinha o título à esquerda e o botão à direita */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
@@ -23,7 +21,7 @@
 }
 
 .add_b {
-  background-color: #007bff; /* Azul primário vibrante */
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 6px;
@@ -33,13 +31,13 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Espaço entre o ícone e o texto */
+  gap: 0.5rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .add_b:hover {
-  background-color: #0056b3; /* Azul mais escuro no hover */
-  transform: translateY(-2px); /* Efeito de elevação sutil */
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 .add_adm {
@@ -47,27 +45,67 @@
   font-weight: bold;
 }
 
-/* --- Estilo da Tabela --- */
+.filtros-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.filtros-container .search-bar {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 0 0.75rem;
+  border: 1px solid #ddd;
+}
+
+.filtros-container .search-bar svg {
+  color: #999;
+}
+
+.filtros-container input[type="search"] {
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 1rem;
+}
+
+.filtros-container select {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  min-width: 180px;
+}
+
 table {
   width: 100%;
-  border-collapse: collapse; /* Remove espaços entre as células */
+  border-collapse: collapse;
   background-color: #ffffff;
   border-radius: 8px;
-  overflow: hidden; /* Garante que o border-radius aplique nas bordas da tabela */
+  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* --- Cabeçalho e Células --- */
 th,
 td {
   padding: 1rem 1.25rem;
   text-align: left;
-  border-bottom: 1px solid #dee2e6; /* Linha sutil para separar as linhas */
-  vertical-align: middle; /* Alinha o conteúdo verticalmente */
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
 }
 
 thead th {
-  background-color: #e9ecef; /* Fundo do cabeçalho */
+  background-color: #e9ecef;
   color: #495057;
   font-weight: 600;
   text-transform: uppercase;
@@ -75,20 +113,18 @@ thead th {
   letter-spacing: 0.5px;
 }
 
-/* --- Corpo da Tabela --- */
 tbody tr {
   transition: background-color 0.2s ease;
 }
 
 tbody tr:hover {
-  background-color: #f1f3f5; /* Efeito de hover suave nas linhas */
+  background-color: #f1f3f5;
 }
 
 tbody tr:last-child td {
-  border-bottom: none; /* Remove a borda da última linha */
+  border-bottom: none;
 }
 
-/* --- Coluna de Ações --- */
 .adm_acoes {
   text-align: center;
   display: flex;
@@ -101,7 +137,7 @@ tbody tr:last-child td {
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  border-radius: 50%; /* Deixa o fundo circular */
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,22 +145,21 @@ tbody tr:last-child td {
 }
 
 .edit-button {
-  color: #ffc107; /* Amarelo/Laranja para editar */
+  color: #ffc107;
 }
 
 .edit-button:hover {
-  background-color: rgba(255, 193, 7, 0.1); /* Fundo sutil no hover */
+  background-color: rgba(255, 193, 7, 0.1);
 }
 
 .delete-button {
-  color: #dc3545; /* Vermelho para excluir */
+  color: #dc3545;
 }
 
 .delete-button:hover {
   background-color: rgba(220, 53, 69, 0.1);
 }
 
-/* --- Badges de Status --- */
 .status {
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
@@ -134,16 +169,16 @@ tbody tr:last-child td {
 }
 
 .status-ativo {
-  background-color: rgba(40, 167, 69, 0.15); /* Fundo verde claro */
-  color: #1a7431; /* Texto verde escuro */
+  background-color: rgba(40, 167, 69, 0.15);
+  color: #1a7431;
 }
 
 .status-inativo {
-  background-color: rgba(220, 53, 69, 0.15); /* Fundo vermelho claro */
-  color: #a71d2a; /* Texto vermelho escuro */
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #a71d2a;
 }
 
 .status-trocar_senha {
-  background-color: rgba(255, 193, 7, 0.15); /* Fundo amarelo claro */
-  color: #b5830d; /* Texto amarelo escuro */
+  background-color: rgba(255, 193, 7, 0.15);
+  color: #b5830d;
 }

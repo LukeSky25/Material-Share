@@ -160,8 +160,6 @@ export const Register = () => {
         celular: celular.replace(/\D/g, ""),
         tipo: t_user,
         usuario: { id: novoUsuarioId },
-        numeroResidencia: "1",
-        statusDoador: "ATIVO",
       };
 
       await PessoaService.save(dadosPessoa);

@@ -1,37 +1,93 @@
-import { Container, Content } from "./styles";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { isUserLoggedIn } from "../../../auth/authService";
+import UsuarioService from "../../../services/UsuarioService";
+
 import {
   FaTimes,
-  FaHome,
-  FaEnvelope,
-  FaRegSun,
+  FaRegHeart,
   FaUserAlt,
-  FaIdCardAlt,
-  FaRegFileAlt,
-  FaRegCalendarAlt,
-  FaChartBar,
+  FaSignInAlt,
+  FaHeadphonesAlt,
+  FaRegBell,
 } from "react-icons/fa";
 
+import ConfirmationModal from "../../ConfirmationModal";
 import SidebarItem from "../SidebarItem";
 
-const Sidebar = ({ active }) => {
+import { Container, Content } from "./styles";
+
+const Sidebar = ({ isOpen, active }) => {
+  const [user, setUser] = useState({ loggedIn: false, data: null });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
   const closeSidebar = () => {
     active(false);
   };
 
+  useEffect(() => {
+    const usuario = isUserLoggedIn();
+    setUser(usuario);
+  }, []);
+
+  const handleLogoutConfirm = () => {
+    setIsModalOpen(false);
+
+    UsuarioService.logout();
+
+    toast.success("Logout realizado com sucesso");
+
+    navigate("/user/logout");
+  };
+
+  const handleLogoutCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
-    <Container sidebar={active}>
-      <FaTimes onClick={closeSidebar} />
-      <Content>
-        <SidebarItem Icon={FaHome} Text="Home" />
-        <SidebarItem Icon={FaChartBar} Text="Statistics" />
-        <SidebarItem Icon={FaUserAlt} Text="Users" />
-        <SidebarItem Icon={FaEnvelope} Text="Mail" />
-        <SidebarItem Icon={FaRegCalendarAlt} Text="Calendar" />
-        <SidebarItem Icon={FaIdCardAlt} Text="Employees" />
-        <SidebarItem Icon={FaRegFileAlt} Text="Reports" />
-        <SidebarItem Icon={FaRegSun} Text="Settings" />
-      </Content>
-    </Container>
+    <>
+      <Container $isOpen={isOpen}>
+        <FaTimes onClick={closeSidebar} />
+        <Content>
+          {user.loggedIn && user.data ? (
+            <>
+              <Link to={`/user/${user.data.id}`}>
+                <SidebarItem Icon={FaUserAlt} Text="Usuário" />
+              </Link>
+              <Link to={`/user/notificacao/${user.data.id}`}>
+                <SidebarItem Icon={FaRegBell} Text="Notificações" />
+              </Link>
+              <Link to="/user/suporte">
+                <SidebarItem Icon={FaHeadphonesAlt} Text="Suporte" />
+              </Link>
+              <Link to="/user/avaliacao">
+                <SidebarItem Icon={FaRegHeart} Text="Avaliação" />
+              </Link>
+
+              <div onClick={handleLogoutClick} style={{ cursor: "pointer" }}>
+                <SidebarItem Icon={FaSignInAlt} Text="Logout" />
+              </div>
+            </>
+          ) : (
+            <p>Carregando menu...</p>
+          )}
+        </Content>
+      </Container>
+
+      {isModalOpen && (
+        <ConfirmationModal
+          message="Você tem certeza que deseja sair?"
+          onConfirm={handleLogoutConfirm}
+          onCancel={handleLogoutCancel}
+        />
+      )}
+    </>
   );
 };
 

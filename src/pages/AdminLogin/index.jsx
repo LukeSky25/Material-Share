@@ -38,7 +38,7 @@ export const AdminLogin = () => {
         navigate("/admin/dashboard");
       } else {
         toast.error("Este usuário não tem permissão de administrador.");
-        UsuarioService.logoutAdmin(); // Opcional: limpa qualquer login indevido
+        UsuarioService.logoutAdmin();
       }
     } catch (error) {
       console.error("Erro no login de admin:", error);
@@ -52,7 +52,7 @@ export const AdminLogin = () => {
     <>
       <Header />
       <section className="login-container">
-        <h1 className="title">Login Administrativo</h1>
+        <h1 className="title2">Login Administrativo</h1>
         <form className="login-form" onSubmit={handleSubmit} noValidate>
           <div className="login-form-group">
             <label htmlFor="email">Email</label>

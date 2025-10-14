@@ -10,6 +10,10 @@ const findById = (id) => {
   return http.mainInstance.get(`${API_URL}findById/${id}`);
 };
 
+const findByUsuarioId = (usuarioId) => {
+  return http.mainInstance.get(`${API_URL}findByUsuarioId/${usuarioId}`);
+};
+
 const findByTipo = (tipo) => {
   return http.multipartInstance.get(`${API_URL}findByTipo/${tipo}`);
 };
@@ -22,12 +26,13 @@ const editar = (id, data) => {
   return http.mainInstance.put(API_URL + `editar/${id}`, data);
 };
 
-const usuarioService = {
+const pessoaService = {
   findAll,
   findById,
+  findByUsuarioId,
   findByTipo,
   save,
   editar,
 };
 
-export default usuarioService;
+export default pessoaService;

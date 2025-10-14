@@ -9,6 +9,10 @@
   min-height: calc(100vh - 140px);
 }
 
+.title2 {
+  margin-bottom: 45px;
+}
+
 .login-container .title {
   font-size: 2.5rem;
   font-weight: 700;

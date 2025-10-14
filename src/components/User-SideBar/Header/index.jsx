@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container } from "./styles"; // seu Header styled-component
+import { Container } from "./styles";
 import { FaBars } from "react-icons/fa";
 import Sidebar from "../Sidebar";
 import "../../../styles/global.css";
@@ -19,7 +19,6 @@ export const Header = () => {
           <p className="logo">Material Share</p>
         </Link>
 
-        {/* opcional: só monta quando aberto */}
         {sidebar && <Sidebar isOpen={sidebar} active={setSidebar} />}
       </Container>
     </>
