@@ -27,7 +27,6 @@ export const Administracao = () => {
     const carregarPessoas = async () => {
       try {
         const response = await PessoaService.findAll();
-
         const pessoasValidas = response.data.filter((p) => p.usuario);
         setPessoas(pessoasValidas);
         setPessoasFiltradas(pessoasValidas);
@@ -38,7 +37,6 @@ export const Administracao = () => {
         setIsLoading(false);
       }
     };
-
     carregarPessoas();
   }, []);
 
@@ -52,25 +50,21 @@ export const Administracao = () => {
           pessoa.usuario?.email.toLowerCase().includes(termoBusca.toLowerCase())
       );
     }
-
     if (filtroStatus !== "TODOS") {
       dadosFiltrados = dadosFiltrados.filter(
         (pessoa) => pessoa.usuario?.statusUsuario === filtroStatus
       );
     }
-
     if (filtroNivel !== "TODOS") {
       dadosFiltrados = dadosFiltrados.filter(
         (pessoa) => pessoa.usuario?.nivelAcesso === filtroNivel
       );
     }
-
     if (filtroTipo !== "TODOS") {
       dadosFiltrados = dadosFiltrados.filter(
         (pessoa) => pessoa.tipo === filtroTipo
       );
     }
-
     setPessoasFiltradas(dadosFiltrados);
   }, [termoBusca, filtroStatus, filtroNivel, filtroTipo, pessoas]);
 
@@ -78,7 +72,6 @@ export const Administracao = () => {
     if (window.confirm("Tem certeza que deseja inativar este usuário?")) {
       try {
         await UsuarioService.inativar(usuarioId);
-
         const novasPessoas = pessoas.map((pessoa) => {
           if (pessoa.usuario?.id === usuarioId) {
             return {
@@ -89,7 +82,6 @@ export const Administracao = () => {
           return pessoa;
         });
         setPessoas(novasPessoas);
-
         toast.success("Usuário inativado com sucesso!");
       } catch (error) {
         console.error("Erro ao inativar usuário:", error);
@@ -108,117 +100,126 @@ export const Administracao = () => {
 
   if (isLoading) {
     return (
-      <>
+      <div className="page-wrapper">
         <Header />
-        <main className="container2" style={{ padding: "2rem" }}>
+        <main
+          className="container2"
+          style={{ padding: "2rem", textAlign: "center" }}
+        >
           <p>Carregando dados...</p>
         </main>
         <Footer />
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="page-wrapper">
       <Header />
       <main className="container2">
-        <div className="table-header">
-          <h1 className="adm_h1">Gerenciar Pessoas</h1>
-          <button className="add_b" onClick={handleAdd}>
-            <span className="add_adm">+</span> Adicionar Pessoa
-          </button>
-        </div>
-
-        <div className="filtros-container">
-          <div className="search-bar">
-            <FaSearch />
-            <input
-              type="search"
-              placeholder="Buscar por nome ou email..."
-              value={termoBusca}
-              onChange={(e) => setTermoBusca(e.target.value)}
-            />
+        <div className="page-controls">
+          <div className="table-header">
+            <h1 className="adm_h1">Gerenciar Pessoas</h1>
+            <button className="add_b" onClick={handleAdd}>
+              <span className="add_adm">+</span> Adicionar Pessoa
+            </button>
           </div>
-          <select
-            value={filtroStatus}
-            onChange={(e) => setFiltroStatus(e.target.value)}
-          >
-            <option value="TODOS">Todos os Status</option>
-            <option value="ATIVO">Ativo</option>
-            <option value="INATIVO">Inativo</option>
-          </select>
-          <select
-            value={filtroNivel}
-            onChange={(e) => setFiltroNivel(e.target.value)}
-          >
-            <option value="TODOS">Todos os Níveis</option>
-            <option value="USER">Usuário</option>
-            <option value="ADMIN">Admin</option>
-          </select>
-          <select
-            value={filtroTipo}
-            onChange={(e) => setFiltroTipo(e.target.value)}
-          >
-            <option value="TODOS">Todos os Tipos</option>
-            <option value="DOADOR">Doador</option>
-            <option value="BENEFICIADO">Beneficiado</option>
-          </select>
+          <div className="filtros-container">
+            <div className="search-bar">
+              <FaSearch />
+              <input
+                type="search"
+                placeholder="Buscar por nome ou email..."
+                value={termoBusca}
+                onChange={(e) => setTermoBusca(e.target.value)}
+              />
+            </div>
+            <select
+              value={filtroStatus}
+              onChange={(e) => setFiltroStatus(e.target.value)}
+            >
+              <option value="TODOS">Todos os Status</option>
+              <option value="ATIVO">Ativo</option>
+              <option value="INATIVO">Inativo</option>
+            </select>
+            <select
+              value={filtroNivel}
+              onChange={(e) => setFiltroNivel(e.target.value)}
+            >
+              <option value="TODOS">Todos os Níveis</option>
+              <option value="USER">Usuário</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+            <select
+              value={filtroTipo}
+              onChange={(e) => setFiltroTipo(e.target.value)}
+            >
+              <option value="TODOS">Todos os Tipos</option>
+              <option value="DOADOR">Doador</option>
+              <option value="BENEFICIADO">Beneficiado</option>
+            </select>
+          </div>
         </div>
 
-        {pessoasFiltradas.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>ID Pessoa</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Tipo</th>
-                <th>Status</th>
-                <th>Nível</th>
-                <th style={{ textAlign: "center" }}>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pessoasFiltradas.map((pessoa) => (
-                <tr key={pessoa.id} className="adms">
-                  <td>{pessoa.id}</td>
-                  <td>{pessoa.nome || "N/A"}</td>
-
-                  <td>{pessoa.usuario?.email || "Email Indisponível"}</td>
-                  <td>{pessoa.tipo || "N/A"}</td>
-                  <td>
-                    <span
-                      className={`status status-${pessoa.usuario?.statusUsuario?.toLowerCase()}`}
-                    >
-                      {pessoa.usuario?.statusUsuario || "N/A"}
-                    </span>
-                  </td>
-                  <td>{pessoa.usuario?.nivelAcesso || "N/A"}</td>
-                  <td className="adm_acoes">
-                    <button
-                      className="icon-button edit-button"
-                      onClick={() => handleEdit(pessoa.usuario.id)}
-                    >
-                      <FaEdit size={20} />
-                    </button>
-                    <button
-                      className="icon-button delete-button"
-                      onClick={() => handleDelete(pessoa.usuario.id)}
-                    >
-                      <FaTrash size={20} />
-                    </button>
-                  </td>
+        <div className="table-wrapper">
+          {pessoasFiltradas.length > 0 ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Pessoa</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Tipo</th>
+                  <th>Status</th>
+                  <th>Nível</th>
+                  <th style={{ textAlign: "center" }}>Ações</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p style={{ textAlign: "center", marginTop: "2rem" }}>
-            Nenhuma pessoa encontrada com os filtros aplicados.
-          </p>
-        )}
+              </thead>
+              <tbody>
+                {pessoasFiltradas.map((pessoa) => (
+                  <tr key={pessoa.id} className="adms">
+                    <td data-label="ID Pessoa">{pessoa.id}</td>
+                    <td data-label="Nome">{pessoa.nome || "N/A"}</td>
+                    <td data-label="Email">
+                      {pessoa.usuario?.email || "Email Indisponível"}
+                    </td>
+                    <td data-label="Tipo">{pessoa.tipo || "N/A"}</td>
+                    <td data-label="Status">
+                      <span
+                        className={`status status-${pessoa.usuario?.statusUsuario?.toLowerCase()}`}
+                      >
+                        {pessoa.usuario?.statusUsuario || "N/A"}
+                      </span>
+                    </td>
+                    <td data-label="Nível">
+                      {pessoa.usuario?.nivelAcesso || "N/A"}
+                    </td>
+                    <td data-label="Ações" className="adm_acoes">
+                      <button
+                        className="icon-button edit-button"
+                        onClick={() => handleEdit(pessoa.usuario.id)}
+                      >
+                        <FaEdit size={20} />
+                      </button>
+                      <button
+                        className="icon-button delete-button"
+                        onClick={() => handleDelete(pessoa.usuario.id)}
+                      >
+                        <FaTrash size={20} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p style={{ textAlign: "center", marginTop: "2rem" }}>
+              Nenhuma pessoa encontrada com os filtros aplicados.
+            </p>
+          )}
+        </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };

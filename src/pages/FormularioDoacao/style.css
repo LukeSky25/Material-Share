@@ -1,7 +1,3 @@
-/* ============================================= */
-/* ESTILOS GERAIS DA PÁGINA E DO CONTAINER       */
-/* ============================================= */
-
 .form-page-container {
   display: flex;
   justify-content: center;
@@ -42,10 +38,6 @@
   background-color: #e9ecef;
   margin: 2rem 0;
 }
-
-/* ============================================= */
-/* GRUPOS DE FORMULÁRIO E INPUTS PADRÃO          */
-/* ============================================= */
 
 .form-group {
   margin-bottom: 1.5rem;
@@ -91,10 +83,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
-
-/* ============================================= */
-/* SEÇÃO DE ENDEREÇO                             */
-/* ============================================= */
 
 .form-section-header {
   display: flex;
@@ -147,13 +135,9 @@
   color: #333;
 }
 
-/* ============================================= */
-/* SEÇÃO DE UPLOAD DE FOTO (COM PREVIEW MAIOR)   */
-/* ============================================= */
-
 .form-group-upload {
   display: grid;
-  grid-template-columns: 1fr 250px; /* Coluna de ações e coluna para preview */
+  grid-template-columns: 1fr 250px;
   gap: 1.5rem;
   align-items: flex-start;
   margin-bottom: 1.5rem;
@@ -214,10 +198,6 @@
   padding: 1rem;
 }
 
-/* ============================================= */
-/* BOTÃO DE SUBMISSÃO E SPINNER                  */
-/* ============================================= */
-
 .submit-button {
   width: 100%;
   padding: 1rem;
@@ -233,7 +213,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1rem; /* Espaçamento extra no topo */
+  margin-top: 1rem;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -259,10 +239,6 @@
   }
 }
 
-/* ============================================= */
-/* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS       */
-/* ============================================= */
-
 @media (max-width: 768px) {
   .form-wrapper {
     padding: 2rem 1.5rem;
@@ -280,13 +256,13 @@
   }
 
   .form-group-upload {
-    grid-template-columns: 1fr; /* Empilha o upload em telas menores */
+    grid-template-columns: 1fr;
   }
 
   .upload-preview {
     width: 100%;
-    max-width: 100%; /* Permite que o preview ocupe toda a largura */
-    height: 250px; /* Mantém uma boa altura em telas mobile */
+    max-width: 100%;
+    height: 250px;
     margin-top: 1rem;
   }
 }

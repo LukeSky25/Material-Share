@@ -19,6 +19,8 @@ import { FormularioDoacao } from "../pages/FormularioDoacao";
 import { MinhasDoacoes } from "../pages/MinhasDoacoes";
 import { AdminLogin } from "../pages/AdminLogin";
 import { PessoaFormularioAdm } from "../pages/PessoaFormularioAdm";
+import { DashboardDoacoes } from "../pages/DashboardDoacoes";
+import { AdminDoacao } from "../pages/AdminDoacao";
 
 import { PrivateRoutes } from "./PrivateRoutes";
 import { AdminPrivateRoutes } from "./AdminPrivateRoutes";
@@ -33,6 +35,33 @@ export const Rotas = () => {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/servicos" element={<Servicos />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route
+          path="/admin/nova-doacao"
+          element={
+            <AdminPrivateRoutes>
+              <AdminDoacao />
+            </AdminPrivateRoutes>
+          }
+        />
+
+        <Route
+          path="/admin/editar-doacao/:id"
+          element={
+            <AdminPrivateRoutes>
+              <AdminDoacao />
+            </AdminPrivateRoutes>
+          }
+        />
+
+        <Route
+          path="/admin/dashboard/doacoes"
+          element={
+            <AdminPrivateRoutes>
+              <DashboardDoacoes />
+            </AdminPrivateRoutes>
+          }
+        />
 
         <Route
           path="/admin/novo-usuario"

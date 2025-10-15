@@ -10,7 +10,7 @@ export const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000; // Garante que fique sobre a sidebar
+  z-index: 2000;
 `;
 
 export const ModalContent = styled.div`

@@ -4,14 +4,9 @@ import { toast } from "react-toastify";
 import { isUserLoggedIn } from "../../../auth/authService";
 import UsuarioService from "../../../services/UsuarioService";
 
-import {
-  FaTimes,
-  FaRegHeart,
-  FaUserAlt,
-  FaSignInAlt,
-  FaHeadphonesAlt,
-  FaRegBell,
-} from "react-icons/fa";
+import { FaTimes, FaSignInAlt } from "react-icons/fa";
+import { AiOutlineProduct } from "react-icons/ai";
+import { LuUsersRound } from "react-icons/lu";
 
 import ConfirmationModal from "../../ConfirmationModal";
 import SidebarItem from "../SidebarItem";
@@ -35,7 +30,7 @@ const Sidebar = ({ isOpen, active }) => {
   const handleLogoutConfirm = () => {
     setIsModalOpen(false);
 
-    UsuarioService.logout();
+    UsuarioService.logoutAdmin();
 
     toast.success("Logout realizado com sucesso");
 
@@ -57,17 +52,11 @@ const Sidebar = ({ isOpen, active }) => {
         <Content>
           {user.loggedIn && user.data ? (
             <>
-              <Link to={`/user/${user.data.id}`}>
-                <SidebarItem Icon={FaUserAlt} Text="Usuário" />
+              <Link to={`/admin/dashboard`}>
+                <SidebarItem Icon={LuUsersRound} Text="Usuários" />
               </Link>
-              <Link to={`/user/notificacao/${user.data.id}`}>
-                <SidebarItem Icon={FaRegBell} Text="Notificações" />
-              </Link>
-              <Link to="/user/suporte">
-                <SidebarItem Icon={FaHeadphonesAlt} Text="Suporte" />
-              </Link>
-              <Link to="/user/avaliacao">
-                <SidebarItem Icon={FaRegHeart} Text="Avaliação" />
+              <Link to={`/admin/dashboard/doacoes`}>
+                <SidebarItem Icon={AiOutlineProduct} Text="Doacões" />
               </Link>
 
               <div onClick={handleLogoutClick} style={{ cursor: "pointer" }}>

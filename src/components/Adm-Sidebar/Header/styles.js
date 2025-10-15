@@ -14,9 +14,9 @@ export const Container = styled.div`
     color: white;
     width: 30px;
     height: 30px;
-
     cursor: pointer;
   }
+
   .navbar-brand {
     text-decoration: none;
   }
@@ -25,5 +25,9 @@ export const Container = styled.div`
     color: white;
     font-size: 20px;
     font-weight: bold;
+    text-align: center;
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
   }
 `;

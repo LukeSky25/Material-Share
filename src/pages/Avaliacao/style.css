@@ -80,7 +80,6 @@
 }
 
 @media (max-width: 600px) {
-  /* A regra agora só afeta o container da página de avaliação */
   .avaliacao-container {
     padding: 0 1rem 3rem 1rem;
   }
@@ -93,7 +92,6 @@
     font-size: 1.5rem;
   }
 
-  /* Usando um seletor mais específico para o parágrafo */
   .avaliacao-container > p {
     font-size: 0.9rem;
   }

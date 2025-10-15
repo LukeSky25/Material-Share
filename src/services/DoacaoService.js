@@ -63,17 +63,15 @@ const createComFoto = (data) => {
 const editar = (id, data) => {
   const formData = new FormData();
 
-  // Adiciona todos os campos do formulário ao FormData
   formData.append("nome", data.nome);
   formData.append("descricao", data.descricao);
   formData.append("quantidade", data.quantidade);
   formData.append("cep", data.cep);
   formData.append("numeroResidencia", data.numeroResidencia);
   formData.append("complemento", data.complemento || "");
+  formData.append("statusDoacao", data.statusDoacao);
   formData.append("categoria.id", data.categoriaId);
-  // O 'pessoa.id' não precisa ser enviado, pois o doador não muda.
 
-  // Adiciona a foto SOMENTE se uma nova foi selecionada
   if (data.foto) {
     formData.append("file", data.foto);
   }

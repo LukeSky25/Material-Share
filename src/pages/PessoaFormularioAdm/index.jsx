@@ -76,7 +76,10 @@ export const PessoaFormularioAdm = () => {
     numero: "",
     cidade: "",
     estado: "",
+
     tipo: "",
+    nivelAcesso: "USER",
+    statusUsuario: "ATIVO",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(isEditing);
@@ -132,6 +135,7 @@ export const PessoaFormularioAdm = () => {
       cep,
       numero,
       tipo,
+      nivelAcesso,
     } = formData;
     if (!nome.trim()) {
       toast.error("O Nome é obrigatório.");
@@ -141,7 +145,6 @@ export const PessoaFormularioAdm = () => {
       toast.error("Email inválido.");
       return false;
     }
-
     const dataNascObj = dayjs(dataNascimento, "DD/MM/YYYY");
     if (
       !dataNascimento ||
@@ -151,12 +154,10 @@ export const PessoaFormularioAdm = () => {
       toast.error("Data de Nascimento inválida.");
       return false;
     }
-
     if (celular.replace(/\D/g, "").length < 10) {
       toast.error("O número de celular está incompleto.");
       return false;
     }
-
     const cleanedDoc = cpfCnpj.replace(/\D/g, "");
     const isDocValid =
       cleanedDoc.length === 11
@@ -168,7 +169,6 @@ export const PessoaFormularioAdm = () => {
       toast.error("O CPF ou CNPJ informado é inválido.");
       return false;
     }
-
     if (!isEditing && !senha) {
       toast.error("A Senha é obrigatória para novos usuários.");
       return false;
@@ -177,7 +177,6 @@ export const PessoaFormularioAdm = () => {
       toast.error("As senhas não conferem.");
       return false;
     }
-
     if (cep.replace(/\D/g, "").length !== 8) {
       toast.error("O CEP é obrigatório e deve ter 8 dígitos.");
       return false;
@@ -186,12 +185,14 @@ export const PessoaFormularioAdm = () => {
       toast.error("O Número do endereço é obrigatório.");
       return false;
     }
-
     if (!tipo) {
-      toast.error("Por favor, selecione um tipo de usuário.");
+      toast.error("Por favor, selecione um Tipo de Pessoa.");
       return false;
     }
-
+    if (!nivelAcesso) {
+      toast.error("Por favor, selecione um Nível de Acesso.");
+      return false;
+    }
     return true;
   };
 
@@ -218,6 +219,8 @@ export const PessoaFormularioAdm = () => {
           tipo: formData.tipo,
           usuario: {
             email: formData.email,
+            statusUsuario: formData.statusUsuario,
+            nivelAcesso: formData.nivelAcesso,
             ...(formData.senha && { senha: formData.senha }),
           },
         };
@@ -228,6 +231,7 @@ export const PessoaFormularioAdm = () => {
           nome: formData.nome,
           email: formData.email,
           senha: formData.senha,
+          nivelAcesso: formData.nivelAcesso,
         };
         const respostaUsuario = await UsuarioService.save(dadosUsuario);
         const novoUsuarioId = respostaUsuario.data.id;
@@ -257,7 +261,6 @@ export const PessoaFormularioAdm = () => {
         await PessoaService.save(dadosPessoa);
         toast.success("Usuário criado com sucesso!");
       }
-
       navigate("/admin/dashboard");
     } catch (error) {
       console.error("Erro ao salvar:", error);
@@ -276,49 +279,41 @@ export const PessoaFormularioAdm = () => {
           const pessoaData = response.data;
           if (!pessoaData) {
             toast.error("Pessoa não encontrada para este usuário.");
-            navigate("/admin/usuarios");
+            navigate("/admin/dashboard");
             return;
           }
           setPessoaId(pessoaData.id);
-          const {
-            nome,
-            dataNascimento,
-            celular,
-            cpf_cnpj,
-            cep,
-            endereco,
-            complemento,
-            numeroResidencia,
-            cidade,
-            estado,
-            usuario,
-            tipo,
-          } = pessoaData;
+          const { usuario, tipo } = pessoaData;
+
           setFormData({
-            nome: nome || "",
-            dataNascimento: dataNascimento
-              ? dayjs(dataNascimento).format("DD/MM/YYYY")
+            nome: pessoaData.nome || "",
+            dataNascimento: pessoaData.dataNascimento
+              ? dayjs(pessoaData.dataNascimento).format("DD/MM/YYYY")
               : "",
-            celular: celular ? formatCelular(String(celular)) : "",
-            cpfCnpj: cpf_cnpj ? formatCpfCnpj(String(cpf_cnpj)) : "",
+            celular: pessoaData.celular
+              ? formatCelular(String(pessoaData.celular))
+              : "",
+            cpfCnpj: pessoaData.cpf_cnpj
+              ? formatCpfCnpj(String(pessoaData.cpf_cnpj))
+              : "",
             email: usuario?.email || "",
-            cep: cep ? formatCEP(String(cep)) : "",
-            endereco: endereco || "",
-            complemento: complemento || "",
-            numero: numeroResidencia || "",
-            cidade: cidade || "",
-            estado: estado || "",
+            cep: pessoaData.cep ? formatCEP(String(pessoaData.cep)) : "",
+            endereco: pessoaData.endereco || "",
+            complemento: pessoaData.complemento || "",
+            numero: pessoaData.numeroResidencia || "",
+            cidade: pessoaData.cidade || "",
+            estado: pessoaData.estado || "",
             tipo: tipo || "",
+            nivelAcesso: usuario?.nivelAcesso || "USER",
+            statusUsuario: usuario?.statusUsuario || "ATIVO",
             senha: "",
             confirmarSenha: "",
           });
         })
         .catch((error) => {
           console.error("Falha ao buscar dados da pessoa:", error);
-          toast.error(
-            "Não foi possível carregar os dados. Verifique se este usuário possui dados de pessoa cadastrados."
-          );
-          navigate("/admin/usuarios");
+          toast.error("Não foi possível carregar os dados. Tente novamente.");
+          navigate("/admin/dashboard");
         })
         .finally(() => {
           setIsPageLoading(false);
@@ -330,8 +325,11 @@ export const PessoaFormularioAdm = () => {
     return (
       <>
         <Header />
-        <div className="form-page-container" style={{ padding: "2rem" }}>
-          <p>Carregando informações da pessoa...</p>
+        <div
+          className="form-page-container"
+          style={{ padding: "2rem", textAlign: "center" }}
+        >
+          <p>Carregando informações do usuário...</p>
         </div>
         <Footer />
       </>
@@ -420,7 +418,7 @@ export const PessoaFormularioAdm = () => {
                 />
               </div>
               <div className="form-field">
-                <label htmlFor="tipo">Tipo de Usuário</label>
+                <label htmlFor="tipo">Tipo de Pessoa</label>
                 <select
                   id="tipo"
                   name="tipo"
@@ -429,12 +427,40 @@ export const PessoaFormularioAdm = () => {
                   required
                 >
                   <option value="" disabled>
-                    -- Selecione uma opção --
+                    -- Selecione um tipo --
                   </option>
                   <option value="DOADOR">Doador</option>
                   <option value="BENEFICIADO">Beneficiado</option>
                 </select>
               </div>
+              <div className="form-field">
+                <label htmlFor="nivelAcesso">Nível de Acesso</label>
+                <select
+                  id="nivelAcesso"
+                  name="nivelAcesso"
+                  value={formData.nivelAcesso}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="USER">Usuário Padrão</option>
+                  <option value="ADMIN">Administrador</option>
+                </select>
+              </div>
+              {isEditing && (
+                <div className="form-field">
+                  <label htmlFor="statusUsuario">Status do Usuário</label>
+                  <select
+                    id="statusUsuario"
+                    name="statusUsuario"
+                    value={formData.statusUsuario}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="ATIVO">Ativo</option>
+                    <option value="INATIVO">Inativo</option>
+                  </select>
+                </div>
+              )}
               <div className="column-header" style={{ marginTop: "2rem" }}>
                 <Lock size={20} className="column-icon" />
                 <h3>Segurança</h3>
