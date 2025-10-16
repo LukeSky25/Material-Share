@@ -25,7 +25,12 @@ export const Doacoes = () => {
   useEffect(() => {
     categoriaService
       .findAll()
-      .then((response) => setCategorias(response.data))
+      .then((response) => {
+        const categoriasAtivas = response.data.filter(
+          (categoria) => categoria.statusCategoria === "ATIVO"
+        );
+        setCategorias(categoriasAtivas);
+      })
       .catch((error) => {
         toast.error("Erro ao carregar categorias.");
         console.log(error);

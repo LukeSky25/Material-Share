@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { isUserLoggedIn } from "../../../auth/authService";
+
+import { getAdminUser } from "../../../auth/authService";
 import UsuarioService from "../../../services/UsuarioService";
 
-import { FaTimes, FaSignInAlt } from "react-icons/fa";
+import { FaTimes, FaSignInAlt, FaRegHeart } from "react-icons/fa";
 import { AiOutlineProduct } from "react-icons/ai";
 import { LuUsersRound } from "react-icons/lu";
+import { MdOutlineCategory } from "react-icons/md";
 
 import ConfirmationModal from "../../ConfirmationModal";
 import SidebarItem from "../SidebarItem";
@@ -14,7 +16,7 @@ import SidebarItem from "../SidebarItem";
 import { Container, Content } from "./styles";
 
 const Sidebar = ({ isOpen, active }) => {
-  const [user, setUser] = useState({ loggedIn: false, data: null });
+  const [admin, setAdmin] = useState({ isLoggedIn: false, data: null });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -23,18 +25,15 @@ const Sidebar = ({ isOpen, active }) => {
   };
 
   useEffect(() => {
-    const usuario = isUserLoggedIn();
-    setUser(usuario);
+    const adminStatus = getAdminUser();
+    setAdmin(adminStatus);
   }, []);
 
   const handleLogoutConfirm = () => {
     setIsModalOpen(false);
-
     UsuarioService.logoutAdmin();
-
     toast.success("Logout realizado com sucesso");
-
-    navigate("/user/logout");
+    navigate("/admin/login");
   };
 
   const handleLogoutCancel = () => {
@@ -50,13 +49,19 @@ const Sidebar = ({ isOpen, active }) => {
       <Container $isOpen={isOpen}>
         <FaTimes onClick={closeSidebar} />
         <Content>
-          {user.loggedIn && user.data ? (
+          {admin.isLoggedIn ? (
             <>
               <Link to={`/admin/dashboard`}>
                 <SidebarItem Icon={LuUsersRound} Text="Usuários" />
               </Link>
               <Link to={`/admin/dashboard/doacoes`}>
-                <SidebarItem Icon={AiOutlineProduct} Text="Doacões" />
+                <SidebarItem Icon={AiOutlineProduct} Text="Doações" />
+              </Link>
+              <Link to={`/admin/dashboard/categoria`}>
+                <SidebarItem Icon={MdOutlineCategory} Text="Categorias" />
+              </Link>
+              <Link to={`/admin/dashboard/avaliacao`}>
+                <SidebarItem Icon={FaRegHeart} Text="Avaliações" />
               </Link>
 
               <div onClick={handleLogoutClick} style={{ cursor: "pointer" }}>
@@ -64,7 +69,9 @@ const Sidebar = ({ isOpen, active }) => {
               </div>
             </>
           ) : (
-            <p>Carregando menu...</p>
+            <p style={{ color: "white", textAlign: "center", padding: "20px" }}>
+              Carregando...
+            </p>
           )}
         </Content>
       </Container>

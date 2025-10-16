@@ -41,7 +41,11 @@ export const DashboardDoacoes = () => {
     Promise.all([doacaoService.findAll(), categoriaService.findAll()])
       .then(([doacoesResponse, categoriasResponse]) => {
         setTodasAsDoacoes(doacoesResponse.data);
-        setCategorias(categoriasResponse.data);
+
+        const categoriasAtivas = categoriasResponse.data.filter(
+          (cat) => cat.statusCategoria === "ATIVO"
+        );
+        setCategorias(categoriasAtivas);
       })
       .catch(() => {
         toast.error("Erro ao carregar dados iniciais.");

@@ -170,6 +170,7 @@
 
 .admin-product-card:hover .status-overlay {
   opacity: 1;
+  color: white !important;
 }
 
 .status-overlay.status-doado {

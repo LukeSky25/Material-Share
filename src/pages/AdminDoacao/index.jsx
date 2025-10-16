@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 import { FaUpload, FaSpinner, FaMapMarkerAlt } from "react-icons/fa";
 
 import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
-import { isUserLoggedIn } from "../../auth/authService.js";
+import { Header } from "../../components/Adm-Sidebar/Header";
+
+import { getAdminUser } from "../../auth/authService.js";
 import doacaoService from "../../services/DoacaoService.js";
 import categoriaService from "../../services/CategoriaService.js";
 
@@ -42,7 +43,12 @@ export const AdminDoacao = () => {
   useEffect(() => {
     categoriaService
       .findAll()
-      .then((response) => setCategorias(response.data))
+      .then((response) => {
+        const categoriasAtivas = response.data.filter(
+          (cat) => cat.statusCategoria === "ATIVO"
+        );
+        setCategorias(categoriasAtivas);
+      })
       .catch((error) => {
         toast.error("Não foi possível carregar as categorias.");
         console.log(error);
@@ -51,12 +57,13 @@ export const AdminDoacao = () => {
   }, []);
 
   useEffect(() => {
-    const user = isUserLoggedIn();
-    if (user && user.loggedIn) {
-      setUsuarioLogado(user.data);
+    const admin = getAdminUser();
+    if (admin && admin.isLoggedIn) {
+      setUsuarioLogado(admin.data);
     } else {
-      toast.warn("Você precisa estar logado para acessar esta página.");
-      navigate("/login");
+      toast.warn("Você precisa ser um administrador para acessar esta página.");
+
+      navigate("/admin/login");
     }
   }, [navigate]);
 
@@ -93,10 +100,8 @@ export const AdminDoacao = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(
-            "Doação não encontrada ou você não tem permissão para editá-la."
-          );
-          navigate("/minhas-doacoes");
+          toast.error("Doação não encontrada.");
+          navigate("/admin/dashboard/doacoes");
         })
         .finally(() => setIsLoading(false));
     }

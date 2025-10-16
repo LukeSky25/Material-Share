@@ -35,3 +35,31 @@ export const isAdminLoggedIn = () => {
     return false;
   }
 };
+
+export const getAdminUser = () => {
+  const adminDataString = localStorage.getItem("adminUser");
+
+  // Se não houver dados, retorna o objeto de "deslogado"
+  if (!adminDataString) {
+    return { isLoggedIn: false, data: null };
+  }
+
+  try {
+    const adminData = JSON.parse(adminDataString);
+
+    // Se os dados são válidos e o nível é ADMIN...
+    if (adminData && adminData.nivelAcesso === "ADMIN") {
+      // ...retorna o objeto de "logado" com os dados.
+      return {
+        isLoggedIn: true,
+        data: adminData,
+      };
+    }
+
+    // Se não for admin, também retorna como "deslogado"
+    return { isLoggedIn: false, data: null };
+  } catch (error) {
+    console.error("Erro ao analisar dados do admin:", error);
+    return { isLoggedIn: false, data: null };
+  }
+};

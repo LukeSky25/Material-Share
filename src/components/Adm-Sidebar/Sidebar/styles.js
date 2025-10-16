@@ -32,6 +32,20 @@ export const Container = styled.div`
   }
 `;
 
+export const AdminInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ffffff30;
+  color: white;
+
+  span {
+    font-size: 16px;
+  }
+`;
+
 export const Content = styled.div`
   margin-top: 100px;
 `;
