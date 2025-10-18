@@ -41,7 +41,12 @@ export const FormularioDoacao = () => {
   useEffect(() => {
     categoriaService
       .findAll()
-      .then((response) => setCategorias(response.data))
+      .then((response) => {
+        const categoriasAtivas = response.data.filter(
+          (categoria) => categoria.statusCategoria === "ATIVO"
+        );
+        setCategorias(categoriasAtivas);
+      })
       .catch((error) => {
         toast.error("Não foi possível carregar as categorias.");
         console.log(error);
@@ -93,7 +98,6 @@ export const FormularioDoacao = () => {
           toast.error(
             "Doação não encontrada ou você não tem permissão para editá-la."
           );
-
           navigate("/minhas-doacoes");
         })
         .finally(() => setIsLoading(false));
@@ -168,14 +172,22 @@ export const FormularioDoacao = () => {
     }
     setIsSubmitting(true);
 
-    const dataPayload = { ...formData, foto: imageFile };
-
     try {
       if (isEditMode) {
+        const dataPayload = {
+          ...formData,
+          foto: imageFile,
+          statusDoacao: "ATIVO",
+        };
+
         await doacaoService.editar(id, dataPayload);
         toast.success("Doação atualizada com sucesso!");
       } else {
-        dataPayload.pessoaId = usuarioLogado.id;
+        const dataPayload = {
+          ...formData,
+          foto: imageFile,
+          pessoaId: usuarioLogado.id,
+        };
         await doacaoService.createComFoto(dataPayload);
         toast.success("Doação cadastrada com sucesso!");
       }
