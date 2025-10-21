@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { FaTrash, FaSearch, FaStar } from "react-icons/fa";
+import { FaSearch, FaStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Adm-Sidebar/Header";
 import AvaliacaoService from "../../services/AvaliacaoService";
 
-import "./style.css"; // Reutilize o mesmo CSS!
+import "./style.css";
 
 export const AdministracaoAvaliacao = () => {
   const [avaliacoes, setAvaliacoes] = useState([]);
@@ -38,28 +38,14 @@ export const AdministracaoAvaliacao = () => {
           avaliacao.comentario
             .toLowerCase()
             .includes(termoBusca.toLowerCase())) ||
-        (avaliacao.usuario?.nome &&
-          avaliacao.usuario.nome
+        (avaliacao.pessoa?.nome &&
+          avaliacao.pessoa?.nome
             .toLowerCase()
             .includes(termoBusca.toLowerCase()))
     );
     setAvaliacoesFiltradas(dadosFiltrados);
   }, [termoBusca, avaliacoes]);
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Tem certeza que deseja apagar esta avaliação?")) {
-      try {
-        await AvaliacaoService.deleteById(id);
-        toast.success("Avaliação apagada com sucesso!");
-        carregarAvaliacoes(); // Recarrega a lista
-      } catch (error) {
-        toast.error("Erro ao apagar avaliação.");
-        console.error("Erro ao apagar:", error);
-      }
-    }
-  };
-
-  // Função para renderizar as estrelas da nota
   const renderStars = (nota) => {
     return Array.from({ length: 5 }, (_, index) => (
       <FaStar key={index} color={index < nota ? "#ffc107" : "#e4e5e9"} />
@@ -85,7 +71,6 @@ export const AdministracaoAvaliacao = () => {
         <div className="page-controls">
           <div className="table-header">
             <h1 className="adm_h1">Gerenciar Avaliações</h1>
-            {/* O botão de Adicionar foi removido */}
           </div>
           <div className="filtros-container">
             <div className="search-bar">
@@ -109,7 +94,6 @@ export const AdministracaoAvaliacao = () => {
                   <th>Nota</th>
                   <th>Comentário</th>
                   <th>Data</th>
-                  <th style={{ textAlign: "center" }}>Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,7 +101,7 @@ export const AdministracaoAvaliacao = () => {
                   <tr key={avaliacao.id} className="adms">
                     <td data-label="Usuário">
                       <span>
-                        {avaliacao.usuario?.nome || "Usuário Deletado"}
+                        {avaliacao.pessoa?.nome || "Usuário Deletado"}
                       </span>
                     </td>
                     <td data-label="Nota">
@@ -134,14 +118,6 @@ export const AdministracaoAvaliacao = () => {
                           "pt-BR"
                         )}
                       </span>
-                    </td>
-                    <td data-label="Ações" className="adm_acoes">
-                      <button
-                        className="icon-button delete-button"
-                        onClick={() => handleDelete(avaliacao.id)}
-                      >
-                        <FaTrash size={20} />
-                      </button>
                     </td>
                   </tr>
                 ))}

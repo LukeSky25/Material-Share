@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { isEmail } from "validator";
 import validarCpf from "validar-cpf";
-import * as cnpj from "cnpj";
+import { validate as validarCnpj } from "cnpj";
 
 import PessoaService from "../../services/PessoaService";
 import UsuarioService from "../../services/UsuarioService";
@@ -163,7 +163,7 @@ export const PessoaFormularioAdm = () => {
       cleanedDoc.length === 11
         ? validarCpf(cleanedDoc)
         : cleanedDoc.length === 14
-        ? cnpj.isValid(cleanedDoc)
+        ? validarCnpj(cleanedDoc)
         : false;
     if (!isDocValid) {
       toast.error("O CPF ou CNPJ informado é inválido.");

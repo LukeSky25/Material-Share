@@ -164,13 +164,11 @@ tbody tr:last-child td {
   word-break: break-word;
 }
 
-/* Adicione isso ao final de ./style.css */
 .star-rating {
   display: flex;
   gap: 2px;
 }
 
-/* Garante que no modo mobile as estrelas também fiquem alinhadas à direita */
 @media screen and (max-width: 768px) {
   td > span.star-rating {
     justify-content: flex-end;

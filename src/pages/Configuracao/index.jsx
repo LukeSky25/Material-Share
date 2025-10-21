@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import { isEmail } from "validator";
 import validarCpf from "validar-cpf";
-import * as cnpj from "cnpj";
+import { validate as validarCnpj } from "cnpj";
 
 import PessoaService from "../../services/PessoaService";
 import UsuarioService from "../../services/UsuarioService";
@@ -195,7 +195,7 @@ export const Configuracao = () => {
     }
     let isDocValid = false;
     if (cleanedDoc.length === 11) isDocValid = validarCpf(cleanedDoc);
-    else if (cleanedDoc.length === 14) isDocValid = cnpj.isValid(cleanedDoc);
+    else if (cleanedDoc.length === 14) isDocValid = validarCnpj(cleanedDoc);
     if (!isDocValid) {
       toast.error("O CPF ou CNPJ informado é inválido.");
       return false;
@@ -437,6 +437,7 @@ export const Configuracao = () => {
                       id="endereco"
                       type="text"
                       placeholder="Preenchido automaticamente"
+                      readOnly
                       value={endereco}
                       onChange={(e) => setEndereco(e.target.value)}
                       className="form-input"

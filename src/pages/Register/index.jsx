@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { isEmail } from "validator";
 import { toast } from "react-toastify";
-import * as cnpj from "cnpj";
+import { validate as validarCnpj } from "cnpj";
 import validarCpf from "validar-cpf";
 import dayjs from "dayjs";
 
@@ -96,7 +96,7 @@ export const Register = () => {
     if (cleanedDoc.length === 11) {
       isDocValid = validarCpf(cleanedDoc);
     } else if (cleanedDoc.length === 14) {
-      isDocValid = cnpj.isValid(cleanedDoc);
+      isDocValid = validarCnpj(cleanedDoc);
     }
     if (!isDocValid) {
       toast.error("O CPF ou CNPJ informado é inválido.");
